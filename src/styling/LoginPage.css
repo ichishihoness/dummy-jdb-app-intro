@@ -43,7 +43,7 @@
 .forgot-password {
   color: #000369;
   font-size: 0.7rem;
-  margin-right: 24px;
+  margin-right: 24px;   
   cursor: pointer;
   user-select: none;
 }
