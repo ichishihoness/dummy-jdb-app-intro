@@ -47,6 +47,7 @@ const LoginPage: React.FC<LoginPageProps> = ({ onLogin }) => {
             placeholder="Je wachtwoord"
             />
         </div>
+        <span className="forgot-password">Wachtwoord vergeten?</span>
         <button className="login-container button">Log in</button>
         </form>
       </div>
