@@ -6,42 +6,50 @@ interface LoginPageProps {
 }
 
 const LoginPage: React.FC<LoginPageProps> = ({ onLogin }) => {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
+  const [personeelsnummer, setPersoneelsnummer] = useState('');
+  const [email, setEmail] = useState('');
+  const [wachtwoord, setWachtwoord] = useState('');
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    onLogin(username, password);
+    onLogin(personeelsnummer, wachtwoord);
   };
 
   return (
-    <div className="login-container">
-      <h2>Login</h2>
-      <form onSubmit={handleSubmit}>
+    <div className="login-bg">
+      <div className="login-container">
+        <h2>Inloggen</h2>
+        <form onSubmit={handleSubmit}>
         <div>
-          <label>
-            Username:
             <input
-              type="text"
-              value={username}
-              onChange={e => setUsername(e.target.value)}
-              required
+            type="text"
+            value={personeelsnummer}
+            onChange={e => setPersoneelsnummer(e.target.value)}
+            required
+            placeholder="Je personeelsnummer"
             />
-          </label>
         </div>
         <div>
-          <label>
-            Password:
             <input
-              type="password"
-              value={password}
-              onChange={e => setPassword(e.target.value)}
-              required
+            type="email"
+            value={email}
+            onChange={e => setEmail(e.target.value)}
+            required
+            placeholder="Je e-mailadres"
             />
-          </label>
         </div>
-        <button type="submit">Login</button>
-      </form>
+        <div>
+            <input
+            type="password"
+            value={wachtwoord}
+            onChange={e => setWachtwoord(e.target.value)}
+            required
+            placeholder="Je wachtwoord"
+            />
+        </div>
+        <button className="login-container button">Log in</button>
+        </form>
+      </div>
     </div>
   );
 };
