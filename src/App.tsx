@@ -11,12 +11,16 @@ function App() {
     setIsLoggedIn(true);
   };
 
+  const handleLogout = () => {
+    setIsLoggedIn(false);
+  };
+
   return (
     <Router>
       {isLoggedIn ? (
         <Routes>
-          <Route path="/dashboard" element={<DashboardPage />} />
-          <Route path="/afspraak" element={<AppointmentPage />} />
+          <Route path="/dashboard" element={<DashboardPage onLogout={handleLogout} />} />
+          <Route path="/afspraak" element={<AppointmentPage onLogout={handleLogout} />} />
         </Routes>
       ) : (
         <LoginPage onLogin={handleLogin} />
