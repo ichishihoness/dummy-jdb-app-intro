@@ -4,9 +4,11 @@ import '../styling/AppointmentPage.css';
 
 interface AppointmentPageProps {
   onLogout: () => void;
+  showAfspraakRow: boolean;
+  setShowAfspraakRow: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const AppointmentPage: React.FC<AppointmentPageProps> = ({ onLogout }) => {
+const AppointmentPage: React.FC<AppointmentPageProps> = ({ onLogout, showAfspraakRow, setShowAfspraakRow, }) => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [sortOrder, setSortOrder] = useState<'Oplopend' | 'Aflopend'>('Oplopend');
   const [repeat, setRepeat] = useState('Wekelijks');
@@ -18,8 +20,7 @@ const AppointmentPage: React.FC<AppointmentPageProps> = ({ onLogout }) => {
   };
 
   return (
-    <div className="appointment-wrapper">
-      <div className="appointment-bg-overlay"></div>
+    <div className="dashboard-wrapper">
       <div className="dashboard-sidebar">
         <hr className="sidebar-divider-2" />
         <button
@@ -28,18 +29,38 @@ const AppointmentPage: React.FC<AppointmentPageProps> = ({ onLogout }) => {
         >
           Dashboard
         </button>
-        <button className="sidebar-btn">Kalender</button>
-        <button className="sidebar-btn">Documenten</button>
-        <button className="sidebar-btn">Patiëntenoverzicht</button>
-        <hr className="sidebar-divider-1" />
         <button
           className="sidebar-btn"
-          onClick={() => navigate('/afspraak')}
+          onClick={() => navigate('/calender')}
         >
-          Afspraak toevoegen
+          Kalender
         </button>
-        <button className="sidebar-btn">Sessie toevoegen arts</button>
-        <button className="sidebar-btn">Sessie toevoegen fysiotherapeut</button>
+        <button
+          className="sidebar-btn"
+          onClick={() => navigate('/documents')}
+        >
+          Documenten
+        </button>
+        <button
+          className="sidebar-btn"
+          onClick={() => navigate('/patientoverview')}
+        >
+          Patiëntenoverzicht
+        </button>
+        <hr className="sidebar-divider-1" />
+        <button className="sidebar-btn">Afspraak toevoegen</button>
+        <button
+          className="sidebar-btn"
+          onClick={() => navigate('/addsessionarts')}
+        >
+          Sessie toevoegen arts
+        </button>
+        <button
+          className="sidebar-btn"
+          onClick={() => navigate('/addsessionfysio')}
+        >
+          Sessie toevoegen fysiotherapeut
+        </button>
         <hr className="sidebar-divider-2" />
         <button className="sidebar-btn">Instellingen</button>
         <button
@@ -71,39 +92,41 @@ const AppointmentPage: React.FC<AppointmentPageProps> = ({ onLogout }) => {
               <div onClick={() => handleSortClick('Aflopend')}>Aflopend</div>
             </div>
           )}
-          <div className="afspraak-row">
-            <div className="afspraak-side geplanned">
-              <span className="afspraak-label">Gepland</span>
-              <span className="afspraak-date">02/06/2021</span>
+          {showAfspraakRow && (
+            <div className="afspraak-row">
+              <div className="afspraak-side geplanned">
+                <span className="afspraak-label">Gepland</span>
+                <span className="afspraak-date">02/06/2021</span>
+              </div>
+              <div className="afspraak-main">
+                <div className="afspraak-col">
+                  <span className="afspraak-title">Naam</span>
+                  <span className="afspraak-value">Joep Doe</span>
+                </div>
+                <div className="afspraak-col">
+                  <span className="afspraak-title">Leeftijd</span>
+                  <span className="afspraak-value">10 jaar</span>
+                </div>
+                <div className="afspraak-col">
+                  <span className="afspraak-title">Diagnose</span>
+                  <span className="afspraak-value">
+                    JDM <span className="afspraak-sub">(monocyclische)</span>
+                  </span>
+                </div>
+                <div className="afspraak-col">
+                  <span className="afspraak-title">Medicatie</span>
+                  <span className="afspraak-value">x medicijn</span>
+                </div>
+                <div className="afspraak-col">
+                  <span className="afspraak-title">Afspraken</span>
+                  <span className="afspraak-value">4</span>
+                </div>
+              </div>
+              <div className="afspraak-side dots">
+                <span className="afspraak-dots">•••</span>
+              </div>
             </div>
-            <div className="afspraak-main">
-              <div className="afspraak-col">
-                <span className="afspraak-title">Naam</span>
-                <span className="afspraak-value">Joep Doe</span>
-              </div>
-              <div className="afspraak-col">
-                <span className="afspraak-title">Leeftijd</span>
-                <span className="afspraak-value">10 jaar</span>
-              </div>
-              <div className="afspraak-col">
-                <span className="afspraak-title">Diagnose</span>
-                <span className="afspraak-value">
-                  JDM <span className="afspraak-sub">(monocyclische)</span>
-                </span>
-              </div>
-              <div className="afspraak-col">
-                <span className="afspraak-title">Medicatie</span>
-                <span className="afspraak-value">x medicijn</span>
-              </div>
-              <div className="afspraak-col">
-                <span className="afspraak-title">Afspraken</span>
-                <span className="afspraak-value">4</span>
-              </div>
-            </div>
-            <div className="afspraak-side dots">
-              <span className="afspraak-dots">•••</span>
-            </div>
-          </div>
+          )}
         </div>
       </div>
       <div className="appointment-form-container">
@@ -192,7 +215,10 @@ const AppointmentPage: React.FC<AppointmentPageProps> = ({ onLogout }) => {
             </button>
             <button
               className="save-btn"
-              onClick={() => navigate('/dashboard')}
+              onClick={() => {
+                setShowAfspraakRow(true);
+                navigate('/dashboard');
+              }}
             >
               Opslaan
             </button>
