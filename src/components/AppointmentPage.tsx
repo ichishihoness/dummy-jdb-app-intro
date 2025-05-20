@@ -2,11 +2,15 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../styling/AppointmentPage.css';
 
-const AppointmentPage: React.FC = () => {
+interface AppointmentPageProps {
+  onLogout: () => void;
+}
+
+const AppointmentPage: React.FC<AppointmentPageProps> = ({ onLogout }) => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [sortOrder, setSortOrder] = useState<'Oplopend' | 'Aflopend'>('Oplopend');
-  const navigate = useNavigate();
   const [repeat, setRepeat] = useState('Wekelijks');
+  const navigate = useNavigate();
 
   const handleSortClick = (order: 'Oplopend' | 'Aflopend') => {
     setSortOrder(order);
@@ -16,15 +20,14 @@ const AppointmentPage: React.FC = () => {
   return (
     <div className="appointment-wrapper">
       <div className="appointment-bg-overlay"></div>
-
       <div className="dashboard-sidebar">
         <hr className="sidebar-divider-2" />
         <button
-  className="sidebar-btn"
-  onClick={() => navigate('/dashboard')}
->
-  Dashboard
-</button>
+          className="sidebar-btn"
+          onClick={() => navigate('/dashboard')}
+        >
+          Dashboard
+        </button>
         <button className="sidebar-btn">Kalender</button>
         <button className="sidebar-btn">Documenten</button>
         <button className="sidebar-btn">Patiëntenoverzicht</button>
@@ -39,9 +42,13 @@ const AppointmentPage: React.FC = () => {
         <button className="sidebar-btn">Sessie toevoegen fysiotherapeut</button>
         <hr className="sidebar-divider-2" />
         <button className="sidebar-btn">Instellingen</button>
-        <button className="sidebar-btn">Uitloggen</button>
+        <button
+          className="sidebar-btn"
+          onClick={onLogout}
+        >
+          Uitloggen
+        </button>
       </div>
-
       <div className="dashboard-content">
         <div className="dashboard-header">
           <span>Hallo, Dr. Johannes Doe</span>
@@ -99,7 +106,6 @@ const AppointmentPage: React.FC = () => {
           </div>
         </div>
       </div>
-
       <div className="appointment-form-container">
         <div className="appointment-form">
           <div className="appointment-form-header">
@@ -116,30 +122,29 @@ const AppointmentPage: React.FC = () => {
             </label>
             <div className="appointment-repeat-row">
               <button
-  className={`repeat-btn${repeat === 'Wekelijks' ? ' selected' : ''}`}
-  onClick={() => setRepeat('Wekelijks')}
->
-  Wekelijks
-</button>
-<button
-  className={`repeat-btn${repeat === 'Maandelijks' ? ' selected' : ''}`}
-  onClick={() => setRepeat('Maandelijks')}
->
-  Maandelijks
-</button>
-<button
-  className={`repeat-btn${repeat === 'Jaarlijks' ? ' selected' : ''}`}
-  onClick={() => setRepeat('Jaarlijks')}
->
-  Jaarlijks
-</button>
-<button
-  className={`repeat-btn${repeat === 'Anders' ? ' selected' : ''}`}
-  onClick={() => setRepeat('Anders')}
->
-  Anders, namelijk
-</button>
-              
+                className={`repeat-btn${repeat === 'Wekelijks' ? ' selected' : ''}`}
+                onClick={() => setRepeat('Wekelijks')}
+              >
+                Wekelijks
+              </button>
+              <button
+                className={`repeat-btn${repeat === 'Maandelijks' ? ' selected' : ''}`}
+                onClick={() => setRepeat('Maandelijks')}
+              >
+                Maandelijks
+              </button>
+              <button
+                className={`repeat-btn${repeat === 'Jaarlijks' ? ' selected' : ''}`}
+                onClick={() => setRepeat('Jaarlijks')}
+              >
+                Jaarlijks
+              </button>
+              <button
+                className={`repeat-btn${repeat === 'Anders' ? ' selected' : ''}`}
+                onClick={() => setRepeat('Anders')}
+              >
+                Anders, namelijk
+              </button>
             </div>
           </div>
           <div className="appointment-form-section">
@@ -180,17 +185,17 @@ const AppointmentPage: React.FC = () => {
           </div>
           <div className="appointment-form-actions">
             <button
-  className="cancel-btn"
-  onClick={() => navigate('/dashboard')}
->
-  Annuleer
-</button>
+              className="cancel-btn"
+              onClick={() => navigate('/dashboard')}
+            >
+              Annuleer
+            </button>
             <button
-  className="save-btn"
-  onClick={() => navigate('/dashboard')}
->
-  Opslaan
-</button>
+              className="save-btn"
+              onClick={() => navigate('/dashboard')}
+            >
+              Opslaan
+            </button>
           </div>
         </div>
       </div>

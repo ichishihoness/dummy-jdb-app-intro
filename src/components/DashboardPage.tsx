@@ -2,7 +2,11 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../styling/DashboardPage.css';
 
-const DashboardPage: React.FC = () => {
+interface DashboardPageProps {
+  onLogout: () => void;
+}
+
+const DashboardPage: React.FC<DashboardPageProps> = ({ onLogout }) => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [sortOrder, setSortOrder] = useState<'Oplopend' | 'Aflopend'>('Oplopend');
   const navigate = useNavigate();
@@ -31,7 +35,12 @@ const DashboardPage: React.FC = () => {
         <button className="sidebar-btn">Sessie toevoegen fysiotherapeut</button>
         <hr className="sidebar-divider-2" />
         <button className="sidebar-btn">Instellingen</button>
-        <button className="sidebar-btn">Uitloggen</button>
+        <button
+          className="sidebar-btn"
+          onClick={onLogout}
+        >
+          Uitloggen
+        </button>
       </div>
       <div className="dashboard-content">
         <div className="dashboard-header">
@@ -58,7 +67,7 @@ const DashboardPage: React.FC = () => {
           <div className="afspraak-row">
             <div className="afspraak-side geplanned">
               <span className="afspraak-label">Gepland</span>
-              <span className="afspraak-date">02/06/2021</span>              
+              <span className="afspraak-date">02/06/2021</span>
             </div>
             <div className="afspraak-main">
               <div className="afspraak-col">
