@@ -86,7 +86,7 @@ function App() {
             }
           />
           <Route
-            path="/Patientoverview"
+            path="/patientoverview"
             element={
               <PatientoverviewPage
                 onLogout={handleLogout}
