@@ -10,10 +10,10 @@ interface DashboardPageProps {
 
 const DashboardPage: React.FC<DashboardPageProps> = ({ onLogout, showAfspraakRow, setShowAfspraakRow, }) => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
-  const [sortOrder, setSortOrder] = useState<'Oplopend' | 'Aflopend'>('Oplopend');
+  const [sortOrder, setSortOrder] = useState<'Naam' | 'Aflopend'>('Naam');
   const navigate = useNavigate();
 
-  const handleSortClick = (order: 'Oplopend' | 'Aflopend') => {
+  const handleSortClick = (order: 'Naam' | 'Aflopend') => {
     setSortOrder(order);
     setDropdownOpen(false);
   };
@@ -87,7 +87,7 @@ const DashboardPage: React.FC<DashboardPageProps> = ({ onLogout, showAfspraakRow
           </button>
           {dropdownOpen && (
             <div className="dropdown-menu">
-              <div onClick={() => handleSortClick('Oplopend')}>Oplopend</div>
+              <div onClick={() => handleSortClick('Naam')}>Naam</div>
               <div onClick={() => handleSortClick('Aflopend')}>Aflopend</div>
             </div>
           )}
