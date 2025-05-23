@@ -46,11 +46,12 @@ const CalenderPage: React.FC<CalenderPageProps> = ({
         </button>
       </div>
       <div className="dashboard-content">
+        {/* Zet de header buiten het kalenderblok */}
+        <div className="calender-header">
+          <span>Kalender</span>
+          <hr className="dashboard-header-underline" />
+        </div>
         <div className="calendar-main-block">
-          <div className="dashboard-header">
-            <span>Kalender</span>
-            <hr className="dashboard-header-underline" />
-          </div>
           <div className="calendar-header-row">
             <button className="calendar-arrow">{'<'}</button>
             <span className="calendar-week-label">Juni 14 - 18, 2021</span>
