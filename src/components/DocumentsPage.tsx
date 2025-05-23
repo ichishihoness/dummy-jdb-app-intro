@@ -79,7 +79,12 @@ const DocumentsPage: React.FC<DocumentsPageProps> = ({ onLogout, showAfspraakRow
             <span>Alle documenten</span>
             <hr className="afsprakenlijst-underline" />
           </div>
-          
+          <div className="documenten-table-header">
+            <span className="documenten-table-header-cell">naam</span>
+            <span className="documenten-table-header-cell">type</span>
+            <span className="documenten-table-header-cell">datum</span>
+            <span className="documenten-table-header-cell documenten-table-header-actions"></span>
+          </div>
           <button
             className="dropdown-btn"
             onClick={() => setDropdownOpen((open) => !open)}
@@ -90,6 +95,7 @@ const DocumentsPage: React.FC<DocumentsPageProps> = ({ onLogout, showAfspraakRow
             <div className="dropdown-menu">
               <div onClick={() => handleSortClick('Naam')}>Naam</div>
               <div onClick={() => handleSortClick('Datum')}>Datum</div>
+
             </div>
           )}
           
