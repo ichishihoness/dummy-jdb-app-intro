@@ -46,11 +46,11 @@ const CalenderPage: React.FC<CalenderPageProps> = ({
         </button>
       </div>
       <div className="dashboard-content">
-        <div className="dashboard-header">
-          <span>Kalender</span>
-          <hr className="dashboard-header-underline" />
-        </div>
         <div className="calendar-main-block">
+          <div className="dashboard-header">
+            <span>Kalender</span>
+            <hr className="dashboard-header-underline" />
+          </div>
           <div className="calendar-header-row">
             <button className="calendar-arrow">{'<'}</button>
             <span className="calendar-week-label">Juni 14 - 18, 2021</span>
@@ -77,7 +77,7 @@ const CalenderPage: React.FC<CalenderPageProps> = ({
                         <div className="calendar-event">
                           10:00 - 11:30<br />
                           Patiënt<br />
-                          Elise van Winkel
+                          Joep Doe
                         </div>
                       )}
                     </td>

@@ -42,11 +42,10 @@
   align-self: center;
 }
 
-/* ...bestaande sidebar styles... */
-
+/* Kalender middenblok en header */
 .dashboard-content {
   flex: 1;
-  padding: 40px 0 0 0;
+  padding: 7px 0 0 0;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -54,18 +53,22 @@
 }
 
 .dashboard-header {
-  font-size: 2rem;
-  font-weight: bold;
-  margin-bottom: 0;
-  margin-top: 16px;
-  width: 900px;
+  display: flex;
+  flex-direction: column;
+  align-items: left;
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  background: #f6faff;
+  padding-top: 16px;
+  padding-bottom: 8px;
 }
 
 .dashboard-header-underline {
   border: none;
   border-top: 3px solid #1a237e;
   width: 180px;
-  margin: 0 0 24px 0;
+  margin: 0 0 24px 0; /* geen auto, zodat hij onder het woord blijft */
 }
 
 .calendar-main-block {
@@ -118,9 +121,9 @@
 .calendar-table td {
   border: 1px solid #d8eaff;
   text-align: center;
-  padding: 18px 0;
+  padding: 10px 0;
   min-width: 110px;
-  height: 56px;
+  height: 36px;
   background: #fff;
   font-size: 1rem;
 }
