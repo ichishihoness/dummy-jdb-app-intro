@@ -9,7 +9,14 @@ interface DocumentsPageProps {
 }
 
 const DocumentsPage: React.FC<DocumentsPageProps> = ({ onLogout, showAfspraakRow, setShowAfspraakRow, }) => {
+    const [dropdownOpen, setDropdownOpen] = useState(false);
+    const [sortOrder, setSortOrder] = useState<'Naam' | 'Datum'>('Naam');
   const navigate = useNavigate();
+
+    const handleSortClick = (order: 'Naam' | 'Datum') => {
+    setSortOrder(order);
+    setDropdownOpen(false);
+  };
 
   return (
     <div className="dashboard-wrapper">
@@ -62,19 +69,34 @@ const DocumentsPage: React.FC<DocumentsPageProps> = ({ onLogout, showAfspraakRow
           Uitloggen
         </button>
       </div>
-      <div
-      style={{
-        display: 'flex',
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-        height: '100vh',
-        fontSize: '2rem',
-        fontWeight: 'bold',
-      }}
-    >
-      documenten
-    </div>
+     <div className="dashboard-content">
+        <div className="dashboard-header">
+          <span>Documenten</span>
+          <hr className="dashboard-header-underline" />
+        </div>
+        <div className="afsprakenlijst">
+          <div className="afsprakenlijst-header">
+            <span>Alle documenten</span>
+            <hr className="afsprakenlijst-underline" />
+          </div>
+          
+          <button
+            className="dropdown-btn"
+            onClick={() => setDropdownOpen((open) => !open)}
+          >
+            {sortOrder} <span className="dropdown-arrow">▼</span>
+          </button>
+          {dropdownOpen && (
+            <div className="dropdown-menu">
+              <div onClick={() => handleSortClick('Naam')}>Naam</div>
+              <div onClick={() => handleSortClick('Datum')}>Datum</div>
+            </div>
+          )}
+          
+        </div>
+        <div className="kalender volledige">Kalender volledige</div>
+        <div className="planning">Planning</div>
+      </div>
     </div>
   );
 };
