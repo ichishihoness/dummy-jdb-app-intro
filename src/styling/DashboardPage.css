@@ -1,27 +1,73 @@
-.dashboard-wrapper {
+
+
+.dashboard-sidebar-wrapper {
   display: flex;
   min-height: 100vh;
   position: relative;
 }
 
-.dashboard-content {
-  flex: 1;
-  padding: 40px;
-  position: relative;
+.dashboard-sidebar {
+  width: 300px;
+  background: #D8EAFF;
+  min-height: 100vh;
+  border-radius: 0 20px 0 0;
   display: flex;
   flex-direction: column;
-  align-items: center; 
+  align-items: stretch;
+  padding-top: 20px;
+  gap: 17px;
 }
 
-.dashboard-header {
-  position: fixed;
-  left: 50%;
-  top: 40px;
-  transform: translateX(-50%);
+.dashboard-sidebar-btn {
+  background: none;
+  border: none;
+  color: #565FA4;
+  font-size: 0.85rem;
+  padding: 4px 20px;
   text-align: left;
-  margin-bottom: 32px;
-  width: 320px; 
-  z-index: 20;
+  cursor: pointer;
+  border-radius: 8px;
+  transition: background 0.2s;
+}
+
+.dashboard-sidebar-btn:hover {
+  background: rgba(255,255,255,0.15);
+}
+
+.dashboard-sidebar-divider-1 {
+  border: none;
+  border-top: 2px solid #565FA4;
+  margin: 80px 0 0 0;
+  width: 90%;
+  align-self: center;
+}
+
+.dashboard-sidebar-divider-2 {
+  border: none;
+  border-top: 2px solid white;
+  margin: 50px 0 50px 0;
+  width: 100%;
+  align-self: center;
+}
+
+.dashboard-content {
+  flex: 1;
+  padding: 7px 0 0 50px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+
+.dashboard-header {
+  width: 900px; 
+  margin: -700px auto 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
 }
 
 .dashboard-header span {
@@ -33,37 +79,32 @@
 
 .dashboard-header-underline {
   border: none;
-  border-top: 2px solid #000369;
-  width: 320px;
-  margin: 8px auto 4px auto;
+  border-top: 3px solid #1a237e;
+  width: 350px;
+  margin: 0 0 24px 0;
 }
 
-.afsprakenlijst {
-  position: fixed;
-  left: 52%;
-  top: 58%;
-  transform: translate(-50%, -50%);
+.dashboard-afsprakenlijst {
+  position: relative;
   width: 880px;
-  height: 550px;
+  margin: 40px auto 0; 
   background: #fff;
   border: 25px solid #D8EAFF;
   border-radius: 32px;
   display: flex;
-  align-items: flex-start;
+  flex-direction: column;
   justify-content: flex-start;
+  height: 500px;
   font-size: 2rem;
   font-weight: bold;
   color: #000369;
   z-index: 30;
   box-shadow: 0 4px 32px rgba(0,0,0,0.08);
-  position: fixed;
-  overflow: visible;
 }
 
 .afsprakenlijst-header {
-  position: absolute;
   top: 32px;
-  left: 40px;
+  left: 10px;
   width: 80%;
 }
 
@@ -87,7 +128,7 @@
   right: 40px;
   background: #fff;
   color: #FC6039;
-  border: 2px solid #FC6039;
+  border: 2px solid #1976d2;
   border-radius: 8px;
   padding: 8px 18px 8px 16px;
   font-size: 1.1rem;
@@ -102,7 +143,7 @@
 }
 
 .dropdown-btn:hover {
-  border: 2px solid #FC6039;
+  border: 2px solid #000369;
   box-shadow: 0 4px 16px rgba(25, 118, 210, 0.12);
 }
 
@@ -134,20 +175,21 @@
   background: #D8EAFF;
 }
 
-.afspraak-row {
+.dashboard-afspraak-row {
   display: flex;
   align-items: center;
   background: #d8eaff;
   border-radius: 18px;
-  margin: 100px 0 0 35px;
+  margin: 90px 0 0 35px;
   padding: 0;
   box-shadow: 0 2px 8px rgba(25, 118, 210, 0.08);
   height: 64px;
-  position: relative;
-  opacity: 0;
+  opacity: 1;
+  max-width: 1100px;      /* Voeg deze regel toe */
+  width: 92%; 
 }
 
-.afspraak-side.geplanned {
+.dashboard-afspraak-side.geplanned {
   background: #e6f0ff;
   border-radius: 18px 0 0 18px;
   width: 90px;
@@ -161,16 +203,16 @@
   font-size: 0.95rem;
 }
 
-.afspraak-label {
+.dashboard-afspraak-label {
   font-size: 0.95rem;
   margin-bottom: 2px;
 }
 
-.afspraak-date {
+.dashboard-afspraak-date {
   font-size: 0.95rem;
 }
 
-.afspraak-main {
+.dashboard-afspraak-main {
   background: #fff;
   border-radius: 20px;
   box-shadow: 0 2px 8px rgba(0,0,0,0.06);
@@ -183,32 +225,32 @@
   gap: 18px;
 }
 
-.afspraak-col {
+.dashboard-afspraak-col {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   min-width: 60px;
 }
 
-.afspraak-title {
+.dashboard-afspraak-title {
   font-weight: bold;
   color: #000369;
   font-size: 0.95rem;
 }
 
-.afspraak-value {
+.dashboard-afspraak-value {
   color: #000369;
   font-size: 0.95rem;
 }
 
-.afspraak-sub {
+.dashboard-afspraak-sub {
   font-size: 0.85rem;
   color: #000369;
   opacity: 0.7;
   margin-left: 2px;
 }
 
-.afspraak-side.dots {
+.dashboard-afspraak-side.dots {
   background: #e6f0ff;
   border-radius: 0 18px 18px 0;
   width: 38px;
@@ -218,7 +260,7 @@
   justify-content: center;
 }
 
-.afspraak-dots {
+.dashboard-afspraak-dots {
   font-size: 1.3rem;
   color: #000369;
   letter-spacing: 2px;
@@ -244,7 +286,7 @@
 
 .kalender.patiënten {
   position: fixed;
-  top: 50%;
+  top: 260px;
   right: 40px;
   width: 200px;
   height: 200px;
@@ -258,7 +300,6 @@
   font-weight: bold;
   box-shadow: 0 2px 8px rgba(25, 118, 210, 0.08);
   z-index: 10;
-  transform: translateY(-50%);
 }
 
 .notities {
@@ -278,3 +319,4 @@
   box-shadow: 0 2px 8px rgba(255, 152, 0, 0.15);
   z-index: 10;
 }
+

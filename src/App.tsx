@@ -11,7 +11,7 @@ import PatientoverviewPage from './components/PatientoverviewPage';
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [showAfspraakRow, setShowAfspraakRow] = useState(false);
+  const [showAfspraakRow, setShowAfspraakRow] = useState(true);
 
   const handleLogin = () => {
     setIsLoggedIn(true);
@@ -60,8 +60,6 @@ function App() {
             element={
               <CalenderPage
                 onLogout={handleLogout}
-                showAfspraakRow={showAfspraakRow}
-                setShowAfspraakRow={setShowAfspraakRow}
               />
             }
           />

@@ -4,52 +4,47 @@ import '../styling/CalenderPage.css';
 
 interface CalenderPageProps {
   onLogout: () => void;
-  showAfspraakRow: boolean;
-  setShowAfspraakRow: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const CalenderPage: React.FC<CalenderPageProps> = ({
   onLogout,
-  showAfspraakRow,
-  setShowAfspraakRow,
 }) => {
   const navigate = useNavigate();
 
   return (
-    <div className="dashboard-wrapper">
-      <div className="dashboard-sidebar">
-        <hr className="sidebar-divider-2" />
-        <button className="sidebar-btn" onClick={() => navigate('/dashboard')}>
+    <div className="calender-sidebar-wrapper">
+      <div className="calender-sidebar">
+        <hr className="calender-sidebar-divider-2" />
+        <button className="calender-sidebar-btn" onClick={() => navigate('/dashboard')}>
           Dashboard
         </button>
-        <button className="sidebar-btn">Kalender</button>
-        <button className="sidebar-btn" onClick={() => navigate('/documents')}>
+        <button className="calender-sidebar-btn">Kalender</button>
+        <button className="calender-sidebar-btn" onClick={() => navigate('/documents')}>
           Documenten
         </button>
-        <button className="sidebar-btn" onClick={() => navigate('/patientoverview')}>
+        <button className="calender-sidebar-btn" onClick={() => navigate('/patientoverview')}>
           Patiëntenoverzicht
         </button>
-        <hr className="sidebar-divider-1" />
-        <button className="sidebar-btn" onClick={() => navigate('/appointment')}>
+        <hr className="calender-sidebar-divider-1" />
+        <button className="calender-sidebar-btn" onClick={() => navigate('/appointment')}>
           Afspraak toevoegen
         </button>
-        <button className="sidebar-btn" onClick={() => navigate('/addsessionarts')}>
+        <button className="calender-sidebar-btn" onClick={() => navigate('/addsessionarts')}>
           Sessie toevoegen arts
         </button>
-        <button className="sidebar-btn" onClick={() => navigate('/addsessionfysio')}>
+        <button className="calender-sidebar-btn" onClick={() => navigate('/addsessionfysio')}>
           Sessie toevoegen fysiotherapeut
         </button>
-        <hr className="sidebar-divider-2" />
-        <button className="sidebar-btn">Instellingen</button>
-        <button className="sidebar-btn" onClick={onLogout}>
+        <hr className="calender-sidebar-divider-2" />
+        <button className="calender-sidebar-btn">Instellingen</button>
+        <button className="calender-sidebar-btn" onClick={onLogout}>
           Uitloggen
         </button>
       </div>
-      <div className="dashboard-content">
-        {/* Zet de header buiten het kalenderblok */}
+      <div className="calender-content">
         <div className="calender-header">
           <span>Kalender</span>
-          <hr className="dashboard-header-underline" />
+          <hr className="calender-header-underline" />
         </div>
         <div className="calendar-main-block">
           <div className="calendar-header-row">
