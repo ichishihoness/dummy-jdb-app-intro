@@ -20,62 +20,62 @@ const AppointmentPage: React.FC<AppointmentPageProps> = ({ onLogout, showAfspraa
   };
 
   return (
-    <div className="dashboard-wrapper">
-      <div className="dashboard-sidebar">
-        <hr className="sidebar-divider-2" />
+    <div className="appointment-wrapper">
+      <div className="appointment-sidebar">
+        <hr className="appointment-sidebar-divider-2" />
         <button
-          className="sidebar-btn"
+          className="appointment-sidebar-btn"
           onClick={() => navigate('/dashboard')}
         >
           Dashboard
         </button>
         <button
-          className="sidebar-btn"
+          className="appointment-sidebar-btn"
           onClick={() => navigate('/calender')}
         >
           Kalender
         </button>
         <button
-          className="sidebar-btn"
+          className="appointment-sidebar-btn"
           onClick={() => navigate('/documents')}
         >
           Documenten
         </button>
         <button
-          className="sidebar-btn"
+          className="appointment-sidebar-btn"
           onClick={() => navigate('/patientoverview')}
         >
           Patiëntenoverzicht
         </button>
-        <hr className="sidebar-divider-1" />
-        <button className="sidebar-btn">Afspraak toevoegen</button>
+        <hr className="appointment-sidebar-divider-1" />
+        <button className="appointment-sidebar-btn">Afspraak toevoegen</button>
         <button
-          className="sidebar-btn"
+          className="appointment-sidebar-btn"
           onClick={() => navigate('/addsessionarts')}
         >
           Sessie toevoegen arts
         </button>
         <button
-          className="sidebar-btn"
+          className="appointment-sidebar-btn"
           onClick={() => navigate('/addsessionfysio')}
         >
           Sessie toevoegen fysiotherapeut
         </button>
-        <hr className="sidebar-divider-2" />
-        <button className="sidebar-btn">Instellingen</button>
+        <hr className="appointment-sidebar-divider-2" />
+        <button className="appointment-sidebar-btn">Instellingen</button>
         <button
-          className="sidebar-btn"
+          className="appointment-sidebar-btn"
           onClick={onLogout}
         >
           Uitloggen
         </button>
       </div>
-      <div className="dashboard-content">
-        <div className="dashboard-header">
+      <div className="appointment-content">
+        <div className="appointment-header">
           <span>Hallo, Dr. Johannes Doe</span>
-          <hr className="dashboard-header-underline" />
+          <hr className="appointment-header-underline" />
         </div>
-        <div className="afsprakenlijst">
+        <div className="appointment-afsprakenlijst">
           <div className="afsprakenlijst-header">
             <span>Patiënten met een afspraak</span>
             <hr className="afsprakenlijst-underline" />

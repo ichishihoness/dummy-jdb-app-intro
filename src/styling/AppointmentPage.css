@@ -1,28 +1,76 @@
+.appointment-sidebar-wrapper {
+  display: flex;
+  min-height: 100vh;
+  position: relative;
+}
+
+.appointment-sidebar {
+  width: 300px;
+  background: #D8EAFF;
+  min-height: 100vh;
+  border-radius: 0 20px 0 0;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  padding-top: 20px;
+  gap: 17px;
+}
+
+.appointment-sidebar-btn {
+  background: none;
+  border: none;
+  color: #565FA4;
+  font-size: 0.85rem;
+  padding: 4px 20px;
+  text-align: left;
+  cursor: pointer;
+  border-radius: 8px;
+  transition: background 0.2s;
+}
+
+.appointment-sidebar-btn:hover {
+  background: rgba(255,255,255,0.15);
+}
+
+.appointment-sidebar-divider-1 {
+  border: none;
+  border-top: 2px solid #565FA4;
+  margin: 80px 0 0 0;
+  width: 90%;
+  align-self: center;
+}
+
+.appointment-sidebar-divider-2 {
+  border: none;
+  border-top: 2px solid white;
+  margin: 50px 0 50px 0;
+  width: 100%;
+  align-self: center;
+}
+
+.appointment-content {
+  flex: 1;
+  padding: 7px 0 0 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+}
+
 
 .appointment-bg-overlay {
-  position: fixed;
+  position: flex;
   inset: 0;
   width: 100vw;
   height: 100vh;
   background: #23242a;
   opacity: 0.5;
-  z-index: 30; /* Hoger dan afsprakenlijst/middenblok, lager dan sidebar/rechterblok */
+  z-index: 30;
   pointer-events: none;
 }
 
-/* Middenblok en afsprakenlijst */
-.dashboard-content {
-  flex: 1;
-  padding: 40px;
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  z-index: 20; /* Onder overlay */
-}
-
-.dashboard-header {
-  position: fixed;
+.appointment-header {
+  position: flex;
   left: 50%;
   top: 40px;
   transform: translateX(-50%);
@@ -32,22 +80,22 @@
   z-index: 20;
 }
 
-.dashboard-header span {
+.appointment-header span {
   font-size: 1.5rem;
   font-weight: bold;
   color: #000369;
   display: block;
 }
 
-.dashboard-header-underline {
+.appointment-header-underline {
   border: none;
   border-top: 2px solid #000369;
   width: 320px;
   margin: 8px auto 4px auto;
 }
 
-.afsprakenlijst {
-  position: fixed;
+.appointment-afsprakenlijst {
+  position: flex;
   left: 52%;
   top: 56%;
   transform: translate(-50%, -50%);
@@ -62,7 +110,7 @@
   font-size: 2rem;
   font-weight: bold;
   color: #000369;
-  z-index: 20; /* Onder overlay */
+  z-index: 20; 
   box-shadow: 0 4px 32px rgba(0,0,0,0.08);
   overflow: visible;
 }
@@ -231,9 +279,8 @@
   letter-spacing: 2px;
 }
 
-/* Rechterblok (afspraak toevoegen) */
 .appointment-form-container {
-  position: fixed;
+  position: flex;
   top: 0;
   right: 0;
   width: 600px;
@@ -242,7 +289,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 40; /* Hoger dan overlay */
+  z-index: 40; 
   box-shadow: -8px 0 32px rgba(25, 118, 210, 0.08);
 }
 

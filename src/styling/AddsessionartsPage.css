@@ -1,4 +1,10 @@
-.dashboard-sidebar {
+.addsessionarts-sidebar-wrapper {
+  display: flex;
+  min-height: 100vh;
+  position: relative;
+}
+
+.addsessionarts-sidebar {
   width: 300px;
   background: #D8EAFF;
   min-height: 100vh;
@@ -10,7 +16,7 @@
   gap: 17px;
 }
 
-.sidebar-btn {
+.addsessionarts-sidebar-btn {
   background: none;
   border: none;
   color: #565FA4;
@@ -22,11 +28,11 @@
   transition: background 0.2s;
 }
 
-.sidebar-btn:hover {
+.addsessionarts-sidebar-btn:hover {
   background: rgba(255,255,255,0.15);
 }
 
-.sidebar-divider-1 {
+.addsessionarts-sidebar-divider-1 {
   border: none;
   border-top: 2px solid #565FA4;
   margin: 80px 0 0 0;
@@ -34,7 +40,7 @@
   align-self: center;
 }
 
-.sidebar-divider-2 {
+.addsessionarts-sidebar-divider-2 {
   border: none;
   border-top: 2px solid white;
   margin: 50px 0 50px 0;
@@ -42,7 +48,11 @@
   align-self: center;
 }
 
-body, html {
-  overflow: hidden;
-  height: 100%;
+.addsessionarts-content {
+  flex: 1;
+  padding: 7px 0 0 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
 }
