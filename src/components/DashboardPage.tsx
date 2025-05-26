@@ -106,6 +106,9 @@ const DashboardPage: React.FC<DashboardPageProps> = ({ onLogout, showAfspraakRow
             </div>
           </div>
           )}
+          <div className="kalender volledige">kalender volledig</div>
+          <div className="kalender patiënten">kalender patienten</div>
+          <div className="notities">notities</div>
         </div>
       </div>
     </div>
