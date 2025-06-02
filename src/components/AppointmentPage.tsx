@@ -73,9 +73,9 @@ const AppointmentPage: React.FC<AppointmentPageProps> = ({ onLogout, showAfspraa
       <div className="appointment-content">
         <div className="appointment-header">
           <span>Hallo, Dr. Johannes Doe</span>
-          <hr className="appointment-header-underline" />
+          <hr className="dashboard-header-underline" />
         </div>
-        <div className="appointment-afsprakenlijst">
+        <div className="dashboard-afsprakenlijst">
           <div className="afsprakenlijst-header">
             <span>Patiënten met een afspraak</span>
             <hr className="afsprakenlijst-underline" />
@@ -93,39 +93,39 @@ const AppointmentPage: React.FC<AppointmentPageProps> = ({ onLogout, showAfspraa
             </div>
           )}
           {showAfspraakRow && (
-            <div className="afspraak-row">
-              <div className="afspraak-side geplanned">
-                <span className="afspraak-label">Gepland</span>
-                <span className="afspraak-date">02/06/2021</span>
+            <div className="dashboard-afspraak-row">
+            <div className="dashboard-afspraak-side geplanned">
+              <span className="dashboard-afspraak-label">Gepland</span>
+              <span className="dashboard-afspraak-date">02/06/2021</span>
+            </div>
+            <div className="dashboard-afspraak-main">
+              <div className="dashboard-afspraak-col">
+                <span className="dashboard-afspraak-title">Naam</span>
+                <span className="dashboard-afspraak-value">Joep Doe</span>
               </div>
-              <div className="afspraak-main">
-                <div className="afspraak-col">
-                  <span className="afspraak-title">Naam</span>
-                  <span className="afspraak-value">Joep Doe</span>
-                </div>
-                <div className="afspraak-col">
-                  <span className="afspraak-title">Leeftijd</span>
-                  <span className="afspraak-value">10 jaar</span>
-                </div>
-                <div className="afspraak-col">
-                  <span className="afspraak-title">Diagnose</span>
-                  <span className="afspraak-value">
-                    JDM <span className="afspraak-sub">(monocyclische)</span>
-                  </span>
-                </div>
-                <div className="afspraak-col">
-                  <span className="afspraak-title">Medicatie</span>
-                  <span className="afspraak-value">x medicijn</span>
-                </div>
-                <div className="afspraak-col">
-                  <span className="afspraak-title">Afspraken</span>
-                  <span className="afspraak-value">4</span>
-                </div>
+              <div className="dashboard-afspraak-col">
+                <span className="dashboard-afspraak-title">Leeftijd</span>
+                <span className="dashboard-afspraak-value">10 jaar</span>
               </div>
-              <div className="afspraak-side dots">
-                <span className="afspraak-dots">•••</span>
+              <div className="dashboard-afspraak-col">
+                <span className="dashboard-afspraak-title">Diagnose</span>
+                <span className="dashboard-afspraak-value">
+                  JDM <span className="dashboard-afspraak-sub">(monocyclische)</span>
+                </span>
+              </div>
+              <div className="dashboard-afspraak-col">
+                <span className="dashboard-afspraak-title">Medicatie</span>
+                <span className="dashboard-afspraak-value">x medicijn</span>
+              </div>
+              <div className="dashboard-afspraak-col">
+                <span className="dashboard-afspraak-title">Afspraken</span>
+                <span className="dashboard-afspraak-value">4</span>
               </div>
             </div>
+            <div className="dashboard-afspraak-side dots">
+              <span className="dashboard-afspraak-dots">•••</span>
+            </div>
+          </div>
           )}
         </div>
       </div>
