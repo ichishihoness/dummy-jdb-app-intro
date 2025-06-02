@@ -11,7 +11,7 @@ import PatientoverviewPage from './components/PatientoverviewPage';
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [showAfspraakRow, setShowAfspraakRow] = useState(true);
+  const [showAfspraakRow, setShowAfspraakRow] = useState(false);
 
   const handleLogin = () => {
     setIsLoggedIn(true);

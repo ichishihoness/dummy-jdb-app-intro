@@ -107,9 +107,9 @@ body {
 }
 
 .afsprakenlijst-header {
-  top: 32px;
-  left: 10px;
   width: 80%;
+  margin-left: 0px;   
+  padding-left: 16px; 
 }
 
 .afsprakenlijst-header span {
