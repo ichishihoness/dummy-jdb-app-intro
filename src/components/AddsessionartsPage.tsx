@@ -12,51 +12,56 @@ const AddsessionartsPage: React.FC<AddsessionartsPageProps> = ({ onLogout, showA
   const navigate = useNavigate();
 
   return (
-    <div className="addesessionarts-wrapper">
-      <div className="addesessionarts-sidebar">
-        <hr className="addesessionarts-sidebar-divider-2" />
+    <div className="addsessionarts-wrapper">
+      <div className="addsessionarts-sidebar">
+        <hr className="addsessionarts-sidebar-divider-2" />
         <button
-          className="addesessionarts-sidebar-btn"
+          className="addsessionarts-sidebar-btn"
           onClick={() => navigate('/dashboard')}
         >
           Dashboard
         </button>
         <button
-          className="addesessionarts-sidebar-btn"
+          className="addsessionarts-sidebar-btn"
           onClick={() => navigate('/calender')}
         >
           Kalender
         </button>
         <button
-          className="addesessionarts-sidebar-btn"
+          className="addsessionarts-sidebar-btn"
           onClick={() => navigate('/documents')}
         >
           Documenten
         </button>
         <button
-          className="addesessionarts-sidebar-btn"
+          className="addsessionarts-sidebar-btn"
           onClick={() => navigate('/patientoverview')}
         >
           Patiëntenoverzicht
         </button>
-        <hr className="addesessionarts-sidebar-divider-1" />
-        <button
-          className="addesessionarts-sidebar-btn"
+        <hr className="addsessionarts-sidebar-divider-1" />
+        <button 
+          className="addsessionarts-sidebar-btn" 
           onClick={() => navigate('/appointment')}
         >
           Afspraak toevoegen
         </button>
         <button
-          className="addesessionarts-sidebar-btn"
+          className="addsessionarts-sidebar-btn"
           onClick={() => navigate('/addsessionarts')}
         >
           Sessie toevoegen arts
         </button>
-        <button className="addesessionarts-sidebar-btn">Sessie toevoegen fysiotherapeut</button>
-        <hr className="addesessionarts-sidebar-divider-2" />
-        <button className="addesessionarts-sidebar-btn">Instellingen</button>
         <button
-          className="addesessionarts-sidebar-btn"
+          className="addsessionarts-sidebar-btn"
+          onClick={() => navigate('/addsessionfysio')}
+        >
+          Sessie toevoegen fysiotherapeut
+        </button>
+        <hr className="addsessionarts-sidebar-divider-2" />
+        <button className="addsessionarts-sidebar-btn">Instellingen</button>
+        <button
+          className="addsessionarts-sidebar-btn"
           onClick={onLogout}
         >
           Uitloggen
