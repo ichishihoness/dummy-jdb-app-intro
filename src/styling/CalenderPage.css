@@ -79,7 +79,7 @@
   margin: 0 0 24px 0;
 }
 
-.calendar-main-block {
+.calender-main-block {
   background: #f6faff;
   border-radius: 24px;
   padding: 32px 24px 40px 24px;
@@ -92,7 +92,7 @@
   position: relative;
 }
 
-.calendar-header-row {
+.calender-header-row {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -101,7 +101,7 @@
   width: 100%;
 }
 
-.calendar-arrow {
+.calender-arrow {
   background: none;
   border: none;
   font-size: 1.5rem;
@@ -110,13 +110,13 @@
   font-weight: bold;
 }
 
-.calendar-week-label {
+.calender-week-label {
   font-size: 1.2rem;
   font-weight: bold;
   color: #1a237e;
 }
 
-.calendar-table {
+.calender-table {
   width: 100%;
   border-collapse: collapse;
   margin-bottom: 24px;
@@ -126,8 +126,8 @@
   box-shadow: 0 2px 8px rgba(0,0,0,0.03);
 }
 
-.calendar-table th,
-.calendar-table td {
+.calender-table th,
+.calender-table td {
   border: 1px solid #d8eaff;
   text-align: center;
   padding: 10px 0;
@@ -137,13 +137,13 @@
   font-size: 1rem;
 }
 
-.calendar-table th {
+.calender-table th {
   background: #f6faff;
   font-weight: bold;
   font-size: 1.05rem;
 }
 
-.calendar-event {
+.calender-event {
   background: #1976d2;
   color: #fff;
   border-radius: 12px;
@@ -156,17 +156,17 @@
   justify-content: center;
 }
 
-.calendar-add-btn-row {
+.calender-add-btn-row {
   position: absolute;
   right: 24px;
-  bottom: 24px;
+  bottom: 11px;
   width: auto;
   display: flex;
   justify-content: flex-end;
   margin-top: 0;
 }
 
-.calendar-add-btn {
+.calender-add-btn {
   background: #1976d2;
   color: #fff;
   border: none;
@@ -178,6 +178,42 @@
   transition: background 0.2s;
 }
 
-.calendar-add-btn:hover {
+.calender-add-btn:hover {
   background: #1450a3;
+}
+
+.calender-sideblock-top {
+  position: fixed;
+  top: 40px;
+  right: 40px;
+  width: 200px;
+  height: 200px;
+  background: #1B21D4;
+  border-radius: 16px;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+  font-weight: bold;
+  box-shadow: 0 2px 8px rgba(25, 118, 210, 0.08);
+  z-index: 10;
+}
+
+.calender-sideblock-bottom {
+  position: fixed;
+  top: 260px;
+  right: 40px;
+  width: 200px;
+  height: 420px; 
+  background: #FF9800;
+  border-radius: 16px;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+  font-weight: bold;
+  box-shadow: 0 2px 8px rgba(255, 152, 0, 0.15);
+  z-index: 10;
 }
