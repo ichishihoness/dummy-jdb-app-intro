@@ -46,13 +46,13 @@ const CalenderPage: React.FC<CalenderPageProps> = ({
           <span>Kalender</span>
           <hr className="calender-header-underline" />
         </div>
-        <div className="calendar-main-block">
-          <div className="calendar-header-row">
-            <button className="calendar-arrow">{'<'}</button>
-            <span className="calendar-week-label">Juni 14 - 18, 2021</span>
-            <button className="calendar-arrow">{'>'}</button>
+                <div className="calender-main-block">
+          <div className="calender-header-row">
+            <button className="calender-arrow">{'<'}</button>
+            <span className="calender-week-label">Juni 14 - 18, 2021</span>
+            <button className="calender-arrow">{'>'}</button>
           </div>
-          <table className="calendar-table">
+          <table className="calender-table">
             <thead>
               <tr>
                 <th>Tijd</th>
@@ -70,7 +70,7 @@ const CalenderPage: React.FC<CalenderPageProps> = ({
                   {[0,1,2,3,4].map((dag) => (
                     <td key={dag}>
                       {tijd === '10:00' && dag === 1 && (
-                        <div className="calendar-event">
+                        <div className="calender-event">
                           10:00 - 11:30<br />
                           Patiënt<br />
                           Joep Doe
@@ -82,8 +82,12 @@ const CalenderPage: React.FC<CalenderPageProps> = ({
               ))}
             </tbody>
           </table>
-          <button className="calendar-add-btn">Toevoegen</button>
+          <div className="calender-add-btn-row">
+    <button className="calender-add-btn">Toevoegen</button>
+  </div>
         </div>
+        <div className="calender-sideblock-top">Kalenderblok</div>
+<div className="calender-sideblock-bottom">Planning</div>
       </div>
     </div>
   );
