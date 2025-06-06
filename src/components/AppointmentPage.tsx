@@ -93,37 +93,37 @@ const AppointmentPage: React.FC<AppointmentPageProps> = ({ onLogout, showAfspraa
             </div>
           )}
           {showAfspraakRow && (
-            <div className="dashboard-afspraak-row">
-            <div className="dashboard-afspraak-side geplanned">
-              <span className="dashboard-afspraak-label">Gepland</span>
-              <span className="dashboard-afspraak-date">02/06/2021</span>
+            <div className="appointment-afspraak-row">
+            <div className="appointment-afspraak-side geplanned">
+              <span className="appointment-afspraak-label">Gepland</span>
+              <span className="appointment-afspraak-date">02/06/2021</span>
             </div>
-            <div className="dashboard-afspraak-main">
-              <div className="dashboard-afspraak-col">
-                <span className="dashboard-afspraak-title">Naam</span>
-                <span className="dashboard-afspraak-value">Joep Doe</span>
+            <div className="appointment-afspraak-main">
+              <div className="appointment-afspraak-col">
+                <span className="appointment-afspraak-title">Naam</span>
+                <span className="appointment-afspraak-value">Joep Doe</span>
               </div>
-              <div className="dashboard-afspraak-col">
-                <span className="dashboard-afspraak-title">Leeftijd</span>
-                <span className="dashboard-afspraak-value">10 jaar</span>
+              <div className="appointment-afspraak-col">
+                <span className="appointment-afspraak-title">Leeftijd</span>
+                <span className="appointment-afspraak-value">10 jaar</span>
               </div>
-              <div className="dashboard-afspraak-col">
-                <span className="dashboard-afspraak-title">Diagnose</span>
-                <span className="dashboard-afspraak-value">
-                  JDM <span className="dashboard-afspraak-sub">(monocyclische)</span>
+              <div className="appointment-afspraak-col">
+                <span className="appointment-afspraak-title">Diagnose</span>
+                <span className="appointment-afspraak-value">
+                  JDM <span className="appointment-afspraak-sub">(monocyclische)</span>
                 </span>
               </div>
-              <div className="dashboard-afspraak-col">
-                <span className="dashboard-afspraak-title">Medicatie</span>
-                <span className="dashboard-afspraak-value">x medicijn</span>
+              <div className="appointment-afspraak-col">
+                <span className="appointment-afspraak-title">Medicatie</span>
+                <span className="appointment-afspraak-value">x medicijn</span>
               </div>
-              <div className="dashboard-afspraak-col">
-                <span className="dashboard-afspraak-title">Afspraken</span>
-                <span className="dashboard-afspraak-value">4</span>
+              <div className="appointment-afspraak-col">
+                <span className="appointment-afspraak-title">Afspraken</span>
+                <span className="appointment-afspraak-value">4</span>
               </div>
             </div>
-            <div className="dashboard-afspraak-side dots">
-              <span className="dashboard-afspraak-dots">•••</span>
+            <div className="appointment-afspraak-side dots">
+              <span className="appointment-afspraak-dots">•••</span>
             </div>
           </div>
           )}
