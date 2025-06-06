@@ -65,9 +65,9 @@ const DocumentsPage: React.FC<DocumentsPageProps> = ({ onLogout, showAfspraakRow
           </button>
           {dropdownOpen && (
             <div className="dropdown-menu">
-              <div onClick={() => handleSortClick('Naam')}>Oplopend</div>
-              <div onClick={() => handleSortClick('Type')}>Aflopend</div>
-              <div onClick={() => handleSortClick('Datum')}>Aflopend</div>
+              <div onClick={() => handleSortClick('Naam')}>Naam</div>
+              <div onClick={() => handleSortClick('Type')}>Type</div>
+              <div onClick={() => handleSortClick('Datum')}>Datum</div>
             </div>
           )}
             <div className="documents-row">

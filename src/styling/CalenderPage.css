@@ -50,10 +50,9 @@
 
 .calender-content {
   flex: 1;
-  padding: 7px 0 0 0;
+  padding: 7px 0 0 20px;
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
   min-height: 100vh;
 }
 
@@ -80,16 +79,22 @@
 }
 
 .calender-main-block {
-  background: #f6faff;
-  border-radius: 24px;
-  padding: 32px 24px 40px 24px;
-  box-shadow: 0 4px 32px rgba(0,0,0,0.08);
-  width: 900px;
-  margin: 0 0 0 0;
+  position: relative;
+  width: 920px;
+  margin: 20px auto 0; 
+  background: #fff;
+  border: 25px solid #D8EAFF;
+  border-radius: 32px;
+  right: 130px;
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
-  position: relative;
+  justify-content: flex-start;
+  height: 550px;
+  font-size: 2rem;
+  font-weight: bold;
+  color: #000369;
+  z-index: 30;
+  box-shadow: 0 4px 32px rgba(0,0,0,0.08);
 }
 
 .calender-header-row {
