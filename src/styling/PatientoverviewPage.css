@@ -1,10 +1,16 @@
-.patients-sidebar-wrapper {
+.patient-wrapper {
   display: flex;
   min-height: 100vh;
   position: relative;
 }
 
-.patients-sidebar {
+.patient-sidebar-wrapper {
+  display: flex;
+  min-height: 100vh;
+  position: relative;
+}
+
+.patient-sidebar {
   width: 300px;
   background: #D8EAFF;
   min-height: 100vh;
@@ -16,7 +22,7 @@
   gap: 17px;
 }
 
-.patients-sidebar-btn {
+.patient-sidebar-btn {
   background: none;
   border: none;
   color: #565FA4;
@@ -28,11 +34,11 @@
   transition: background 0.2s;
 }
 
-.patients-sidebar-btn:hover {
+.patient-sidebar-btn:hover {
   background: rgba(255,255,255,0.15);
 }
 
-.patients-sidebar-divider-1 {
+.patient-sidebar-divider-1 {
   border: none;
   border-top: 2px solid #565FA4;
   margin: 80px 0 0 0;
@@ -40,7 +46,7 @@
   align-self: center;
 }
 
-.patients-sidebar-divider-2 {
+.patient-sidebar-divider-2 {
   border: none;
   border-top: 2px solid white;
   margin: 50px 0 50px 0;
@@ -48,11 +54,330 @@
   align-self: center;
 }
 
-.patients-content {
+.patient-content {
   flex: 1;
   padding: 7px 0 0 0;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-start;
   min-height: 100vh;
+}
+
+.patient-header {
+  width: 900px; 
+  margin: 32px 0 0 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.patient-header span {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #1a237e;
+  display: block;
+}
+
+.patient-header-underline {
+  border: none;
+  border-top: 3px solid #1a237e;
+  width: 250px;
+  margin: 0 0 24px 0;
+}
+
+.patient-main-block {
+  position: relative;
+  font-size: 0.1rem;
+  font-weight: bold;
+  width: 920px;
+  margin: 20px auto 0; 
+  background: #fff;
+  border: 25px solid #D8EAFF;
+  border-radius: 32px;
+  right: 8px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  height: 550px;
+  font-size: 2rem;
+  font-weight: bold;
+  color: #000369;
+  z-index: 30;
+  box-shadow: 0 4px 32px rgba(0,0,0,0.08);
+}
+
+.patient-header-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  margin-bottom: 16px;
+  width: 100%;
+}
+
+.patienten-header {
+  width: 80%;
+  margin-left: 0px;   
+  padding-left: 16px; 
+}
+
+.patienten-header span {
+  font-size: 1.3rem;
+  font-weight: bold;
+  color: #000369;
+  display: block;
+}
+
+.patienten-underline {
+  border: none;
+  border-top: 2.5px solid #000369;
+  width: 25%;
+  margin: 6px 0 0 0;
+}
+
+.dropdown-btn {
+  position: absolute;
+  top: 32px;
+  right: 40px;
+  background: #fff;
+  color: #FC6039;
+  border: 2px solid #1976d2;
+  border-radius: 8px;
+  padding: 8px 18px 8px 16px;
+  font-size: 1.1rem;
+  font-weight: bold;
+  cursor: pointer;
+  z-index: 40;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  box-shadow: 0 2px 8px rgba(25, 118, 210, 0.08);
+  transition: border 0.2s, box-shadow 0.2s;
+}
+
+.dropdown-btn:hover {
+  border: 2px solid #000369;
+  box-shadow: 0 4px 16px rgba(25, 118, 210, 0.12);
+}
+
+.dropdown-arrow {
+  font-size: 1rem;
+  margin-left: 4px;
+}
+
+.dropdown-menu {
+  position: absolute;
+  top: 70px;
+  right: 40px;
+  background: #fff;
+  border: 2px solid #1976d2;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(25, 118, 210, 0.08);
+  padding: 8px 0;
+  min-width: 160px;
+  z-index: 50;
+}
+
+.dropdown-menu div {
+  padding: 10px 20px;
+  color: #000369;
+  cursor: pointer;
+}
+
+.dropdown-menu div:hover {
+  background: #D8EAFF;
+}
+
+.patient-row {
+  display: flex;
+  flex-direction: row;
+  gap: 90px;
+  margin-top: 48px; 
+  margin-left: 105px; 
+  margin-bottom: 20px;
+}
+
+.patient-cell {
+  font-size: 1.1rem;
+  font-weight: bold;
+  color: #000369;
+  min-width: 100px; 
+}
+
+.patient-data-row {
+  display: flex;
+  align-items: center;
+  border-radius: 22px;
+  box-shadow: 0 2px 8px rgba(25, 118, 210, 0.08);
+  margin: 0 0 0 40px;
+  width: 90%;
+  min-height: 56px;
+  padding: 0 0 0 0;
+  margin-bottom: 24px;
+}
+
+.patient-data-cell {
+  flex: 1 1 0;
+  text-align: center;
+  font-size: 10px !important;  
+  color: #1a237e;
+  padding: 0 24px;
+  font-weight: 400;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
+  height: 40px;
+  background: #fff;
+  border-radius: 16px;
+  margin-right: 8px;
+  box-shadow: 0 1px 3px rgba(25, 118, 210, 0.04);
+}
+
+.patient-data-cell span {
+  font-size: 17px;
+  font-weight: 400; 
+}
+
+.patient-data-actions {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  height: 48px;
+}
+
+.patient-action-btn {
+  background: #fff;
+  border: none;
+  border-radius: 12px;
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.4rem;
+  color: #1a237e;
+  cursor: pointer;
+  transition: background 0.2s;
+  margin-left: 8px;
+  box-shadow: 0 1px 3px rgba(25, 118, 210, 0.04);
+}
+
+.patient-action-btn--download {
+  border-top-right-radius: 22px;
+  border-bottom-right-radius: 22px;
+}
+
+.patient-action-btn:hover {
+  background: #d8eaff;
+}
+
+.patient-data-row {
+  display: flex;
+  align-items: center;
+  background: #d8eaff;
+  border-radius: 18px;
+  margin: 0 0 0 15px;
+  padding: 0;
+  box-shadow: 0 2px 8px rgba(25, 118, 210, 0.08);
+  height: 64px;
+  width: 97%;
+  max-width: 1100px;
+}
+
+.patient-data-main {
+  background: #fff;
+  border-radius: 20px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  display: flex;
+  flex: 1;
+  margin: 0 8px;
+  height: 48px;
+  align-items: center;
+  padding: 0 16px;
+  gap: 18px;
+}
+
+.patient-data-cell {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 60px;
+  font-size: 1.15rem;
+  color: #000369;
+  font-weight: bold;
+  background: transparent;
+  box-shadow: none;
+  border-radius: 0;
+  padding: 0 12px;
+}
+
+.patient-data-dots {
+  font-size: 1.3rem;
+  color: #000369;
+  letter-spacing: 2px;
+}
+
+.patient-data-side.dots {
+  background: #e6f0ff;
+  border-radius: 0 18px 18px 0;
+  width: 38px;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.kalender.volledige {
+  position: fixed;
+  top: 40px;
+  right: 40px;
+  width: 200px;
+  height: 200px;
+  background: #1B21D4;
+  border-radius: 16px;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+  font-weight: bold;
+  box-shadow: 0 2px 8px rgba(25, 118, 210, 0.08);
+  z-index: 10;
+}
+
+.kalender.patiënten {
+  position: fixed;
+  top: 260px;
+  right: 40px;
+  width: 200px;
+  height: 200px;
+  background: #1B21D4;
+  border-radius: 16px;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+  font-weight: bold;
+  box-shadow: 0 2px 8px rgba(25, 118, 210, 0.08);
+  z-index: 10;
+}
+
+.notities {
+  position: fixed;
+  right: 40px;
+  bottom: 40px;
+  width: 200px;
+  height: 200px;
+  background: #FF9800; 
+  border-radius: 16px;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+  font-weight: bold;
+  box-shadow: 0 2px 8px rgba(255, 152, 0, 0.15);
+  z-index: 10;
 }
