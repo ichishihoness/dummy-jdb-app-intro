@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../styling/AddsessionartsPage.css';
 
@@ -12,6 +12,7 @@ const AddsessionartsPage: React.FC<AddsessionartsPageProps> = ({
   onLogout,
 }) => {
   const navigate = useNavigate();
+  const [dropdownOpen, setDropdownOpen] = useState(false);
 
   return (
     <div className="addsessionarts-sidebar-wrapper">
@@ -50,21 +51,41 @@ const AddsessionartsPage: React.FC<AddsessionartsPageProps> = ({
           <span>Sessie</span>
           <hr className="addsessionarts-header-underline" />
         </div>
-              <div className="patientgegevens-header">
-            <span>Patiëntgegevens</span>
-            <hr className="patientgegevens-underline" />
-          </div>  
-          <div className="addsessionarts-dropdown">
-  <button className="addsessionarts-dropdown-btn">
-    <span className="addsessionarts-dropdown-plus">+</span>
-    <span className="addsessionarts-dropdown-label">Selecteer patiënt</span>
-    <span className="addsessionarts-dropdown-arrow">&#9662;</span>
-  </button>
+        <div className="patientgegevens-header">
+          <span>Patiëntgegevens</span>
+          <hr className="patientgegevens-underline" />
+        </div>
+        <div className="addsessionarts-dropdown">
+          <button
+            className="addsessionarts-dropdown-btn"
+            onClick={() => setDropdownOpen((open) => !open)}
+          >
+            <span className="addsessionarts-dropdown-plus">+</span>
+            <span className="addsessionarts-dropdown-label">Selecteer patiënt</span>
+            <span className="addsessionarts-dropdown-arrow">&#9662;</span>
+          </button>
+          {dropdownOpen && (
+            <div className="addsessionarts-dropdown-menu">
+              <button className="addsessionarts-patient-dropdown-btn">
+                <div className="addsessionarts-patient-info">
+                  <div className="addsessionarts-patient-labels">
+                    <span className="addsessionarts-patient-label-title">Naam</span>
+                    <span className="addsessionarts-patient-label-value">Joep Doe</span>
+                  </div>
+                  <div className="addsessionarts-patient-labels">
+                    <span className="addsessionarts-patient-label-title">Leeftijd</span>
+                    <span className="addsessionarts-patient-label-value">10 jaar</span>
+                  </div>
+                </div>
+                <span className="addsessionarts-patient-plus-btn">+</span>
+              </button>
+            </div>
+          )}
         </div>
         <div className="addsessionarts-sideblock-top">Scanner</div>
-<div className="addsessionarts-sideblock-bottom">Notitie</div>
+        <div className="addsessionarts-sideblock-bottom">Notitie</div>
       </div>
-      </div>
+    </div>
   );
 };
 

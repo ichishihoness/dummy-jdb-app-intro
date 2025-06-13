@@ -150,6 +150,71 @@
   margin-left: auto;
 }
 
+.addsessionarts-dropdown-menu {
+  background: transparent;
+  margin-top: 8px;
+  width: 420px;
+  position: absolute;
+  z-index: 20;
+}
+
+.addsessionarts-patient-dropdown-btn {
+  width: 100%;
+  background: #eaeaea;
+  border: none;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 24px;
+  margin-bottom: 0;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(25, 118, 210, 0.06);
+  transition: background 0.2s;
+}
+
+.addsessionarts-patient-dropdown-btn:hover {
+  background: #dadada;
+}
+
+.addsessionarts-patient-info {
+  display: flex;
+  gap: 40px;
+}
+
+.addsessionarts-patient-labels {
+  display: flex;
+  flex-direction: column;
+  margin-right: 24px;
+}
+
+.addsessionarts-patient-label-title {
+  color: #1B21D4;
+  font-size: 1rem;
+  font-weight: 500;
+  margin-bottom: -2px;
+}
+
+.addsessionarts-patient-label-value {
+  color: #1B21D4;
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.addsessionarts-patient-plus-btn {
+  background: #1B21D4;
+  color: #fff;
+  border-radius: 8px;
+  width: 48px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-left: 24px;
+}
+
 .addsessionarts-sideblock-top {
   position: fixed;
   top:40px;
