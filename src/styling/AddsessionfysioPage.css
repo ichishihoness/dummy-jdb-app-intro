@@ -50,9 +50,203 @@
 
 .addsessionfysio-content {
   flex: 1;
-  padding: 7px 0 0 0;
+  padding: 7px 0 0 20px;
   display: flex;
   flex-direction: column;
-  align-items: center;
   min-height: 100vh;
+}
+
+.addsessionfysio-header {
+  width: 900px; 
+  margin: 32px 0 0 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.addsessionfysio-header span {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #1a237e;
+  display: block;
+}
+
+.addsessionfysio-header-underline {
+  border: none;
+  border-top: 3px solid #1a237e;
+  width: 180px;
+  margin: 0 0 24px 0;
+  margin-bottom: 40px;
+}
+
+.patientgegevens-header {
+  width: 80%;
+  margin-left: 0px;   
+  padding-left: 20px; 
+}
+
+.patientgegevens-header span {
+  font-size: 1.3rem;
+  font-weight: bold;
+  color: #000369;
+  display: block;
+}
+
+.patientgegevens-underline {
+  border: none;
+  border-top: 2.5px solid #000369;
+  width: 25%;
+  margin: 6px 0 0 0;
+}
+
+.addsessionfysio-dropdown {
+  margin: 32px 0 0 20px;
+  width: 420px;
+}
+
+.addsessionfysio-dropdown-btn {
+  width: 100%;
+  height: 48px;
+  background: #fff;
+  border: 2px solid #d8eaff;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  padding: 0 18px;
+  gap: 12px;
+  font-size: 1rem;
+  color: #b3b3e0;
+  cursor: pointer;
+  position: relative;
+  transition: border 0.2s;
+}
+
+.addsessionfysio-dropdown-btn:hover,
+.addsessionfysio-dropdown-btn:focus {
+  border: 2px solid #1B21D4;
+}
+
+.addsessionfysio-dropdown-plus {
+  background: #1B21D4;
+  color: #fff;
+  border-radius: 8px;
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  margin-right: 6px;
+}
+
+.addsessionfysio-dropdown-label {
+  flex: 1;
+  color: #b3b3e0;
+}
+
+.addsessionfysio-dropdown-arrow {
+  color: #b3b3e0;
+  font-size: 1.2rem;
+  margin-left: auto;
+}
+
+.addsessionfysio-dropdown-menu {
+  background: transparent;
+  margin-top: 8px;
+  width: 420px;
+  position: absolute;
+  z-index: 20;
+}
+
+.addsessionfysio-patient-dropdown-btn {
+  width: 100%;
+  background: #eaeaea;
+  border: none;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 24px;
+  margin-bottom: 0;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(25, 118, 210, 0.06);
+  transition: background 0.2s;
+}
+
+.addsessionfysio-patient-dropdown-btn:hover {
+  background: #dadada;
+}
+
+.addsessionfysio-patient-info {
+  display: flex;
+  gap: 40px;
+}
+
+.addsessionfysio-patient-labels {
+  display: flex;
+  flex-direction: column;
+  margin-right: 24px;
+}
+
+.addsessionfysio-patient-label-title {
+  color: #1B21D4;
+  font-size: 1rem;
+  font-weight: 500;
+  margin-bottom: -2px;
+}
+
+.addsessionfysio-patient-label-value {
+  color: #1B21D4;
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.addsessionfysio-patient-plus-btn {
+  background: #1B21D4;
+  color: #fff;
+  border-radius: 8px;
+  width: 48px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-left: 24px;
+}
+
+.addsessionfysio-sideblock-top {
+  position: fixed;
+  top:40px;
+  right: 40px;
+  width: 200px;
+  height: 420px;
+  background: #1B21D4;
+  border-radius: 16px;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+  font-weight: bold;
+  box-shadow: 0 2px 8px rgba(25, 118, 210, 0.08);
+  z-index: 10;
+}
+
+.addsessionfysio-sideblock-bottom {
+  position: fixed;
+  top: 480px;
+  right: 40px;
+  width: 200px;
+  height: 200px; 
+  background: #FF9800;
+  border-radius: 16px;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+  font-weight: bold;
+  box-shadow: 0 2px 8px rgba(255, 152, 0, 0.15);
+  z-index: 10;
 }
