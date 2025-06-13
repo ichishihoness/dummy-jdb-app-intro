@@ -48,7 +48,7 @@ const AddsessionartsPage: React.FC<AddsessionartsPageProps> = ({
       </div>
       <div className="addsessionarts-content">
         <div className="addsessionarts-header">
-          <span>Sessie</span>
+          <span>Sessie arts</span>
           <hr className="addsessionarts-header-underline" />
         </div>
         <div className="patientgegevens-header">
