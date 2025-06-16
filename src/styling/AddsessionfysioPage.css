@@ -1,3 +1,8 @@
+.addsessionarts-content {
+  overflow-y: auto;
+  max-height: 100vh;
+}
+
 .addsessionfysio-sidebar-wrapper {
   display: flex;
   min-height: 100vh;
@@ -53,7 +58,8 @@
   padding: 7px 0 0 20px;
   display: flex;
   flex-direction: column;
-  min-height: 100vh;
+  overflow-y: auto;
+  max-height: 100vh;
 }
 
 .addsessionfysio-header {
@@ -213,6 +219,234 @@
   font-size: 1.5rem;
   font-weight: bold;
   margin-left: 24px;
+}
+
+.fysio-results-block {
+  margin: 40px 0 0 0;
+  background: #fff;
+  border: 20px solid #D8EAFF;
+  border-radius: 40px;
+  width: 90%;
+  margin-bottom: 20px;
+  max-width: 800px;
+  margin-left: 20px;
+  box-shadow: 0 4px 32px rgba(0,0,0,0.08);
+  padding: 32px 40px 40px 40px;
+}
+
+.fysio-results-header span {
+  font-size: 1.4rem;
+  font-weight: bold;
+  color: #000369;
+}
+
+.fysio-results-header-underline {
+  border: none;
+  border-top: 3px solid #000369;
+  width: 220px;
+  margin: 0 0 32px 0;
+}
+
+.fysio-section-title {
+  font-size: 1.15rem;
+  font-weight: bold;
+  color: #000369;
+}
+
+.fysio-section-underline {
+  border: none;
+  border-top: 2.5px solid #000369;
+  width: 180px;
+  margin: 6px 0 18px 0;
+}
+
+.fysio-table-header {
+  display: flex;
+  gap: 90px;
+  font-size: 1.05rem;
+  color: #000369;
+  margin-bottom: 12px;
+  margin-top: 18px;
+  margin-left: 35px;
+}
+
+.fysio-table-row {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  border-radius: 14px;
+  padding: 12px 18px;
+  width: 95%;
+  margin-bottom: 12px;
+}
+
+.fysio-table-row--bg {
+  display: flex;
+  align-items: center;
+  gap: 48px;          
+  border-radius: 16px;
+  padding: 12px 18px;
+  background: #eaf2ff;
+  box-shadow: 0 2px 8px rgba(25, 118, 210, 0.08);
+  margin-bottom: 18px; 
+}
+
+.fysio-table-row--score {
+  display: flex;
+  align-items: flex-start;
+  gap: 18px;          
+  border-radius: 16px;
+  padding: 18px 18px;
+  background: #eaf2ff;
+  box-shadow: 0 2px 8px rgba(25, 118, 210, 0.08);
+  margin-bottom: 32px;
+}
+
+.fysio-table-btn {
+  background: #fff;
+  border: none;
+  border-radius: 12px;
+  padding: 8px 24px;
+  font-size: 1rem;
+  color: #1B21D4;
+  font-weight: 600;
+  margin-right: 8px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.fysio-table-btn--active {
+  background: #1B21D4;
+  color: #fff;
+}
+
+.fysio-table-btn--white {
+  background: #eaf2ff;
+  color: #1B21D4;
+  font-weight: 500;
+  border-radius: 12px;
+  margin-right: 8px;
+}
+
+.fysio-table-value {
+  color: #1B21D4;
+  font-size: 1rem;
+  font-weight: 500;
+  min-width: 60px;
+  text-align: center;
+}
+
+.fysio-table-value--bold {
+  font-weight: bold;
+}
+
+.fysio-score {
+  background: #fff;
+  border-radius: 12px;
+  padding: 8px 24px;
+  font-size: 1rem;
+  color: #FF6B35;
+  font-weight: 600;
+  margin-right: 8px;
+  border: 2px solid #FF6B35;
+}
+
+.fysio-score--orange {
+  background: #FF6B35;
+  color: #fff;
+  border: none;
+}
+
+.fysio-table-search {
+  background: #eaf2ff;
+  border: none;
+  border-radius: 12px;
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.4rem;
+  color: #1B21D4;
+  cursor: pointer;
+  margin-left: 8px;
+}
+
+.fysio-oefening-btn {
+  background: #b3b3e0;
+  color: #fff;
+  border: none;
+  border-radius: 12px;
+  padding: 6px 18px;
+  font-size: 1rem;
+  font-weight: 600;
+  margin-bottom: 12px;
+  float: right;
+  margin-right: 12px;
+  cursor: pointer;
+}
+
+.fysio-oefeningen-table {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 18px;
+}
+
+.fysio-oefeningen-row {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 0;
+}
+
+.fysio-oefening-cell {
+  background: #eaf2ff;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 18px;
+  font-size: 1rem;
+  color: #1B21D4;
+  font-weight: 600;
+  min-width: 120px;
+  text-align: center;
+}
+
+.fysio-oefening-cell--iteraties {
+  background: #fff;
+  color: #1B21D4;
+  font-weight: 500;
+  min-width: 100px;
+}
+
+.fysio-results-actions {
+  display: flex;
+  gap: 24px;
+  justify-content: flex-end;
+  margin-top: 32px;
+}
+
+.fysio-results-btn {
+  font-size: 1.1rem;
+  font-weight: bold;
+  border-radius: 12px;
+  padding: 12px 32px;
+  cursor: pointer;
+  border: 2px solid #1B21D4;
+  background: #fff;
+  color: #1B21D4;
+  transition: background 0.2s, color 0.2s;
+}
+
+.fysio-results-btn--filled {
+  background: #1B21D4;
+  color: #fff;
+  border: 2px solid #1B21D4;
+}
+
+.fysio-results-btn--outline {
+  background: #fff;
+  color: #1B21D4;
+  border: 2px solid #1B21D4;
 }
 
 .addsessionfysio-sideblock-top {

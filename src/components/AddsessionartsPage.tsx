@@ -70,8 +70,8 @@ const AddsessionartsPage: React.FC<AddsessionartsPageProps> = ({
               <button
                 className="addsessionarts-patient-dropdown-btn"
                 onClick={() => {
-                  setDropdownOpen(true);
                   setShowResults(true);
+                  setDropdownOpen(false);
                 }}
               >
                 <div className="addsessionarts-patient-info">
