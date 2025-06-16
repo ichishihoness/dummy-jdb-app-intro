@@ -13,6 +13,7 @@ const AddsessionartsPage: React.FC<AddsessionartsPageProps> = ({
 }) => {
   const navigate = useNavigate();
   const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [showResults, setShowResults] = useState(false);
 
   return (
     <div className="addsessionarts-sidebar-wrapper">
@@ -64,9 +65,15 @@ const AddsessionartsPage: React.FC<AddsessionartsPageProps> = ({
             <span className="addsessionarts-dropdown-label">Selecteer patiënt</span>
             <span className="addsessionarts-dropdown-arrow">&#9662;</span>
           </button>
-          {dropdownOpen && (
+          {dropdownOpen && !showResults && (
             <div className="addsessionarts-dropdown-menu">
-              <button className="addsessionarts-patient-dropdown-btn">
+              <button
+                className="addsessionarts-patient-dropdown-btn"
+                onClick={() => {
+                  setDropdownOpen(true);
+                  setShowResults(true);
+                }}
+              >
                 <div className="addsessionarts-patient-info">
                   <div className="addsessionarts-patient-labels">
                     <span className="addsessionarts-patient-label-title">Naam</span>
@@ -82,6 +89,59 @@ const AddsessionartsPage: React.FC<AddsessionartsPageProps> = ({
             </div>
           )}
         </div>
+        {showResults && (
+          <>
+            <div className="addsessionarts-results-header">
+              <span>Resultaten scan</span>
+              <hr className="addsessionarts-results-header-underline" />
+            </div>
+            <div className="addsessionarts-results-block">
+              <div className="addsessionarts-results-main">
+                <div className="addsessionarts-results-section">
+                  <span className="addsessionarts-results-section-title">Radiologie uitslagen</span>
+                  <hr className="addsessionarts-results-section-underline" />
+                  <div className="addsessionarts-results-table-header">
+                    <span>aspect</span>
+                    <span>type</span>
+                    <span>beoordeling</span>
+                  </div>
+                  <div className="addsessionarts-results-table-row">
+                    <button className="addsessionarts-results-table-btn">Links</button>
+                    <button className="addsessionarts-results-table-btn addsessionarts-results-table-btn--active">Schouder</button>
+                    <input className="addsessionarts-results-table-input" placeholder="Type iets ..." />
+                    <button className="addsessionarts-results-table-search">
+                      <span role="img" aria-label="zoeken">🔍</span>
+                    </button>
+                  </div>
+                </div>
+                <div className="addsessionarts-results-section" style={{marginTop: '32px'}}>
+                  <span className="addsessionarts-results-section-title">Bloedchemie</span>
+                  <hr className="addsessionarts-results-section-underline" />
+                  <div className="addsessionarts-results-blood-table">
+                    
+                      <div className="addsessionarts-results-blood-row">
+                        <div className="addsessionarts-results-blood-cell">
+                          <span className="cell-left">CK</span>
+                          <span className="cell-right">0 -145 U/L</span>
+                        </div>
+                        <div className="addsessionarts-results-blood-cell addsessionarts-results-blood-cell--orange">100</div>
+                        <div className="addsessionarts-results-blood-cell">
+                          <span className="cell-left">CK</span>
+                          <span className="cell-right">0 -145 U/L</span>
+                        </div>
+                        <div className="addsessionarts-results-blood-cell addsessionarts-results-blood-cell--orange">100</div>
+                      </div>
+                    
+                  </div>
+                </div>
+                <div className="addsessionarts-results-actions">
+                  <button className="addsessionarts-results-btn addsessionarts-results-btn--outline">annuleer</button>
+                  <button className="addsessionarts-results-btn addsessionarts-results-btn--filled">sessie toevoegen</button>
+                </div>
+              </div>
+            </div>
+          </>
+        )}
         <div className="addsessionarts-sideblock-top">Scanner</div>
         <div className="addsessionarts-sideblock-bottom">Notitie</div>
       </div>
