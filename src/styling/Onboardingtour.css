@@ -1,0 +1,65 @@
+.introjs-tooltip {
+  background: #b8d6fa;
+  border-radius: 16px;
+  border: 3px solid #222;
+  box-shadow: none;
+  color: #0a1766;
+  font-family: 'Segoe UI', Arial, sans-serif;
+  font-size: 1.6rem;
+  font-weight: 700;
+  text-align: center;
+  padding: 36px 36px 32px 36px;
+  max-width: 900px;
+  min-width: 400px;
+  line-height: 1.25;
+}
+
+.introjs-tooltip p,
+.introjs-tooltip div,
+.introjs-tooltip span {
+  color: #0a1766;
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin: 18px 0;
+}
+
+.introjs-tooltip .introjs-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 32px;
+  margin-top: 32px;
+}
+
+.introjs-tooltipbutton,
+.introjs-button {
+  background: #b8d6fa;
+  border: 3px solid #222;
+  border-radius: 14px;
+  color: #0a1766;
+  font-size: 1.15rem;
+  font-weight: 500;
+  padding: 16px 32px;
+  margin: 0 12px;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+}
+
+.introjs-tooltipbutton:last-child,
+.introjs-button:last-child {
+  background: #8faaff;
+  color: #0a1766;
+}
+
+.introjs-tooltipbutton:hover,
+.introjs-button:hover {
+  background: #e3f0ff;
+  color: #0a1766;
+  border-color: #0a1766;
+}
+
+.introjs-closeButton {
+  color: #b8d6fa !important;
+  background: #b8d6fa !important;
+  border: none !important;
+  box-shadow: none !important;
+}
