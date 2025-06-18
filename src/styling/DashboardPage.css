@@ -324,3 +324,21 @@ body {
   z-index: 10;
 }
 
+.steptwoblock {
+  position: fixed;
+  top: 40px;
+  right: 40px;
+  width: 200px;
+  bottom: 40px; /* Laat de onderkant gelijk lopen met .notities */
+  background: transparent;
+  border-radius: 16px;
+  color: #fff;
+  display: flex;
+  align-items: flex-start; /* Begin bovenaan */
+  justify-content: center;
+  font-size: 1.1rem;
+  font-weight: bold;
+  box-shadow: 0 2px 8px rgba(25, 118, 210, 0.08);
+  z-index: 11;
+  height: auto; /* Laat de hoogte automatisch bepalen door top en bottom */
+}
