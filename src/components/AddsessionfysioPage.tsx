@@ -1,12 +1,16 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../styling/AddsessionfysioPage.css';
 import '../styling/Onboardingtour.css';
+import introJs from 'intro.js';
+import 'intro.js/introjs.css';
 
 interface AddsessionfysioPageProps {
   onLogout: () => void;
   showAfspraakRow: boolean;
   setShowAfspraakRow: React.Dispatch<React.SetStateAction<boolean>>;
+  showSessionfTour: boolean;
+  setShowSessionfTour: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const AddsessionfysioPage: React.FC<AddsessionfysioPageProps> = ({

@@ -1,12 +1,16 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../styling/DocumentsPage.css';
 import '../styling/Onboardingtour.css';
+import introJs from 'intro.js';
+import 'intro.js/introjs.css';
 
 interface DocumentsPageProps {
   onLogout: () => void;
   showAfspraakRow: boolean;
   setShowAfspraakRow: React.Dispatch<React.SetStateAction<boolean>>;
+  showDocumentsTour: boolean;
+  setShowDocumentsTour: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const DocumentsPage: React.FC<DocumentsPageProps> = ({ onLogout, showAfspraakRow, setShowAfspraakRow, }) => {

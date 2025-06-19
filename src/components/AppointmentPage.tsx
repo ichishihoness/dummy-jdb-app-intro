@@ -13,6 +13,8 @@ interface AppointmentPageProps {
   setShowAppointmentTour: React.Dispatch<React.SetStateAction<boolean>>;
   showDashboardTourTwo: boolean;
   setShowDashboardTourTwo: React.Dispatch<React.SetStateAction<boolean>>;
+  shownDashboardTourTwo: boolean;
+  setShownDashboardTourTwo: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const AppointmentPage: React.FC<AppointmentPageProps> = ({
@@ -22,6 +24,8 @@ const AppointmentPage: React.FC<AppointmentPageProps> = ({
   showAppointmentTour,
   setShowAppointmentTour,
   setShowDashboardTourTwo,
+  shownDashboardTourTwo,
+  setShownDashboardTourTwo
 }) => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [sortOrder, setSortOrder] = useState<'Oplopend' | 'Aflopend'>('Oplopend');
@@ -307,7 +311,10 @@ const AppointmentPage: React.FC<AppointmentPageProps> = ({
               className="save-btn"
               onClick={() => {
                 setShowAfspraakRow(true);
+                if (shownDashboardTourTwo == false) {
                 setShowDashboardTourTwo(true);
+                }
+                setShownDashboardTourTwo(true);
                 navigate('/dashboard');
               }}
             >

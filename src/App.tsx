@@ -17,7 +17,12 @@ function App() {
   const [showDashboardTourTwo, setShowDashboardTourTwo] = useState(false);
   const [showDashboardTourThree, setShowDashboardTourThree] = useState(false);
   const [showAppointmentTour, setShowAppointmentTour] = useState(false);
+  const [shownDashboardTourTwo, setShownDashboardTourTwo] = useState(false);
   const [showCalenderTour, setShowCalenderTour] = useState(false);
+  const [showDocumentsTour, setShowDocumentsTour] = useState(false);
+  const [showPatientsTour, setShowPatientsTour] = useState(false);
+  const [showSessionaTour, setShowSessionaTour] = useState(false);
+  const [showSessionfTour, setShowSessionfTour] = useState(false);
 
   const handleLogin = () => {
     setIsLoggedIn(true);
@@ -39,6 +44,8 @@ function App() {
                   onLogout={handleLogout}
                   showAfspraakRow={showAfspraakRow}
                   setShowAfspraakRow={setShowAfspraakRow}
+                  showSessionaTour={showSessionaTour}
+                  setShowSessionaTour={setShowSessionaTour}
                 />
               }
             />
@@ -49,6 +56,8 @@ function App() {
                   onLogout={handleLogout}
                   showAfspraakRow={showAfspraakRow}
                   setShowAfspraakRow={setShowAfspraakRow}
+                  showSessionfTour={showSessionfTour}
+                  setShowSessionfTour={setShowSessionfTour}
                 />
               }
             />
@@ -63,6 +72,8 @@ function App() {
                   setShowAppointmentTour={setShowAppointmentTour}
                   showDashboardTourTwo={showDashboardTourTwo}
                   setShowDashboardTourTwo={setShowDashboardTourTwo}
+                  shownDashboardTourTwo={shownDashboardTourTwo}
+                  setShownDashboardTourTwo={setShownDashboardTourTwo}
                 />
               }
             />
@@ -90,11 +101,19 @@ function App() {
                   showDashboardTourTwo={showDashboardTourTwo}
                   setshowDashboardTourTwo={setShowDashboardTourTwo}
                   showDashboardTourThree={showDashboardTourThree}
-                  setshowDashboardTourThree={setShowDashboardTourThree}
+                  setShowDashboardTourThree={setShowDashboardTourThree}
                   showAppointmentTour={showAppointmentTour}
                   setShowAppointmentTour={setShowAppointmentTour}
                   showCalenderTour={showCalenderTour}
                   setShowCalenderTour={setShowCalenderTour}
+                  showSessionaTour={showSessionaTour}
+                  setShowSessionaTour={setShowSessionaTour}
+                  showSessionfTour={showSessionfTour}
+                  setShowSessionfTour={setShowSessionfTour}
+                  showDocumentsTour={showDocumentsTour}
+                  setShowDocumentsTour={setShowDocumentsTour}
+                  showPatientsTour={showPatientsTour}
+                  setShowPatientsTour={setShowPatientsTour}
                 />
               }
             />
@@ -105,6 +124,8 @@ function App() {
                   onLogout={handleLogout}
                   showAfspraakRow={showAfspraakRow}
                   setShowAfspraakRow={setShowAfspraakRow}
+                  showDocumentsTour={showDocumentsTour}
+                  setShowDocumentsTour={setShowDocumentsTour}
                 />
               }
             />
@@ -115,6 +136,8 @@ function App() {
                   onLogout={handleLogout}
                   showAfspraakRow={showAfspraakRow}
                   setShowAfspraakRow={setShowAfspraakRow}
+                  showPatientsTour={showPatientsTour}
+                  setShowPatientsTour={setShowPatientsTour}
                 />
               }
             />

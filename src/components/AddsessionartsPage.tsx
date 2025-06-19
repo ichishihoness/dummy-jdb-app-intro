@@ -1,20 +1,92 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../styling/AddsessionartsPage.css';
 import '../styling/Onboardingtour.css';
+import introJs from 'intro.js';
+import 'intro.js/introjs.css';
 
 interface AddsessionartsPageProps {
   onLogout: () => void;
   showAfspraakRow: boolean;
   setShowAfspraakRow: React.Dispatch<React.SetStateAction<boolean>>;
+  showSessionaTour: boolean;
+  setShowSessionaTour: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const AddsessionartsPage: React.FC<AddsessionartsPageProps> = ({
   onLogout,
+  showSessionaTour,
+  setShowSessionaTour
 }) => {
   const navigate = useNavigate();
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [showResults, setShowResults] = useState(false);
+
+   useEffect(() => {
+  if (showSessionaTour) {
+    introJs()
+      .setOptions({
+        exitOnOverlayClick: false,
+        showBullets: false,
+        skipLabel: '',
+        steps: [
+          {
+            element: document.querySelector('.addsessionarts-dropdown-btn') as HTMLElement,
+            title: 'Sessie toevoegen arts',
+            intro: 'Klik hier om de lijst met patienten te openen.',
+            position: 'right',
+          }
+        ],
+      })
+      .oncomplete(() => {
+        setDropdownOpen(true);
+        setTimeout(() => {
+          introJs()
+            .setOptions({
+              exitOnOverlayClick: false,
+              showBullets: false,
+              skipLabel: '',
+              steps: [
+                {
+                  element: document.querySelector('.addsessionarts-dropdown-menu') as HTMLElement,
+                  title: 'Sessie toevoegen arts',
+                  intro: 'Selecteer eerst de patiënt waar je een sessie van toe wilt voegen.',
+                  position: 'right',
+                  disableInteraction: false
+                },
+                {
+                  element: document.querySelector('.kalender-btn') as HTMLElement,
+                  title: 'Kalender',
+                  intro: 'De afspraak is nu toegevoegd aan de lijst op de homepagina!',
+                  position: 'right',
+                }
+              ],
+            })
+            .onafterchange((targetElement) => {
+              if (
+                targetElement.classList.contains('kalender-btn')
+              ) {
+                const dropdownBtn = document.querySelector('.addsessionarts-patient-dropdown-btn') as HTMLButtonElement | null;
+                if (dropdownBtn) {
+                  dropdownBtn.click();
+                }
+              }
+            })
+            .oncomplete(() => {
+              setShowSessionaTour(false);
+            })
+            .onexit(() => {
+              setShowSessionaTour(false);
+            })
+            .start();
+        }, 700); 
+      })
+      .onexit(() => {
+        setShowSessionaTour(false);
+      })
+      .start();
+  }
+}, [showSessionaTour, setShowSessionaTour]);
 
   return (
     <div className="addsessionarts-sidebar-wrapper">
