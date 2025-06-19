@@ -14,11 +14,19 @@ export interface DashboardPageProps {
   showDashboardTourTwo: boolean;
   setshowDashboardTourTwo: React.Dispatch<React.SetStateAction<boolean>>;
   showDashboardTourThree: boolean;
-  setshowDashboardTourThree: React.Dispatch<React.SetStateAction<boolean>>;
+  setShowDashboardTourThree: React.Dispatch<React.SetStateAction<boolean>>;
   showAppointmentTour: boolean;
   setShowAppointmentTour: React.Dispatch<React.SetStateAction<boolean>>;
   showCalenderTour: boolean;
   setShowCalenderTour: React.Dispatch<React.SetStateAction<boolean>>;
+  showSessionaTour: boolean;
+  setShowSessionaTour: React.Dispatch<React.SetStateAction<boolean>>;
+  showSessionfTour: boolean;
+  setShowSessionfTour: React.Dispatch<React.SetStateAction<boolean>>;
+  showDocumentsTour: boolean;
+  setShowDocumentsTour: React.Dispatch<React.SetStateAction<boolean>>;
+  showPatientsTour: boolean;
+  setShowPatientsTour: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const DashboardPage: React.FC<DashboardPageProps> = ({
@@ -28,10 +36,15 @@ const DashboardPage: React.FC<DashboardPageProps> = ({
   setshowDashboardTourOne,
   showDashboardTourTwo,
   setshowDashboardTourTwo,
+  showDashboardTourThree,
+  setShowDashboardTourThree,
   setShowAppointmentTour,
   setShowCalenderTour,
-  showDashboardTourThree,
-  setshowDashboardTourThree
+  showCalenderTour,
+  setShowSessionaTour,
+  setShowSessionfTour,
+  setShowDocumentsTour,
+  setShowPatientsTour
 }) => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [sortOrder, setSortOrder] = useState<'Oplopend' | 'Aflopend'>('Oplopend');
@@ -169,22 +182,35 @@ useEffect(() => {
         ],
       })
       .oncomplete(() => {
-        setshowDashboardTourThree(false);
+        setShowSessionaTour(true);
+        setShowSessionfTour(true);
+        setShowDocumentsTour(true);
+        setShowPatientsTour(true);
       })
       .onexit(() => {
-        setshowDashboardTourThree(false);
+        setShowSessionaTour(true);
+        setShowSessionfTour(true);
+        setShowDocumentsTour(true);
+        setShowPatientsTour(true);
       });
 
     tour.start();
   }
-}, [showDashboardTourThree, setshowDashboardTourThree]);
+}, [showDashboardTourThree, setShowDashboardTourThree]);
 
   return (
     <div className="dashboard-wrapper">
       <div className="dashboard-sidebar">
         <hr className="dashboard-sidebar-divider-2" />
         <button className="calender-sidebar-btn">Dashboard</button>
-        <button className="dashboard-sidebar-btn kalender-btn" onClick={() => navigate('/calender')}>
+        <button
+          className="dashboard-sidebar-btn kalender-btn"
+          onClick={() => {
+            if (showCalenderTour) {
+              navigate('/calender');
+            }
+          }}
+        >
           Kalender
         </button>
         <button className="dashboard-sidebar-btn" onClick={() => navigate('/documents')}>

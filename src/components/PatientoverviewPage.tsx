@@ -1,12 +1,16 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../styling/PatientoverviewPage.css';
 import '../styling/Onboardingtour.css';
+import introJs from 'intro.js';
+import 'intro.js/introjs.css';
 
 interface PatientoverviewPageProps {
   onLogout: () => void;
   showAfspraakRow: boolean;
   setShowAfspraakRow: React.Dispatch<React.SetStateAction<boolean>>;
+  showPatientsTour: boolean;
+  setShowPatientsTour: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const PatientoverviewPage: React.FC<PatientoverviewPageProps> = ({ onLogout, showAfspraakRow, setShowAfspraakRow, }) => {
