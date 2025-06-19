@@ -1,15 +1,66 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../styling/CalenderPage.css';
+import '../styling/Onboardingtour.css';
+import introJs from 'intro.js';
+import 'intro.js/introjs.css';
 
 interface CalenderPageProps {
   onLogout: () => void;
+  showCalenderTour: boolean;
+  setShowCalenderTour: React.Dispatch<React.SetStateAction<boolean>>;
+  showDashboardTourThree: boolean;
+  setShowDashboardTourThree: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const CalenderPage: React.FC<CalenderPageProps> = ({
   onLogout,
+  showCalenderTour,
+  setShowCalenderTour,
+  setShowDashboardTourThree
 }) => {
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (showCalenderTour) {
+      const tour = introJs()
+        .setOptions({
+          exitOnOverlayClick: false,
+          showBullets: false,
+          skipLabel: '',
+          steps: [
+            {
+                    element: document.querySelector('.calender-main-block') as HTMLElement,
+                    title: 'Kalender',
+                    intro: 'Dit is de uitvergrote versie van de kalender.',
+                    position: 'left'
+                  },
+                  {
+                    element: document.querySelector('.calender-header-row') as HTMLElement,
+                    title: 'Kalender',
+                    intro: 'Met de knoppen bovenin kun je door de weken heen bladeren.',
+                    position: 'bottom'
+                  },
+                  {
+                    element: document.querySelector('.calender-event') as HTMLElement,
+                    title: 'Kalender',
+                    intro: 'En de blauwe blokjes in de kalender zijn afspraken die opstaan.',
+                    position: 'right'
+                  }
+          ]
+        })
+        .oncomplete(() => {
+                setShowCalenderTour(false);
+              setShowDashboardTourThree(true);
+              })
+              .onexit(() => {
+                setShowCalenderTour(false);
+                setShowDashboardTourThree(true);
+              })
+                  tour.start();
+        }
+      }, [showCalenderTour, setShowCalenderTour]);
+              
 
   return (
     <div className="calender-sidebar-wrapper">
