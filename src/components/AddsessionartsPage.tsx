@@ -22,10 +22,11 @@ const AddsessionartsPage: React.FC<AddsessionartsPageProps> = ({
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [showResults, setShowResults] = useState(false);
 
-   useEffect(() => {
-  if (showSessionaTour) {
-    introJs()
-      .setOptions({
+  // Start de eerste stap van de tour als showSessionaTour true is
+  useEffect(() => {
+    if (showSessionaTour) {
+      const intro = introJs();
+      intro.setOptions({
         exitOnOverlayClick: false,
         showBullets: false,
         skipLabel: '',
@@ -33,14 +34,28 @@ const AddsessionartsPage: React.FC<AddsessionartsPageProps> = ({
           {
             element: document.querySelector('.addsessionarts-dropdown-btn') as HTMLElement,
             title: 'Sessie toevoegen arts',
-            intro: 'Klik hier om de lijst met patienten te openen.',
+            intro: 'Klik hier om de lijst met patiënten te openen.',
             position: 'right',
           }
         ],
       })
       .oncomplete(() => {
         setDropdownOpen(true);
-        setTimeout(() => {
+      })
+      .onexit(() => {
+        setShowSessionaTour(false);
+      })
+      .start();
+    }
+  }, [showSessionaTour, setShowSessionaTour]);
+
+  // Start de tweede stap van de tour als showResults true wordt
+  useEffect(() => {
+    if (showResults && showSessionaTour) {
+      // Wacht tot het resultatenblok in de DOM staat
+      const waitForResultsBlock = () => {
+        const resultsBlock = document.querySelector('.addsessionarts-results-block') as HTMLElement | null;
+        if (resultsBlock) {
           introJs()
             .setOptions({
               exitOnOverlayClick: false,
@@ -48,29 +63,12 @@ const AddsessionartsPage: React.FC<AddsessionartsPageProps> = ({
               skipLabel: '',
               steps: [
                 {
-                  element: document.querySelector('.addsessionarts-dropdown-menu') as HTMLElement,
-                  title: 'Sessie toevoegen arts',
-                  intro: 'Selecteer eerst de patiënt waar je een sessie van toe wilt voegen.',
+                  element: resultsBlock,
+                  title: 'Resultaten',
+                  intro: 'Hier zie je de resultaten van de geselecteerde patiënt.',
                   position: 'right',
-                  disableInteraction: false
                 },
-                {
-                  element: document.querySelector('.kalender-btn') as HTMLElement,
-                  title: 'Kalender',
-                  intro: 'De afspraak is nu toegevoegd aan de lijst op de homepagina!',
-                  position: 'right',
-                }
               ],
-            })
-            .onafterchange((targetElement) => {
-              if (
-                targetElement.classList.contains('kalender-btn')
-              ) {
-                const dropdownBtn = document.querySelector('.addsessionarts-patient-dropdown-btn') as HTMLButtonElement | null;
-                if (dropdownBtn) {
-                  dropdownBtn.click();
-                }
-              }
             })
             .oncomplete(() => {
               setShowSessionaTour(false);
@@ -79,14 +77,13 @@ const AddsessionartsPage: React.FC<AddsessionartsPageProps> = ({
               setShowSessionaTour(false);
             })
             .start();
-        }, 700); 
-      })
-      .onexit(() => {
-        setShowSessionaTour(false);
-      })
-      .start();
-  }
-}, [showSessionaTour, setShowSessionaTour]);
+        } else {
+          setTimeout(waitForResultsBlock, 100);
+        }
+      };
+      waitForResultsBlock();
+    }
+  }, [showResults, showSessionaTour, setShowSessionaTour]);
 
   return (
     <div className="addsessionarts-sidebar-wrapper">
@@ -191,20 +188,18 @@ const AddsessionartsPage: React.FC<AddsessionartsPageProps> = ({
                   <span className="addsessionarts-results-section-title">Bloedchemie</span>
                   <hr className="addsessionarts-results-section-underline" />
                   <div className="addsessionarts-results-blood-table">
-                    
-                      <div className="addsessionarts-results-blood-row">
-                        <div className="addsessionarts-results-blood-cell">
-                          <span className="cell-left">CK</span>
-                          <span className="cell-right">0 -145 U/L</span>
-                        </div>
-                        <div className="addsessionarts-results-blood-cell addsessionarts-results-blood-cell--orange">100</div>
-                        <div className="addsessionarts-results-blood-cell">
-                          <span className="cell-left">CK</span>
-                          <span className="cell-right">0 -145 U/L</span>
-                        </div>
-                        <div className="addsessionarts-results-blood-cell addsessionarts-results-blood-cell--orange">100</div>
+                    <div className="addsessionarts-results-blood-row">
+                      <div className="addsessionarts-results-blood-cell">
+                        <span className="cell-left">CK</span>
+                        <span className="cell-right">0 -145 U/L</span>
                       </div>
-                    
+                      <div className="addsessionarts-results-blood-cell addsessionarts-results-blood-cell--orange">100</div>
+                      <div className="addsessionarts-results-blood-cell">
+                        <span className="cell-left">CK</span>
+                        <span className="cell-right">0 -145 U/L</span>
+                      </div>
+                      <div className="addsessionarts-results-blood-cell addsessionarts-results-blood-cell--orange">100</div>
+                    </div>
                   </div>
                 </div>
                 <div className="addsessionarts-results-actions">
