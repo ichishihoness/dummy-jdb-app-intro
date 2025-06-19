@@ -7,9 +7,11 @@ import 'intro.js/introjs.css';
 
 interface LoginPageProps {
   onLogin: (username: string, password: string) => void;
+  showLoginTour: boolean;
+  setShowLoginTour: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const LoginPage: React.FC<LoginPageProps> = ({ onLogin }) => {
+const LoginPage: React.FC<LoginPageProps> = ({ onLogin, showLoginTour, setShowLoginTour }) => {
   const [personeelsnummer, setPersoneelsnummer] = useState('');
   const [email, setEmail] = useState('');
   const [wachtwoord, setWachtwoord] = useState('');
@@ -22,7 +24,8 @@ const LoginPage: React.FC<LoginPageProps> = ({ onLogin }) => {
   };
 
   useEffect(() => {
-    introJs()
+    if (showLoginTour) {
+    const tour = introJs()
       .setOptions({
         exitOnOverlayClick: false,
         showBullets: false,
@@ -49,43 +52,62 @@ const LoginPage: React.FC<LoginPageProps> = ({ onLogin }) => {
                 {
                   element: document.querySelector('input[placeholder="Je personeelsnummer"]') as HTMLElement,
                   title: 'Homepagina',
-                  intro: 'Met middel van de knoppen links in het scherm kun je snel naar pagina’s navigeren',
+                  intro: 'Je kunt inloggen met je personeelsnummer...',
                   position: 'right'
                 },
                 {
                   element: document.querySelector('input[placeholder="Je e-mailadres"]') as HTMLElement,
                   title: 'Homepagina',
-                  intro: 'Links is in een oogopslag de huidige maand te zien in de kalender, en er kan snel een notitie worden gemaakt',
+                  intro: '...je login of e-mailadres...',
                   position: 'right'
                 },
                 {
                   element: document.querySelector('input[placeholder="Je wachtwoord"]') as HTMLElement,
                   title: 'Homepagina',
-                  intro: 'In het midden is de lijst met patiënten met een aankomende afspraak te zien',
+                  intro: '...en je wachtwoord!',
                   position: 'right'
                 },
                 {
                   element: document.querySelector('.forgot-password') as HTMLElement,
                   title: 'Homepagina',
-                  intro: 'Met deze knop kunnen afspraken worden aangepaakt. Klik erop om het eens te proberen!'
+                  intro: 'Mocht je je wachtwoord zijn vergeten kun je hem hier opnieuw opvragen'
                 },
                 {
                   element: document.querySelector('.login-container button') as HTMLElement,
                   title: 'Homepagina',
-                  intro: 'En met deze knop log je in'
+                  intro: 'En met deze knop log je in',
+                  disableInteraction: true
                 }
-              ]
+              ],
+            })
+            .onafterchange(function(targetElement) {
+              const placeholders = [
+                "Je personeelsnummer",
+                "Je e-mailadres",
+                "Je wachtwoord"
+              ];
+              if (
+                targetElement.tagName === "INPUT" &&
+                placeholders.includes(targetElement.getAttribute("placeholder") || "")
+              ) {
+                setTimeout(() => {
+                (targetElement as HTMLInputElement).focus();
+              }, 350);
+            }
             })
             .start();
         }, 300);
       })
+      .onexit(() => {
+          setShowLoginTour(false);
+        })
       .start();
-  }, []);
+    }
+  }, [showLoginTour, setShowLoginTour]);
 
   return (
     <div className="login-bg">
       <div className="login-container">
-        {/* De knop is niet meer nodig, want de tour start automatisch */}
         <h2>Inloggen</h2>
         <form onSubmit={handleSubmit}>
           <div>

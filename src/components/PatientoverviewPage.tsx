@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../styling/PatientoverviewPage.css';
+import '../styling/Onboardingtour.css';
 
 interface PatientoverviewPageProps {
   onLogout: () => void;

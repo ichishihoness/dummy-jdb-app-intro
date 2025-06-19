@@ -1,14 +1,28 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../styling/AppointmentPage.css';
+import '../styling/Onboardingtour.css';
+import introJs from 'intro.js';
+import 'intro.js/introjs.css';
 
 interface AppointmentPageProps {
   onLogout: () => void;
   showAfspraakRow: boolean;
   setShowAfspraakRow: React.Dispatch<React.SetStateAction<boolean>>;
+  showAppointmentTour: boolean;
+  setShowAppointmentTour: React.Dispatch<React.SetStateAction<boolean>>;
+  showDashboardTourTwo: boolean;
+  setShowDashboardTourTwo: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const AppointmentPage: React.FC<AppointmentPageProps> = ({ onLogout, showAfspraakRow, setShowAfspraakRow, }) => {
+const AppointmentPage: React.FC<AppointmentPageProps> = ({
+  onLogout,
+  showAfspraakRow,
+  setShowAfspraakRow,
+  showAppointmentTour,
+  setShowAppointmentTour,
+  setShowDashboardTourTwo,
+}) => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [sortOrder, setSortOrder] = useState<'Oplopend' | 'Aflopend'>('Oplopend');
   const [repeat, setRepeat] = useState('Wekelijks');
@@ -18,6 +32,82 @@ const AppointmentPage: React.FC<AppointmentPageProps> = ({ onLogout, showAfspraa
     setSortOrder(order);
     setDropdownOpen(false);
   };
+
+  useEffect(() => {
+    if (showAppointmentTour) {
+      const tour = introJs()
+        .setOptions({
+          exitOnOverlayClick: false,
+          showBullets: false,
+          skipLabel: '',
+          steps: [
+            {
+              intro: `
+                Wanneer je een afspraak wilt toevoegen verschijnt er rechts in het scherm een veld waarin dat gebeurt.<br /><br />
+                Nadat je een afspraak opslaat is die terug te zien in je kalender.<br /><br />
+                Laten we een afspraak als voorbeeld aanmaken! deze wordt later weer verwijderd.<br />
+              `
+            }
+          ]
+        })
+        .oncomplete(() => {
+          setTimeout(() => {
+            introJs()
+              .setOptions({
+                exitOnOverlayClick: false,
+                scrollToElement: false,
+                skipLabel: '',
+                steps: [
+                  {
+                    element: document.querySelector('.appointment-input') as HTMLElement,
+                    title: 'Afspraak toevoegen',
+                    intro: 'Geef de afspraak allereerst een titel. Bedenk er altijd een waardoor je meteen weet waar de afspraak over gaat!',
+                    position: 'left'
+                  },
+                  {
+                    element: document.querySelector('.appointment-repeat-row') as HTMLElement,
+                    title: 'Afspraak toevoegen',
+                    intro: 'Geef aan hoe vaak de afspraak zich zal herhalen.',
+                    position: 'left'
+                  },
+                  {
+                    element: document.querySelectorAll('.appointment-form-section')[2] as HTMLElement,
+                    title: 'Afspraak toevoegen',
+                    intro: 'En voeg als laatste overige gegevens toe, zoals het type afspraak, de deelnemers, datum en tijd.',
+                    position: 'left'
+                  },
+                  {
+                    element: document.querySelector('.save-btn') as HTMLElement,
+                    title: 'Afspraak toevoegen',
+                    intro: 'En dan is de afspraak klaar om te worden opgeslagen! Probeer het maar eens.',
+                    position: 'top',
+                    disableInteraction: true
+                  }
+                ]
+                })
+                .onafterchange((targetElement) => {
+                  if (
+                    targetElement.classList.contains('appointment-input')
+                  ) {
+                    (targetElement as HTMLInputElement).focus();
+                  }
+              })
+              .oncomplete(() => {
+                setShowAppointmentTour(false);
+              })
+              .onexit(() => {
+                setShowAppointmentTour(false);
+              })
+              .start();
+          }, 300);
+        })
+        .onexit(() => {
+          setShowAppointmentTour(false);
+        });
+
+      tour.start();
+    }
+  }, [showAppointmentTour, setShowAppointmentTour]);
 
   return (
     <div className="appointment-wrapper">
@@ -94,38 +184,38 @@ const AppointmentPage: React.FC<AppointmentPageProps> = ({ onLogout, showAfspraa
           )}
           {showAfspraakRow && (
             <div className="appointment-afspraak-row">
-            <div className="appointment-afspraak-side geplanned">
-              <span className="appointment-afspraak-label">Gepland</span>
-              <span className="appointment-afspraak-date">02/06/2021</span>
+              <div className="appointment-afspraak-side geplanned">
+                <span className="appointment-afspraak-label">Gepland</span>
+                <span className="appointment-afspraak-date">02/06/2021</span>
+              </div>
+              <div className="appointment-afspraak-main">
+                <div className="appointment-afspraak-col">
+                  <span className="appointment-afspraak-title">Naam</span>
+                  <span className="appointment-afspraak-value">Joep Doe</span>
+                </div>
+                <div className="appointment-afspraak-col">
+                  <span className="appointment-afspraak-title">Leeftijd</span>
+                  <span className="appointment-afspraak-value">10 jaar</span>
+                </div>
+                <div className="appointment-afspraak-col">
+                  <span className="appointment-afspraak-title">Diagnose</span>
+                  <span className="appointment-afspraak-value">
+                    JDM <span className="appointment-afspraak-sub">(monocyclische)</span>
+                  </span>
+                </div>
+                <div className="appointment-afspraak-col">
+                  <span className="appointment-afspraak-title">Medicatie</span>
+                  <span className="appointment-afspraak-value">x medicijn</span>
+                </div>
+                <div className="appointment-afspraak-col">
+                  <span className="appointment-afspraak-title">Afspraken</span>
+                  <span className="appointment-afspraak-value">4</span>
+                </div>
+              </div>
+              <div className="appointment-afspraak-side dots">
+                <span className="appointment-afspraak-dots">•••</span>
+              </div>
             </div>
-            <div className="appointment-afspraak-main">
-              <div className="appointment-afspraak-col">
-                <span className="appointment-afspraak-title">Naam</span>
-                <span className="appointment-afspraak-value">Joep Doe</span>
-              </div>
-              <div className="appointment-afspraak-col">
-                <span className="appointment-afspraak-title">Leeftijd</span>
-                <span className="appointment-afspraak-value">10 jaar</span>
-              </div>
-              <div className="appointment-afspraak-col">
-                <span className="appointment-afspraak-title">Diagnose</span>
-                <span className="appointment-afspraak-value">
-                  JDM <span className="appointment-afspraak-sub">(monocyclische)</span>
-                </span>
-              </div>
-              <div className="appointment-afspraak-col">
-                <span className="appointment-afspraak-title">Medicatie</span>
-                <span className="appointment-afspraak-value">x medicijn</span>
-              </div>
-              <div className="appointment-afspraak-col">
-                <span className="appointment-afspraak-title">Afspraken</span>
-                <span className="appointment-afspraak-value">4</span>
-              </div>
-            </div>
-            <div className="appointment-afspraak-side dots">
-              <span className="appointment-afspraak-dots">•••</span>
-            </div>
-          </div>
           )}
         </div>
       </div>
@@ -217,6 +307,7 @@ const AppointmentPage: React.FC<AppointmentPageProps> = ({ onLogout, showAfspraa
               className="save-btn"
               onClick={() => {
                 setShowAfspraakRow(true);
+                setShowDashboardTourTwo(true);
                 navigate('/dashboard');
               }}
             >
