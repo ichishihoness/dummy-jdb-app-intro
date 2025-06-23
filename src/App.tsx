@@ -81,6 +81,7 @@ function App() {
                   setShowAppointmentTour={setShowAppointmentTour}
                   showDashboardTourTwo={showDashboardTourTwo}
                   setShowDashboardTourTwo={setShowDashboardTourTwo}
+                  setShowDashboardTourThree={setShowDashboardTourThree}
                   shownDashboardTourTwo={shownDashboardTourTwo}
                   setShownDashboardTourTwo={setShownDashboardTourTwo}
                 />
@@ -167,6 +168,7 @@ function App() {
           onLogin={handleLogin}
           showLoginTour={showLoginTour}
           setShowLoginTour={setShowLoginTour}
+          setShowDashboardTourOne={setShowDashboardTourOne}
         />
       )}
     </Router>

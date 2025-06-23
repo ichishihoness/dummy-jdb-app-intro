@@ -9,9 +9,10 @@ interface LoginPageProps {
   onLogin: (username: string, password: string) => void;
   showLoginTour: boolean;
   setShowLoginTour: React.Dispatch<React.SetStateAction<boolean>>;
+  setShowDashboardTourOne: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const LoginPage: React.FC<LoginPageProps> = ({ onLogin, showLoginTour, setShowLoginTour }) => {
+const LoginPage: React.FC<LoginPageProps> = ({ onLogin, showLoginTour, setShowLoginTour, setShowDashboardTourOne }) => {
   const [personeelsnummer, setPersoneelsnummer] = useState('');
   const [email, setEmail] = useState('');
   const [wachtwoord, setWachtwoord] = useState('');
@@ -23,12 +24,15 @@ const LoginPage: React.FC<LoginPageProps> = ({ onLogin, showLoginTour, setShowLo
     navigate('/dashboard');
   };
 
-  useEffect(() => {
-    if (showLoginTour) {
+ useEffect(() => {
+  if (showLoginTour) {
     const tour = introJs()
       .setOptions({
         exitOnOverlayClick: false,
         showBullets: false,
+        nextLabel: 'Vertel me meer',
+        prevLabel: 'Terug',
+        doneLabel: 'Vertel me meer',
         skipLabel: '',
         steps: [
           {
@@ -42,11 +46,53 @@ const LoginPage: React.FC<LoginPageProps> = ({ onLogin, showLoginTour, setShowLo
           }
         ]
       })
+      .onafterchange(() => {
+        setTimeout(() => {
+          const buttonContainer = document.querySelector('.introjs-tooltipbuttons');
+          if (buttonContainer) {
+            // Verwijder oude knoppen als ze bestaan
+            const oldCloseBtn = document.getElementById('close-tour-btn');
+            if (oldCloseBtn) oldCloseBtn.remove();
+            const oldSkipBtn = document.getElementById('skip-tour-btn');
+            if (oldSkipBtn) oldSkipBtn.remove();
+
+            // Close button (helemaal links)
+            const closeBtn = document.createElement('button');
+            closeBtn.id = 'close-tour-btn';
+            closeBtn.className = 'introjs-button introjs-close-btn';
+            closeBtn.innerHTML = 'Rondleiding<br>volledig overslaan';
+            closeBtn.onclick = () => {
+              tour.then(instance => instance.exit(true));
+              setShowLoginTour(false);
+              setShowDashboardTourOne(false);
+            };
+
+            // Skip button (tussen close en next)
+            const skipBtn = document.createElement('button');
+            skipBtn.id = 'skip-tour-btn';
+            skipBtn.className = 'introjs-button introjs-skip-btn';
+            skipBtn.innerHTML = 'Ik begrijp<br>hoe dit werkt';
+            skipBtn.onclick = () => {
+              tour.then(instance => instance.exit(true));
+              setShowLoginTour(false);
+              // Je kunt hier eventueel andere logica toevoegen
+            };
+
+            // Voeg de knoppen toe op de juiste plek
+            // Eerst closeBtn, dan skipBtn, dan de rest (zoals Next)
+            buttonContainer.insertBefore(closeBtn, buttonContainer.firstChild);
+            buttonContainer.insertBefore(skipBtn, buttonContainer.children[1]);
+          }
+        }, 0);
+      })
       .oncomplete(() => {
         setTimeout(() => {
           introJs()
             .setOptions({
               exitOnOverlayClick: false,
+              nextLabel: 'Volgende',
+              prevLabel: 'Vorige',
+              doneLabel: 'Ik begrijp het',
               skipLabel: '',
               steps: [
                 {
@@ -91,19 +137,19 @@ const LoginPage: React.FC<LoginPageProps> = ({ onLogin, showLoginTour, setShowLo
                 placeholders.includes(targetElement.getAttribute("placeholder") || "")
               ) {
                 setTimeout(() => {
-                (targetElement as HTMLInputElement).focus();
-              }, 350);
-            }
+                  (targetElement as HTMLInputElement).focus();
+                }, 350);
+              }
             })
             .start();
         }, 300);
       })
       .onexit(() => {
-          setShowLoginTour(false);
-        })
+        setShowLoginTour(false);
+      })
       .start();
-    }
-  }, [showLoginTour, setShowLoginTour]);
+  }
+}, [showLoginTour, setShowLoginTour, setShowDashboardTourOne]);
 
   return (
     <div className="login-bg">

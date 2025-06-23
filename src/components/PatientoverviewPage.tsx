@@ -32,6 +32,9 @@ const PatientoverviewPage: React.FC<PatientoverviewPageProps> = ({ onLogout, tou
         .setOptions({
           exitOnOverlayClick: false,
           showBullets: false,
+          nextLabel: 'Volgende',
+                  prevLabel: 'Terug',
+                  doneLabel: 'Volgende',
           skipLabel: '',
           steps: [
             {

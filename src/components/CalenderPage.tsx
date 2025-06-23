@@ -32,6 +32,9 @@ const CalenderPage: React.FC<CalenderPageProps> = ({
         .setOptions({
           exitOnOverlayClick: false,
           showBullets: false,
+          nextLabel: 'Volgende',
+                  prevLabel: 'Terug',
+                  doneLabel: 'Ik begrijp het',
           skipLabel: '',
           steps: [
             {
