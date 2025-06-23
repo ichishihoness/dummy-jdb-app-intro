@@ -9,6 +9,8 @@ interface AppointmentPageProps {
   onLogout: () => void;
   showAfspraakRow: boolean;
   setShowAfspraakRow: React.Dispatch<React.SetStateAction<boolean>>;
+  tour: boolean;
+  setTour: React.Dispatch<React.SetStateAction<boolean>>;
   showAppointmentTour: boolean;
   setShowAppointmentTour: React.Dispatch<React.SetStateAction<boolean>>;
   showDashboardTourTwo: boolean;
@@ -21,8 +23,11 @@ const AppointmentPage: React.FC<AppointmentPageProps> = ({
   onLogout,
   showAfspraakRow,
   setShowAfspraakRow,
+  tour,
+  setTour,
   showAppointmentTour,
   setShowAppointmentTour,
+  showDashboardTourTwo,
   setShowDashboardTourTwo,
   shownDashboardTourTwo,
   setShownDashboardTourTwo
@@ -118,52 +123,89 @@ const AppointmentPage: React.FC<AppointmentPageProps> = ({
       <div className="appointment-sidebar">
         <hr className="appointment-sidebar-divider-2" />
         <button
-          className="appointment-sidebar-btn"
-          onClick={() => navigate('/dashboard')}
-        >
-          Dashboard
-        </button>
-        <button
-          className="appointment-sidebar-btn"
-          onClick={() => navigate('/calender')}
-        >
-          Kalender
-        </button>
-        <button
-          className="appointment-sidebar-btn"
-          onClick={() => navigate('/documents')}
-        >
-          Documenten
-        </button>
-        <button
-          className="appointment-sidebar-btn"
-          onClick={() => navigate('/patientoverview')}
-        >
-          Patiëntenoverzicht
-        </button>
-        <hr className="appointment-sidebar-divider-1" />
-        <button className="appointment-sidebar-btn">Afspraak toevoegen</button>
-        <button
-          className="appointment-sidebar-btn"
-          onClick={() => navigate('/addsessionarts')}
-        >
-          Sessie toevoegen arts
-        </button>
-        <button
-          className="appointment-sidebar-btn"
-          onClick={() => navigate('/addsessionfysio')}
-        >
-          Sessie toevoegen fysiotherapeut
-        </button>
-        <hr className="appointment-sidebar-divider-2" />
-        <button className="appointment-sidebar-btn">Instellingen</button>
-        <button
-          className="appointment-sidebar-btn"
-          onClick={onLogout}
-        >
-          Uitloggen
-        </button>
-      </div>
+  className="appointment-sidebar-btn dashboard-btn"
+  onClick={() => {
+    if (tour === false || showDashboardTourTwo === true) {
+      navigate('/dashboard');
+    }
+  }}
+>
+  Dashboard
+</button>
+  <button
+    className="appointment-sidebar-btn kalender-btn"
+    onClick={() => {
+      if (tour === false) {
+        navigate('/calender');
+      }
+    }}
+  >
+    Kalender
+  </button>
+  <button
+    className="appointment-sidebar-btn"
+    onClick={() => {
+      if (tour === false) {
+        navigate('/documents');
+      }
+    }}
+  >
+    Documenten
+  </button>
+  <button
+    className="appointment-sidebar-btn"
+    onClick={() => {
+      if (tour === false) {
+        navigate('/patientoverview');
+      }
+    }}
+  >
+    Patiëntenoverzicht
+  </button>
+  <hr className="appointment-sidebar-divider-1" />
+  <button
+    className="appointment-sidebar-btn afspraak-toevoegen-btn"
+    onClick={() => {
+      if (tour === false) {
+        navigate('/appointment');
+      }
+    }}
+  >
+    Afspraak toevoegen
+  </button>
+  <button
+    className="appointment-sidebar-btn"
+    onClick={() => {
+      if (tour === false) {
+        navigate('/addsessionarts');
+      }
+    }}
+  >
+    Sessie toevoegen arts
+  </button>
+  <button
+    className="addsessionarts-sidebar-btn"
+    onClick={() => {
+      if (tour === false) {
+        navigate('/addsessionfysio');
+      }
+    }}
+  >
+    Sessie toevoegen fysiotherapeut
+  </button>
+  <hr className="addsessionarts-sidebar-divider-2" />
+  <button className="addsessionarts-sidebar-btn">Instellingen</button>
+  <button
+    className="addsessionarts-sidebar-btn"
+    onClick={() => {
+      if (tour === false) {
+        onLogout();
+      }
+    }}
+  >
+    Uitloggen
+  </button>
+</div>
       <div className="appointment-content">
         <div className="appointment-header">
           <span>Hallo, Dr. Johannes Doe</span>

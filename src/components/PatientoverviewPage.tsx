@@ -9,11 +9,14 @@ interface PatientoverviewPageProps {
   onLogout: () => void;
   showAfspraakRow: boolean;
   setShowAfspraakRow: React.Dispatch<React.SetStateAction<boolean>>;
+  tour: boolean;
+  setTour: React.Dispatch<React.SetStateAction<boolean>>;
   showPatientsTour: boolean;
   setShowPatientsTour: React.Dispatch<React.SetStateAction<boolean>>;
+  showDashboardTourThree: boolean;
 }
 
-const PatientoverviewPage: React.FC<PatientoverviewPageProps> = ({ onLogout, showAfspraakRow, setShowAfspraakRow, }) => {
+const PatientoverviewPage: React.FC<PatientoverviewPageProps> = ({ onLogout, tour, setTour, showPatientsTour, setShowPatientsTour, showDashboardTourThree}) => {
     const [dropdownOpen, setDropdownOpen] = useState(false);
     const [sortOrder, setSortOrder] = useState<'Naam' | 'Geboorte datum' | 'Diagnose' | 'Afspraken'>('Naam');
   const navigate = useNavigate();
@@ -23,57 +26,138 @@ const PatientoverviewPage: React.FC<PatientoverviewPageProps> = ({ onLogout, sho
     setDropdownOpen(false);
   };
 
+     useEffect(() => {
+    if (showPatientsTour) {
+      const tour = introJs()
+        .setOptions({
+          exitOnOverlayClick: false,
+          showBullets: false,
+          skipLabel: '',
+          steps: [
+            {
+                    element: document.querySelector('.patient-main-block') as HTMLElement,
+                    title: 'Patiëntenoverzicht',
+                    intro: 'Hier is de lijst met alle jou patiënten. Nieuwe patiënten worden automatich aan de lijst toegevoegd.',
+                    position: 'top'
+                  },
+                  {
+                    element: document.querySelector('.dropdown-btn') as HTMLElement,
+                    title: 'Patiëntenoverzicht',
+                    intro: 'Met deze knop kun de volgorde waarin patiënten zijn opgesteld aanpassen',
+                    position: 'left'
+                  },
+                  {
+                    element: document.querySelector('.patient-row') as HTMLElement,
+                    title: 'Patiëntenoverzicht',
+                    intro: 'In de lijst zelf is de naam, geboorte datum, diagnose en het aantal afspraken te zien.',
+                    position: 'bottom'
+                  },
+                  {
+                    element: document.querySelector('.patient-data-side dots') as HTMLElement,
+                    title: 'Patiëntenoverzicht',
+                    intro: 'Met deze knop krijg je meer informatie te zien over de desbetreffende patiënt.',
+                    position: 'left'
+                  }
+          ]
+        })
+        .oncomplete(() => {
+                setShowPatientsTour(false);
+              })
+              .onexit(() => {
+                setShowPatientsTour(false);
+              })
+                  tour.start();
+        }
+      }, [showPatientsTour, setShowPatientsTour]);
+
   return (
     <div className="patient-wrapper">
       <div className="patient-sidebar">
         <hr className="patient-sidebar-divider-2" />
         <button
-          className="patient-sidebar-btn"
-          onClick={() => navigate('/dashboard')}
-        >
-          Dashboard
-        </button>
-        <button
-          className="patient-sidebar-btn"
-          onClick={() => navigate('/calender')}
-        >
-          Kalender
-        </button>
-        <button
-          className="patient-sidebar-btn"
-          onClick={() => navigate('/documents')}
-        >
-          Documenten
-        </button>
-        <button className="patient-sidebar-btn">Patiëntenoverzicht</button>
-        <hr className="patient-sidebar-divider-1" />
-        <button
-          className="patient-sidebar-btn"
-          onClick={() => navigate('/appointment')}
-        >
-          Afspraak toevoegen
-        </button>
-        <button
-          className="patient-sidebar-btn"
-          onClick={() => navigate('/addsessionarts')}
-        >
-          Sessie toevoegen arts
-        </button>
-        <button
-          className="patient-sidebar-btn"
-          onClick={() => navigate('/addsessionfysio')}
-        >
-          Sessie toevoegen fysiotherapeut
-        </button>
-        <hr className="patient-sidebar-divider-2" />
-        <button className="patient-sidebar-btn">Instellingen</button>
-        <button
-          className="patient-sidebar-btn"
-          onClick={onLogout}
-        >
-          Uitloggen
-        </button>
-      </div>
+  className="patient-sidebar-btn dashboard-btn"
+  onClick={() => {
+    if (tour === false || showDashboardTourThree === true) {
+      navigate('/dashboard');
+    }
+  }}
+>
+  Dashboard
+</button>
+  <button
+    className="patient-sidebar-btn kalender-btn"
+    onClick={() => {
+      if (tour === false) {
+        navigate('/calender');
+      }
+    }}
+  >
+    Kalender
+  </button>
+  <button
+    className="patient-sidebar-btn"
+    onClick={() => {
+      if (tour === false) {
+        navigate('/documents');
+      }
+    }}
+  >
+    Documenten
+  </button>
+  <button
+    className="patient-sidebar-btn"
+    onClick={() => {
+      if (tour === false) {
+        navigate('/patientoverview');
+      }
+    }}
+  >
+    Patiëntenoverzicht
+  </button>
+  <hr className="patient-sidebar-divider-1" />
+  <button
+    className="patient-sidebar-btn afspraak-toevoegen-btn"
+    onClick={() => {
+      if (tour === false) {
+        navigate('/appointment');
+      }
+    }}
+  >
+    Afspraak toevoegen
+  </button>
+  <button
+    className="patient-sidebar-btn"
+    onClick={() => {
+      if (tour === false) {
+        navigate('/addsessionarts');
+      }
+    }}
+  >
+    Sessie toevoegen arts
+  </button>
+  <button
+    className="addsessionarts-sidebar-btn"
+    onClick={() => {
+      if (tour === false) {
+        navigate('/addsessionfysio');
+      }
+    }}
+  >
+    Sessie toevoegen fysiotherapeut
+  </button>
+  <hr className="addsessionarts-sidebar-divider-2" />
+  <button className="addsessionarts-sidebar-btn">Instellingen</button>
+  <button
+    className="addsessionarts-sidebar-btn"
+    onClick={() => {
+      if (tour === false) {
+        onLogout();
+      }
+    }}
+  >
+    Uitloggen
+  </button>
+</div>
       <div className="patient-content">
             <div className="patient-header">
               <span>Patiëntenoverzicht</span>

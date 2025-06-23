@@ -7,6 +7,8 @@ import 'intro.js/introjs.css';
 
 interface CalenderPageProps {
   onLogout: () => void;
+  tour: boolean;
+  setTour: React.Dispatch<React.SetStateAction<boolean>>;
   showCalenderTour: boolean;
   setShowCalenderTour: React.Dispatch<React.SetStateAction<boolean>>;
   showDashboardTourThree: boolean;
@@ -15,8 +17,11 @@ interface CalenderPageProps {
 
 const CalenderPage: React.FC<CalenderPageProps> = ({
   onLogout,
+  tour,
+  setTour,
   showCalenderTour,
   setShowCalenderTour,
+  showDashboardTourThree,
   setShowDashboardTourThree
 }) => {
   const navigate = useNavigate();
@@ -66,32 +71,90 @@ const CalenderPage: React.FC<CalenderPageProps> = ({
     <div className="calender-sidebar-wrapper">
       <div className="calender-sidebar">
         <hr className="calender-sidebar-divider-2" />
-        <button className="calender-sidebar-btn" onClick={() => navigate('/dashboard')}>
-          Dashboard
-        </button>
-        <button className="calender-sidebar-btn">Kalender</button>
-        <button className="calender-sidebar-btn" onClick={() => navigate('/documents')}>
-          Documenten
-        </button>
-        <button className="calender-sidebar-btn" onClick={() => navigate('/patientoverview')}>
-          Patiëntenoverzicht
-        </button>
-        <hr className="calender-sidebar-divider-1" />
-        <button className="calender-sidebar-btn" onClick={() => navigate('/appointment')}>
-          Afspraak toevoegen
-        </button>
-        <button className="calender-sidebar-btn" onClick={() => navigate('/addsessionarts')}>
-          Sessie toevoegen arts
-        </button>
-        <button className="calender-sidebar-btn" onClick={() => navigate('/addsessionfysio')}>
-          Sessie toevoegen fysiotherapeut
-        </button>
-        <hr className="calender-sidebar-divider-2" />
-        <button className="calender-sidebar-btn">Instellingen</button>
-        <button className="calender-sidebar-btn" onClick={onLogout}>
-          Uitloggen
-        </button>
-      </div>
+        <button
+  className="calender-sidebar-btn dashboard-btn"
+  onClick={() => {
+    if (tour === false || showDashboardTourThree === true) {
+      navigate('/dashboard');
+    }
+  }}
+>
+  Dashboard
+</button>
+  <button
+    className="calender-sidebar-btn kalender-btn"
+    onClick={() => {
+      if (tour === false) {
+        navigate('/calender');
+      }
+    }}
+  >
+    Kalender
+  </button>
+  <button
+    className="calender-sidebar-btn"
+    onClick={() => {
+      if (tour === false) {
+        navigate('/documents');
+      }
+    }}
+  >
+    Documenten
+  </button>
+  <button
+    className="calender-sidebar-btn"
+    onClick={() => {
+      if (tour === false) {
+        navigate('/patientoverview');
+      }
+    }}
+  >
+    Patiëntenoverzicht
+  </button>
+  <hr className="calender-sidebar-divider-1" />
+  <button
+    className="calender-sidebar-btn afspraak-toevoegen-btn"
+    onClick={() => {
+      if (tour === false) {
+        navigate('/appointment');
+      }
+    }}
+  >
+    Afspraak toevoegen
+  </button>
+  <button
+    className="calender-sidebar-btn"
+    onClick={() => {
+      if (tour === false) {
+        navigate('/addsessionarts');
+      }
+    }}
+  >
+    Sessie toevoegen arts
+  </button>
+  <button
+    className="addsessionarts-sidebar-btn"
+    onClick={() => {
+      if (tour === false) {
+        navigate('/addsessionfysio');
+      }
+    }}
+  >
+    Sessie toevoegen fysiotherapeut
+  </button>
+  <hr className="addsessionarts-sidebar-divider-2" />
+  <button className="addsessionarts-sidebar-btn">Instellingen</button>
+  <button
+    className="addsessionarts-sidebar-btn"
+    onClick={() => {
+      if (tour === false) {
+        onLogout();
+      }
+    }}
+  >
+    Uitloggen
+  </button>
+</div>
       <div className="calender-content">
         <div className="calender-header">
           <span>Kalender</span>

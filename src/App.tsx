@@ -13,6 +13,7 @@ function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [showAfspraakRow, setShowAfspraakRow] = useState(false);
   const [showLoginTour, setShowLoginTour] = useState(true);
+  const [tour, setTour] = useState(true);
   const [showDashboardTourOne, setShowDashboardTourOne] = useState(true);
   const [showDashboardTourTwo, setShowDashboardTourTwo] = useState(false);
   const [showDashboardTourThree, setShowDashboardTourThree] = useState(false);
@@ -44,8 +45,11 @@ function App() {
                   onLogout={handleLogout}
                   showAfspraakRow={showAfspraakRow}
                   setShowAfspraakRow={setShowAfspraakRow}
+                  tour={tour}
+                  setTour={setTour}
                   showSessionaTour={showSessionaTour}
                   setShowSessionaTour={setShowSessionaTour}
+                  showDashboardTourThree={showDashboardTourThree}
                 />
               }
             />
@@ -56,8 +60,11 @@ function App() {
                   onLogout={handleLogout}
                   showAfspraakRow={showAfspraakRow}
                   setShowAfspraakRow={setShowAfspraakRow}
+                  tour={tour}
+                  setTour={setTour}
                   showSessionfTour={showSessionfTour}
                   setShowSessionfTour={setShowSessionfTour}
+                  showDashboardTourThree={showDashboardTourThree}
                 />
               }
             />
@@ -68,6 +75,8 @@ function App() {
                   onLogout={handleLogout}
                   showAfspraakRow={showAfspraakRow}
                   setShowAfspraakRow={setShowAfspraakRow}
+                  tour={tour}
+                  setTour={setTour}
                   showAppointmentTour={showAppointmentTour}
                   setShowAppointmentTour={setShowAppointmentTour}
                   showDashboardTourTwo={showDashboardTourTwo}
@@ -82,6 +91,8 @@ function App() {
               element={
                 <CalenderPage
                   onLogout={handleLogout}
+                  tour={tour}
+                  setTour={setTour}
                   showCalenderTour={showCalenderTour}
                   setShowCalenderTour={setShowCalenderTour}
                   setShowDashboardTourThree={setShowDashboardTourThree}
@@ -96,6 +107,8 @@ function App() {
                   onLogout={handleLogout}
                   showAfspraakRow={showAfspraakRow}
                   setShowAfspraakRow={setShowAfspraakRow}
+                  tour={tour}
+                  setTour={setTour}
                   showDashboardTourOne={showDashboardTourOne}
                   setshowDashboardTourOne={setShowDashboardTourOne}
                   showDashboardTourTwo={showDashboardTourTwo}
@@ -122,10 +135,13 @@ function App() {
               element={
                 <DocumentsPage
                   onLogout={handleLogout}
+                  tour={tour}
+                  setTour={setTour}
                   showAfspraakRow={showAfspraakRow}
                   setShowAfspraakRow={setShowAfspraakRow}
                   showDocumentsTour={showDocumentsTour}
                   setShowDocumentsTour={setShowDocumentsTour}
+                  showDashboardTourThree={showDashboardTourThree}
                 />
               }
             />
@@ -136,8 +152,11 @@ function App() {
                   onLogout={handleLogout}
                   showAfspraakRow={showAfspraakRow}
                   setShowAfspraakRow={setShowAfspraakRow}
+                  tour={tour}
+                  setTour={setTour}
                   showPatientsTour={showPatientsTour}
                   setShowPatientsTour={setShowPatientsTour}
+                  showDashboardTourThree={showDashboardTourThree}
                 />
               }
             />
@@ -145,7 +164,7 @@ function App() {
         </>
       ) : (
         <LoginPage 
-          onLogin={handleLogin} 
+          onLogin={handleLogin}
           showLoginTour={showLoginTour}
           setShowLoginTour={setShowLoginTour}
         />

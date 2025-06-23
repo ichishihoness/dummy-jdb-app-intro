@@ -9,53 +9,83 @@ interface AddsessionartsPageProps {
   onLogout: () => void;
   showAfspraakRow: boolean;
   setShowAfspraakRow: React.Dispatch<React.SetStateAction<boolean>>;
+  tour: boolean;
+  setTour: React.Dispatch<React.SetStateAction<boolean>>;
   showSessionaTour: boolean;
   setShowSessionaTour: React.Dispatch<React.SetStateAction<boolean>>;
+  showDashboardTourThree: boolean;
 }
 
 const AddsessionartsPage: React.FC<AddsessionartsPageProps> = ({
   onLogout,
+  tour,
+  setTour,
   showSessionaTour,
-  setShowSessionaTour
+  setShowSessionaTour,
+  showDashboardTourThree
 }) => {
   const navigate = useNavigate();
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [showResults, setShowResults] = useState(false);
 
-  // Start de eerste stap van de tour als showSessionaTour true is
-  useEffect(() => {
+   useEffect(() => {
     if (showSessionaTour) {
-      const intro = introJs();
-      intro.setOptions({
-        exitOnOverlayClick: false,
-        showBullets: false,
-        skipLabel: '',
-        steps: [
-          {
-            element: document.querySelector('.addsessionarts-dropdown-btn') as HTMLElement,
-            title: 'Sessie toevoegen arts',
-            intro: 'Klik hier om de lijst met patiënten te openen.',
-            position: 'right',
-          }
-        ],
-      })
-      .oncomplete(() => {
-        setDropdownOpen(true);
-      })
-      .onexit(() => {
-        setShowSessionaTour(false);
-      })
-      .start();
+      introJs()
+        .setOptions({
+          exitOnOverlayClick: false,
+          showBullets: false,
+          skipLabel: '',
+          steps: [
+            {
+              element: document.querySelector('.addsessionarts-dropdown-btn') as HTMLElement,
+              title: 'Sessie toevoegen arts',
+              intro: 'Klik hier om de lijst met patiënten te openen.',
+              position: 'right',
+            }
+          ],
+        })
+        .oncomplete(() => {
+          setDropdownOpen(true);
+          setTimeout(() => {
+            const dropdownMenu = document.querySelector('.addsessionarts-dropdown-menu') as HTMLElement | null;
+            if (dropdownMenu) {
+              introJs()
+                .setOptions({
+                  exitOnOverlayClick: false,
+                  showBullets: false,
+                  skipLabel: '',
+                  steps: [
+                    {
+                      element: dropdownMenu,
+                      title: 'Sessie toevoegen arts',
+                      intro: 'Selecteer eerst de patiënt waar je een sessie van toe wilt toevoegen.',
+                      position: 'right',
+                      disableInteraction: true
+                    },
+                  ],
+                })
+                .oncomplete(() => {
+                  setShowSessionaTour(false);
+                })
+                .onexit(() => {
+                  setShowSessionaTour(false);
+                })
+                .start();
+            }
+          }, 200); 
+        })
+        .onexit(() => {
+          setShowSessionaTour(false);
+        })
+        .start();
     }
   }, [showSessionaTour, setShowSessionaTour]);
 
-  // Start de tweede stap van de tour als showResults true wordt
   useEffect(() => {
-    if (showResults && showSessionaTour) {
-      // Wacht tot het resultatenblok in de DOM staat
-      const waitForResultsBlock = () => {
-        const resultsBlock = document.querySelector('.addsessionarts-results-block') as HTMLElement | null;
-        if (resultsBlock) {
+    if (showResults) {
+      const waitForHeader = () => {
+        const header = document.querySelector('.addsessionarts-results-block') as HTMLElement | null;
+        if (header) {
           introJs()
             .setOptions({
               exitOnOverlayClick: false,
@@ -63,60 +93,110 @@ const AddsessionartsPage: React.FC<AddsessionartsPageProps> = ({
               skipLabel: '',
               steps: [
                 {
-                  element: resultsBlock,
-                  title: 'Resultaten',
-                  intro: 'Hier zie je de resultaten van de geselecteerde patiënt.',
-                  position: 'right',
+                  element: header,
+                  title: 'Sessie toevoegen arts',
+                  intro: 'In de lijst die verschijnt vind je alle uitlsagen van de patiënt en kun je onderin een sessie toevoegen.',
+                  position: 'top',
                 },
               ],
             })
-            .oncomplete(() => {
-              setShowSessionaTour(false);
-            })
-            .onexit(() => {
-              setShowSessionaTour(false);
-            })
             .start();
         } else {
-          setTimeout(waitForResultsBlock, 100);
+          setTimeout(waitForHeader, 100);
         }
       };
-      waitForResultsBlock();
+      waitForHeader();
     }
-  }, [showResults, showSessionaTour, setShowSessionaTour]);
+  }, [showResults]);
 
   return (
     <div className="addsessionarts-sidebar-wrapper">
       <div className="addsessionarts-sidebar">
-        <hr className="addsessionarts-sidebar-divider-2" />
-        <button className="addsessionarts-sidebar-btn" onClick={() => navigate('/dashboard')}>
-          Dashboard
-        </button>
-        <button className="addsessionarts-sidebar-btn" onClick={() => navigate('/calender')}>
-          Kalender
-        </button>
-        <button className="addsessionarts-sidebar-btn" onClick={() => navigate('/documents')}>
-          Documenten
-        </button>
-        <button className="addsessionarts-sidebar-btn" onClick={() => navigate('/patientoverview')}>
-          Patiëntenoverzicht
-        </button>
-        <hr className="addsessionarts-sidebar-divider-1" />
-        <button className="addsessionarts-sidebar-btn" onClick={() => navigate('/appointment')}>
-          Afspraak toevoegen
-        </button>
-        <button className="addsessionarts-sidebar-btn" onClick={() => navigate('/addsessionarts')}>
-          Sessie toevoegen arts
-        </button>
-        <button className="addsessionarts-sidebar-btn" onClick={() => navigate('/addsessionfysio')}>
-          Sessie toevoegen fysiotherapeut
-        </button>
-        <hr className="addsessionarts-sidebar-divider-2" />
-        <button className="addsessionarts-sidebar-btn">Instellingen</button>
-        <button className="addsessionarts-sidebar-btn" onClick={onLogout}>
-          Uitloggen
-        </button>
-      </div>
+  <hr className="addsessionarts-sidebar-divider-2" />
+  <button
+  className="addsessionarts-sidebar-btn dashboard-btn"
+  onClick={() => {
+    if (tour === false || showDashboardTourThree === true) {
+      navigate('/dashboard');
+    }
+  }}
+>
+  Dashboard
+</button>
+  <button
+    className="addsessionarts-sidebar-btn kalender-btn"
+    onClick={() => {
+      if (tour === false) {
+        navigate('/calender');
+      }
+    }}
+  >
+    Kalender
+  </button>
+  <button
+    className="addsessionarts-sidebar-btn"
+    onClick={() => {
+      if (tour === false) {
+        navigate('/documents');
+      }
+    }}
+  >
+    Documenten
+  </button>
+  <button
+    className="addsessionarts-sidebar-btn"
+    onClick={() => {
+      if (tour === false) {
+        navigate('/patientoverview');
+      }
+    }}
+  >
+    Patiëntenoverzicht
+  </button>
+  <hr className="addsessionarts-sidebar-divider-1" />
+  <button
+    className="addsessionarts-sidebar-btn afspraak-toevoegen-btn"
+    onClick={() => {
+      if (tour === false) {
+        navigate('/appointment');
+      }
+    }}
+  >
+    Afspraak toevoegen
+  </button>
+  <button
+    className="addsessionarts-sidebar-btn"
+    onClick={() => {
+      if (tour === false) {
+        navigate('/addsessionarts');
+      }
+    }}
+  >
+    Sessie toevoegen arts
+  </button>
+  <button
+    className="addsessionarts-sidebar-btn"
+    onClick={() => {
+      if (tour === false) {
+        navigate('/addsessionfysio');
+      }
+    }}
+  >
+    Sessie toevoegen fysiotherapeut
+  </button>
+  <hr className="addsessionarts-sidebar-divider-2" />
+  <button className="addsessionarts-sidebar-btn">Instellingen</button>
+  <button
+    className="addsessionarts-sidebar-btn"
+    onClick={() => {
+      if (tour === false) {
+        onLogout();
+      }
+    }}
+  >
+    Uitloggen
+  </button>
+</div>
       <div className="addsessionarts-content">
         <div className="addsessionarts-header">
           <span>Sessie arts</span>
