@@ -2,3 +2,11 @@
   text-align: center !important;
   min-width: 300px !important;
 }
+
+.introjs-extra-btn {
+  margin-right: 110px; /* ruimte tussen extra knop en de andere knoppen */
+  margin-left: 0;
+  font-size: 0.95em;
+  padding: 7px 14px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.18);
+}

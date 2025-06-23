@@ -8,6 +8,8 @@ import 'intro.js/introjs.css';
 export interface DashboardPageProps {
   onLogout: () => void;
   showAfspraakRow: boolean;
+  tour: boolean;
+  setTour: React.Dispatch<React.SetStateAction<boolean>>;
   setShowAfspraakRow: React.Dispatch<React.SetStateAction<boolean>>;
   showDashboardTourOne: boolean;
   setshowDashboardTourOne: React.Dispatch<React.SetStateAction<boolean>>;
@@ -31,6 +33,8 @@ export interface DashboardPageProps {
 
 const DashboardPage: React.FC<DashboardPageProps> = ({
   onLogout,
+  tour,
+  setTour,
   showAfspraakRow,
   showDashboardTourOne,
   setshowDashboardTourOne,
@@ -38,12 +42,17 @@ const DashboardPage: React.FC<DashboardPageProps> = ({
   setshowDashboardTourTwo,
   showDashboardTourThree,
   setShowDashboardTourThree,
+  showAppointmentTour,
   setShowAppointmentTour,
+  showSessionaTour,
   setShowCalenderTour,
   showCalenderTour,
   setShowSessionaTour,
+  showSessionfTour,
   setShowSessionfTour,
+  showDocumentsTour,
   setShowDocumentsTour,
+  showPatientsTour,
   setShowPatientsTour
 }) => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -84,7 +93,7 @@ const DashboardPage: React.FC<DashboardPageProps> = ({
                     element: document.querySelector('.dashboard-sidebar') as HTMLElement,
                     title: 'Homepagina',
                     intro: 'Door middel van de knoppen links in het scherm kun je snel naar pagina’s navigeren.',
-                    position: 'right',
+                    position: 'bottom',
                     disableInteraction: true
                   },
                   {
@@ -177,10 +186,33 @@ useEffect(() => {
               Selecteer een andere knop naar een pagina waar je meer informatie over zou willen hebben<br /><br />
               Je zou ook later d.m.v. de ‘Help’ knop de tour voor de pagina laten verschijnen van de pagina waar je op de help knop geklikt hebt.<br /><br />
               Mocht u meer informatie willen over waarom besloten is dit systeem te ontwikkelen en in te zetten, of over privacy van uwzelf of patiënten kunt u vinden via de onderstaande knoppen.<br />
-            `
+              `
           }
         ],
       })
+      .onafterchange(() => {
+  const buttonContainer = document.querySelector('.introjs-tooltipbuttons');
+  const oldBtn = document.getElementById('mijn-extra-knop');
+  if (oldBtn) oldBtn.remove();
+
+  const extraBtn = document.createElement('button');
+  extraBtn.id = 'mijn-extra-knop';
+  extraBtn.className = 'introjs-button introjs-extra-btn';
+  extraBtn.innerText = 'Extra actie';
+  extraBtn.onclick = () => {
+    introJs().exit(true);
+    setShowDashboardTourThree(false);
+    setTour(false);
+    setShowSessionaTour(false);
+    setShowSessionfTour(false);
+    setShowDocumentsTour(false);
+    setShowPatientsTour(false);
+  };
+
+  if (buttonContainer) {
+    buttonContainer.insertBefore(extraBtn, buttonContainer.firstChild);
+  }
+})
       .oncomplete(() => {
         setShowSessionaTour(true);
         setShowSessionfTour(true);
@@ -201,43 +233,82 @@ useEffect(() => {
   return (
     <div className="dashboard-wrapper">
       <div className="dashboard-sidebar">
-        <hr className="dashboard-sidebar-divider-2" />
-        <button className="calender-sidebar-btn">Dashboard</button>
-        <button
-          className="dashboard-sidebar-btn kalender-btn"
-          onClick={() => {
-            if (showCalenderTour) {
-              navigate('/calender');
-            }
-          }}
-        >
-          Kalender
-        </button>
-        <button className="dashboard-sidebar-btn" onClick={() => navigate('/documents')}>
-          Documenten
-        </button>
-        <button className="dashboard-sidebar-btn" onClick={() => navigate('/patientoverview')}>
-          Patiëntenoverzicht
-        </button>
-        <hr className="dashboard-sidebar-divider-1" />
-        <button
-          className="dashboard-sidebar-btn afspraak-toevoegen-btn"
-          onClick={() => navigate('/appointment')}
-        >
-          Afspraak toevoegen
-        </button>
-        <button className="dashboard-sidebar-btn" onClick={() => navigate('/addsessionarts')}>
-          Sessie toevoegen arts
-        </button>
-        <button className="dashboard-sidebar-btn" onClick={() => navigate('/addsessionfysio')}>
-          Sessie toevoegen fysiotherapeut
-        </button>
-        <hr className="dashboard-sidebar-divider-2" />
-        <button className="dashboard-sidebar-btn">Instellingen</button>
-        <button className="dashboard-sidebar-btn" onClick={onLogout}>
-          Uitloggen
-        </button>
-      </div>
+  <hr className="dashboard-sidebar-divider-2" />
+  <button className="dashboard-sidebar-btn">Dashboard</button>
+  <button
+  className="dashboard-sidebar-btn kalender-btn"
+  onClick={() => {
+    if (tour === false || showCalenderTour === true) {
+      navigate('/calender');
+    }
+  }}
+>
+  Kalender
+</button>
+<button
+  className="dashboard-sidebar-btn"
+  onClick={() => {
+    if (tour === false || showDocumentsTour === true) {
+      navigate('/documents');
+    }
+  }}
+>
+  Documenten
+</button>
+<button
+  className="dashboard-sidebar-btn"
+  onClick={() => {
+    if (tour === false || showPatientsTour === true) {
+      navigate('/patientoverview');
+    }
+  }}
+>
+  Patiëntenoverzicht
+</button>
+<hr className="dashboard-sidebar-divider-1" />
+<button
+  className="dashboard-sidebar-btn afspraak-toevoegen-btn"
+  onClick={() => {
+    if (tour === false || showAppointmentTour === true) {
+      navigate('/appointment');
+    }
+  }}
+>
+  Afspraak toevoegen
+</button>
+<button
+  className="dashboard-sidebar-btn"
+  onClick={() => {
+    if (tour === false || showSessionaTour === true) {
+      navigate('/addsessionarts');
+    }
+  }}
+>
+  Sessie toevoegen arts
+</button>
+<button
+  className="dashboard-sidebar-btn"
+  onClick={() => {
+    if (tour === false || showSessionfTour === true) {
+      navigate('/addsessionfysio');
+    }
+  }}
+>
+  Sessie toevoegen fysiotherapeut
+</button>
+  <hr className="dashboard-sidebar-divider-2" />
+  <button className="dashboard-sidebar-btn">Instellingen</button>
+  <button
+    className="dashboard-sidebar-btn"
+    onClick={() => {
+      if (tour === false) {
+        onLogout();
+      }
+    }}
+  >
+    Uitloggen
+  </button>
+</div>
       <div className="dashboard-content">
         <div className="dashboard-header">
           <span>Hallo, Dr. Johannes Doe</span>

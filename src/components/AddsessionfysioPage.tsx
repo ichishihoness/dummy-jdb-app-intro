@@ -9,49 +9,195 @@ interface AddsessionfysioPageProps {
   onLogout: () => void;
   showAfspraakRow: boolean;
   setShowAfspraakRow: React.Dispatch<React.SetStateAction<boolean>>;
+  tour: boolean;
+  setTour: React.Dispatch<React.SetStateAction<boolean>>;
   showSessionfTour: boolean;
   setShowSessionfTour: React.Dispatch<React.SetStateAction<boolean>>;
+  showDashboardTourThree: boolean;
 }
 
 const AddsessionfysioPage: React.FC<AddsessionfysioPageProps> = ({
   onLogout,
+  tour,
+  setTour,
+  showSessionfTour,
+  setShowSessionfTour,
+  showDashboardTourThree
 }) => {
   const navigate = useNavigate();
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [showResults, setShowResults] = useState(false);
 
+     useEffect(() => {
+    if (showSessionfTour) {
+      introJs()
+        .setOptions({
+          exitOnOverlayClick: false,
+          showBullets: false,
+          skipLabel: '',
+          steps: [
+            {
+              element: document.querySelector('.addsessionfysio-dropdown-btn') as HTMLElement,
+              title: 'Sessie toevoegen fysio',
+              intro: 'Klik hier om de lijst met patiënten te openen.',
+              position: 'right',
+            }
+          ],
+        })
+        .oncomplete(() => {
+          setDropdownOpen(true);
+          setTimeout(() => {
+            const dropdownMenu = document.querySelector('.addsessionfysio-dropdown-menu') as HTMLElement | null;
+            if (dropdownMenu) {
+              introJs()
+                .setOptions({
+                  exitOnOverlayClick: false,
+                  showBullets: false,
+                  skipLabel: '',
+                  steps: [
+                    {
+                      element: dropdownMenu,
+                      title: 'Sessie toevoegen fysio',
+                      intro: 'Selecteer eerst de patiënt waar je een sessie van toe wilt toevoegen.',
+                      position: 'right',
+                      disableInteraction: true
+                    },
+                  ],
+                })
+                .oncomplete(() => {
+                  setShowSessionfTour(false);
+                })
+                .onexit(() => {
+                  setShowSessionfTour(false);
+                })
+                .start();
+            }
+          }, 200); 
+        })
+        .onexit(() => {
+          setShowSessionfTour(false);
+        })
+        .start();
+    }
+  }, [showSessionfTour, setShowSessionfTour]);
+
+  useEffect(() => {
+    if (showResults) {
+      const waitForHeader = () => {
+        const header = document.querySelector('.fysio-results-block') as HTMLElement | null;
+        if (header) {
+          introJs()
+            .setOptions({
+              exitOnOverlayClick: false,
+              showBullets: false,
+              skipLabel: '',
+              steps: [
+                {
+                  element: header,
+                  title: 'Sessie toevoegen fysio',
+                  intro: 'In de lijst die verschijnt vind je alle uitlsagen van de patiënt en kun je onderin een sessie toevoegen.',
+                  position: 'top',
+                },
+              ],
+            })
+            .start();
+        } else {
+          setTimeout(waitForHeader, 100);
+        }
+      };
+      waitForHeader();
+    }
+  }, [showResults]);
+
+
   return (
     <div className="addsessionfysio-sidebar-wrapper">
       <div className="addsessionfysio-sidebar">
         <hr className="addsessionfysio-sidebar-divider-2" />
-        <button className="addsessionfysio-sidebar-btn" onClick={() => navigate('/dashboard')}>
-          Dashboard
-        </button>
-        <button className="addsessionfysio-sidebar-btn" onClick={() => navigate('/calender')}>
-          Kalender
-        </button>
-        <button className="addsessionfysio-sidebar-btn" onClick={() => navigate('/documents')}>
-          Documenten
-        </button>
-        <button className="addsessionfysio-sidebar-btn" onClick={() => navigate('/patientoverview')}>
-          Patiëntenoverzicht
-        </button>
-        <hr className="addsessionfysio-sidebar-divider-1" />
-        <button className="addsessionfysio-sidebar-btn" onClick={() => navigate('/appointment')}>
-          Afspraak toevoegen
-        </button>
-        <button className="addsessionfysio-sidebar-btn" onClick={() => navigate('/addsessionarts')}>
-          Sessie toevoegen arts
-        </button>
-        <button className="addsessionfysio-sidebar-btn" onClick={() => navigate('/addsessionfysio')}>
-          Sessie toevoegen fysiotherapeut
-        </button>
-        <hr className="addsessionfysio-sidebar-divider-2" />
-        <button className="addsessionfysio-sidebar-btn">Instellingen</button>
-        <button className="addsessionfysio-sidebar-btn" onClick={onLogout}>
-          Uitloggen
-        </button>
-      </div>
+        <button
+  className="addsessionfysio-sidebar-btn dashboard-btn"
+  onClick={() => {
+    if (tour === false || showDashboardTourThree === true) {
+      navigate('/dashboard');
+    }
+  }}
+>
+  Dashboard
+</button>
+  <button
+    className="addsessionfysio-sidebar-btn kalender-btn"
+    onClick={() => {
+      if (tour === false) {
+        navigate('/calender');
+      }
+    }}
+  >
+    Kalender
+  </button>
+  <button
+    className="addsessionfysio-sidebar-btn"
+    onClick={() => {
+      if (tour === false) {
+        navigate('/documents');
+      }
+    }}
+  >
+    Documenten
+  </button>
+  <button
+    className="addsessionfysio-sidebar-btn"
+    onClick={() => {
+      if (tour === false) {
+        navigate('/patientoverview');
+      }
+    }}
+  >
+    Patiëntenoverzicht
+  </button>
+  <hr className="addsessionfysio-sidebar-divider-1" />
+  <button
+    className="addsessionfysio-sidebar-btn afspraak-toevoegen-btn"
+    onClick={() => {
+      if (tour === false) {
+        navigate('/appointment');
+      }
+    }}
+  >
+    Afspraak toevoegen
+  </button>
+  <button
+    className="addsessionfysio-sidebar-btn"
+    onClick={() => {
+      if (tour === false) {
+        navigate('/addsessionarts');
+      }
+    }}
+  >
+    Sessie toevoegen arts
+  </button>
+  <button
+    className="addsessionarts-sidebar-btn"
+    onClick={() => {
+      if (tour === false) {
+        navigate('/addsessionfysio');
+      }
+    }}
+  >
+    Sessie toevoegen fysiotherapeut
+  </button>
+  <hr className="addsessionarts-sidebar-divider-2" />
+  <button className="addsessionarts-sidebar-btn">Instellingen</button>
+  <button
+    className="addsessionarts-sidebar-btn"
+    onClick={() => {
+      if (tour === false) {
+        onLogout();
+      }
+    }}
+  >
+    Uitloggen
+  </button>
+</div>
       <div className="addsessionfysio-content">
         <div className="addsessionfysio-header">
           <span>Sessie fysiotherapeut</span>

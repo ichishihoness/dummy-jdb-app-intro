@@ -9,11 +9,14 @@ interface DocumentsPageProps {
   onLogout: () => void;
   showAfspraakRow: boolean;
   setShowAfspraakRow: React.Dispatch<React.SetStateAction<boolean>>;
+  tour: boolean;
+  setTour: React.Dispatch<React.SetStateAction<boolean>>;
   showDocumentsTour: boolean;
   setShowDocumentsTour: React.Dispatch<React.SetStateAction<boolean>>;
+  showDashboardTourThree: boolean;
 }
 
-const DocumentsPage: React.FC<DocumentsPageProps> = ({ onLogout, showAfspraakRow, setShowAfspraakRow, }) => {
+const DocumentsPage: React.FC<DocumentsPageProps> = ({onLogout, tour, setTour, showDocumentsTour, setShowDocumentsTour, showDashboardTourThree}) => {
     const [dropdownOpen, setDropdownOpen] = useState(false);
     const [sortOrder, setSortOrder] = useState<'Naam' | 'Type' | 'Datum'>('Naam');
   const navigate = useNavigate();
@@ -23,36 +26,138 @@ const DocumentsPage: React.FC<DocumentsPageProps> = ({ onLogout, showAfspraakRow
     setDropdownOpen(false);
   };
 
+   useEffect(() => {
+    if (showDocumentsTour) {
+      const tour = introJs()
+        .setOptions({
+          exitOnOverlayClick: false,
+          showBullets: false,
+          skipLabel: '',
+          steps: [
+            {
+                    element: document.querySelector('.documents-main-block') as HTMLElement,
+                    title: 'Documenten',
+                    intro: 'Hier is de lijst met alle opgeslagen documten te zien',
+                    position: 'top'
+                  },
+                  {
+                    element: document.querySelector('.dropdown-btn') as HTMLElement,
+                    title: 'Documenten',
+                    intro: 'Met deze knop kun de volgorde waarin document zijn opgesteld aanpassen',
+                    position: 'left'
+                  },
+                  {
+                    element: document.querySelector('.documents-row') as HTMLElement,
+                    title: 'Documenten',
+                    intro: 'Links is in het kort informatie over ieder document te zien, zoals naam, type document en de datum dat het was aangemaakt.',
+                    position: 'bottom'
+                  },
+                  {
+                    element: document.querySelector('.documents-data-actions') as HTMLElement,
+                    title: 'Documenten',
+                    intro: 'Met deze knoppen kun je een respectievelijk een document openen, verwijderen en downloaden.',
+                    position: 'left'
+                  }
+          ]
+        })
+        .oncomplete(() => {
+                setShowDocumentsTour(false);
+              })
+              .onexit(() => {
+                setShowDocumentsTour(false);
+              })
+                  tour.start();
+        }
+      }, [showDocumentsTour, setShowDocumentsTour]);
+
   return (
     <div className="documents-sidebar-wrapper">
           <div className="documents-sidebar">
             <hr className="documents-sidebar-divider-2" />
-            <button className="documents-sidebar-btn" onClick={() => navigate('/dashboard')}>
-              Dashboard
-            </button>
-            <button className="documents-sidebar-btn" onClick={() => navigate('/calender')}>
-              Kalender
-            </button>
-            <button className="documents-sidebar-btn" >Documenten</button>
-            <button className="documents-sidebar-btn" onClick={() => navigate('/patientoverview')}>
-              Patiëntenoverzicht
-            </button>
-            <hr className="documents-sidebar-divider-1" />
-            <button className="documents-sidebar-btn" onClick={() => navigate('/appointment')}>
-              Afspraak toevoegen
-            </button>
-            <button className="documents-sidebar-btn" onClick={() => navigate('/addsessionarts')}>
-              Sessie toevoegen arts
-            </button>
-            <button className="documents-sidebar-btn" onClick={() => navigate('/addsessionfysio')}>
-              Sessie toevoegen fysiotherapeut
-            </button>
-            <hr className="documents-sidebar-divider-2" />
-            <button className="documents-sidebar-btn">Instellingen</button>
-            <button className="documents-sidebar-btn" onClick={onLogout}>
-              Uitloggen
-            </button>
-          </div>
+            <button
+  className="documents-sidebar-btn dashboard-btn"
+  onClick={() => {
+    if (tour === false || showDashboardTourThree === true) {
+      navigate('/dashboard');
+    }
+  }}
+>
+  Dashboard
+</button>
+  <button
+    className="documents-sidebar-btn kalender-btn"
+    onClick={() => {
+      if (tour === false) {
+        navigate('/calender');
+      }
+    }}
+  >
+    Kalender
+  </button>
+  <button
+    className="documents-sidebar-btn"
+    onClick={() => {
+      if (tour === false) {
+        navigate('/documents');
+      }
+    }}
+  >
+    Documenten
+  </button>
+  <button
+    className="documents-sidebar-btn"
+    onClick={() => {
+      if (tour === false) {
+        navigate('/patientoverview');
+      }
+    }}
+  >
+    Patiëntenoverzicht
+  </button>
+  <hr className="documents-sidebar-divider-1" />
+  <button
+    className="documents-sidebar-btn afspraak-toevoegen-btn"
+    onClick={() => {
+      if (tour === false) {
+        navigate('/appointment');
+      }
+    }}
+  >
+    Afspraak toevoegen
+  </button>
+  <button
+    className="documents-sidebar-btn"
+    onClick={() => {
+      if (tour === false) {
+        navigate('/addsessionarts');
+      }
+    }}
+  >
+    Sessie toevoegen arts
+  </button>
+  <button
+    className="addsessionarts-sidebar-btn"
+    onClick={() => {
+      if (tour === false) {
+        navigate('/addsessionfysio');
+      }
+    }}
+  >
+    Sessie toevoegen fysiotherapeut
+  </button>
+  <hr className="addsessionarts-sidebar-divider-2" />
+  <button className="addsessionarts-sidebar-btn">Instellingen</button>
+  <button
+    className="addsessionarts-sidebar-btn"
+    onClick={() => {
+      if (tour === false) {
+        onLogout();
+      }
+    }}
+  >
+    Uitloggen
+  </button>
+</div>
           <div className="documents-content">
             <div className="documents-header">
               <span>Documenten</span>
