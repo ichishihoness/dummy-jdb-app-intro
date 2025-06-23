@@ -1,12 +1,84 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat:400,700&display=swap');
+
 .introjs-tooltip {
+  background-color: #A6CDFA !important;
+  border: 2px solid #000 !important;
   text-align: center !important;
-  min-width: 300px !important;
+  min-width: 500px !important;
 }
 
-.introjs-extra-btn {
-  margin-right: 110px; /* ruimte tussen extra knop en de andere knoppen */
+.introjs-tooltip,
+.introjs-tooltip * {
+  color: #000369 !important;
+  font-family: 'Montserrat', Arial, sans-serif !important;
+}
+
+.introjs-tooltip-title {
+  font-weight: bold !important;
+}
+
+.introjs-tooltipbuttons {
+  border-top: 1px solid #000 !important;
+}
+
+.introjs-prevbutton {
+  background-color: #A6CDFA !important;
+  color: #000369 !important; 
+  border-color: #000 !important; 
+  box-shadow: none !important;
+}
+
+.introjs-nextbutton {
+  background-color: #8A9EFF !important;
+  color: #000369 !important;
+  border: 2px solid #000 !important;
+  box-shadow: none !important;
+}
+
+.introjs-arrow.top {
+  border-bottom-color: #000 !important;
+}
+.introjs-arrow.left {
+  border-right-color: #000 !important;
+}
+.introjs-arrow.right {
+  border-left-color: #000 !important;
+}
+.introjs-arrow.bottom {
+  border-top-color: #000 !important;
+}
+
+.introjs-bullets li a {
+  background: #040A7D !important;
+  border-color: #040A7D !important;
+}
+
+.introjs-close-btn {
+  background-color: #A6CDFA !important;
+  border: 2px solid #000 !important;
+  margin-right: 20px;
   margin-left: 0;
   font-size: 0.95em;
   padding: 7px 14px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.18);
+  box-shadow: none !important;
+}
+
+.introjs-skip-btn {
+  background-color: #A6CDFA !important;
+  border: 2px solid #000 !important;
+  margin-right: 20px;
+  margin-left: 0;
+  font-size: 0.95em;
+  padding: 7px 14px;
+  box-shadow: none !important;
+}
+
+.introjs-more-btn {
+  background-color: #8A9EFF !important;
+  border: 2px solid #000 !important;
+  margin-right: 20px;
+  margin-left: 0;
+  font-size: 0.95em;
+  padding: 7px 14px;
+  box-shadow: none !important;
 }

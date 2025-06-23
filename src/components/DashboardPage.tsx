@@ -64,71 +64,113 @@ const DashboardPage: React.FC<DashboardPageProps> = ({
     setDropdownOpen(false);
   };
 
-  useEffect(() => {
-    if (showDashboardTourOne) {
-      const tour = introJs()
-        .setOptions({
-          exitOnOverlayClick: false,
-          showBullets: false,
-          skipLabel: '',
-          steps: [
-            {
-              intro: `
-                Dit is de homepagina van het JDB systeem. Vanuit hier kun je naar verschillende onderdelen van het systeem navigeren. <br /><br />
-                Daarnaast zie je hier ook snel wat algemene informatie. <br /><br />
-                Na te hebben ingelogd zal u altijd op dit scherm terecht komen.<br />
-              `,
-            },
-          ],
-        })
-        .oncomplete(() => {
-          setTimeout(() => {
-            introJs()
-              .setOptions({
-                exitOnOverlayClick: false,
-                scrollToElement: false,
-                skipLabel: '',
-                steps: [
-                  {
-                    element: document.querySelector('.dashboard-sidebar') as HTMLElement,
-                    title: 'Homepagina',
-                    intro: 'Door middel van de knoppen links in het scherm kun je snel naar pagina’s navigeren.',
-                    position: 'bottom',
-                    disableInteraction: true
-                  },
-                  {
-                    element: document.querySelector('.steptwoblock') as HTMLElement,
-                    title: 'Homepagina',
-                    intro: 'Links zijn in een oogopslag afspraken van deze maand te zien in de kalender, en er kan snel een notitie worden gemaakt',
-                    position: 'left'
-                  },
-                  {
-                    element: document.querySelector('.dashboard-afsprakenlijst') as HTMLElement,
-                    title: 'Homepagina',
-                    intro: 'In het midden is de lijst met patiënten met een aankomende afspraak te zien!',
-                    position: 'right',
-                  },
-                  {
-                    element: document.querySelector('.afspraak-toevoegen-btn') as HTMLElement,
-                    title: 'Homepagina',
-                    intro: 'Met deze knop kunnen afspraken worden aangepaakt. Klik erop om het eens te proberen!',
-                    position: 'right',
-                    disableInteraction: true,
-                  },
-                ],
-              })
-              .start();
-          }, 300);
-          setshowDashboardTourOne(false);
-        })
-        .onexit(() => {
-          setshowDashboardTourOne(false);
-          setShowAppointmentTour(true)
-        });
+useEffect(() => {
+  if (showDashboardTourOne) {
+    const tour = introJs()
+      .setOptions({
+        exitOnOverlayClick: false,
+        showBullets: false,
+        nextLabel: 'Vertel me meer',
+        prevLabel: 'Terug',
+        doneLabel: 'Vertel me meer',
+        skipLabel: '',
+        steps: [
+          {
+            intro: `
+              Dit is de homepagina van het JDB systeem. Vanuit hier kun je naar verschillende onderdelen van het systeem navigeren. <br /><br />
+              Daarnaast zie je hier ook snel wat algemene informatie. <br /><br />
+              Na te hebben ingelogd zal u altijd op dit scherm terecht komen.<br />
+            `,
+          },
+        ],
+      })
+      .onafterchange(() => {
+        setTimeout(() => {
+          const buttonContainer = document.querySelector('.introjs-tooltipbuttons');
+          if (buttonContainer) {
+            // Verwijder oude knoppen als ze bestaan
+            const oldCloseBtn = document.getElementById('close-tour-btn');
+            if (oldCloseBtn) oldCloseBtn.remove();
+            const oldSkipBtn = document.getElementById('skip-tour-btn');
+            if (oldSkipBtn) oldSkipBtn.remove();
 
-      tour.start();
-    }
-  }, [showDashboardTourOne, setshowDashboardTourOne]);
+            // Close button (helemaal links)
+            const closeBtn = document.createElement('button');
+            closeBtn.id = 'close-tour-btn';
+            closeBtn.className = 'introjs-button introjs-close-btn';
+            closeBtn.innerHTML = 'Rondleiding<br>volledig overslaan';
+            closeBtn.onclick = () => {
+              tour.exit(true);
+              setshowDashboardTourOne(false);
+            };
+
+            // Skip button (tussen close en next)
+            const skipBtn = document.createElement('button');
+            skipBtn.id = 'skip-tour-btn';
+            skipBtn.className = 'introjs-button introjs-skip-btn';
+            skipBtn.innerHTML = 'Ik begrijp<br>hoe dit werkt';
+            skipBtn.onclick = () => {
+              tour.exit(true);
+              setshowDashboardTourOne(false);
+            };
+
+            // Voeg de knoppen toe op de juiste plek
+            buttonContainer.insertBefore(closeBtn, buttonContainer.firstChild);
+            buttonContainer.insertBefore(skipBtn, buttonContainer.children[1]);
+          }
+        }, 0);
+      })
+      .oncomplete(() => {
+        setTimeout(() => {
+          introJs()
+            .setOptions({
+              exitOnOverlayClick: false,
+              scrollToElement: false,
+              nextLabel: 'Volgende',
+              prevLabel: 'Terug',
+              doneLabel: 'Ik begrijp het',
+              skipLabel: '',
+              steps: [
+                {
+                  element: document.querySelector('.dashboard-sidebar') as HTMLElement,
+                  title: 'Homepagina',
+                  intro: 'Door middel van de knoppen links in het scherm kun je snel naar pagina’s navigeren.',
+                  position: 'bottom',
+                  disableInteraction: true
+                },
+                {
+                  element: document.querySelector('.steptwoblock') as HTMLElement,
+                  title: 'Homepagina',
+                  intro: 'Links zijn in een oogopslag afspraken van deze maand te zien in de kalender, en er kan snel een notitie worden gemaakt',
+                  position: 'left'
+                },
+                {
+                  element: document.querySelector('.dashboard-afsprakenlijst') as HTMLElement,
+                  title: 'Homepagina',
+                  intro: 'In het midden is de lijst met patiënten met een aankomende afspraak te zien!',
+                  position: 'right',
+                },
+                {
+                  element: document.querySelector('.afspraak-toevoegen-btn') as HTMLElement,
+                  title: 'Homepagina',
+                  intro: 'Met deze knop kunnen afspraken worden aangepaakt. Klik erop om het eens te proberen!',
+                  position: 'right',
+                  disableInteraction: true,
+                },
+              ],
+            })
+            .start();
+        }, 300);
+        setshowDashboardTourOne(false);
+      })
+      .onexit(() => {
+        setshowDashboardTourOne(false);
+        setShowAppointmentTour(true)
+      });
+
+    tour.start();
+  }
+}, [showDashboardTourOne, setshowDashboardTourOne, setShowAppointmentTour]);
 
   useEffect(() => {
   if (showDashboardTourTwo) {
@@ -136,6 +178,9 @@ const DashboardPage: React.FC<DashboardPageProps> = ({
       .setOptions({
         exitOnOverlayClick: false,
         showBullets: false,
+        nextLabel: 'Volgende',
+        prevLabel: 'Terug',
+        doneLabel: 'Ik begrijp het',
         skipLabel: '',
         steps: [
           {
@@ -179,6 +224,9 @@ useEffect(() => {
       .setOptions({
         exitOnOverlayClick: false,
         showBullets: false,
+        nextLabel: 'Volgende',
+        prevLabel: 'Terug',
+        doneLabel: 'Tour kiezen',
         skipLabel: '',
         steps: [
           {
@@ -186,33 +234,54 @@ useEffect(() => {
               Selecteer een andere knop naar een pagina waar je meer informatie over zou willen hebben<br /><br />
               Je zou ook later d.m.v. de ‘Help’ knop de tour voor de pagina laten verschijnen van de pagina waar je op de help knop geklikt hebt.<br /><br />
               Mocht u meer informatie willen over waarom besloten is dit systeem te ontwikkelen en in te zetten, of over privacy van uwzelf of patiënten kunt u vinden via de onderstaande knoppen.<br />
-              `
+            `
           }
         ],
       })
       .onafterchange(() => {
-  const buttonContainer = document.querySelector('.introjs-tooltipbuttons');
-  const oldBtn = document.getElementById('mijn-extra-knop');
-  if (oldBtn) oldBtn.remove();
+        setTimeout(() => {
+          const buttonContainer = document.querySelector('.introjs-tooltipbuttons');
+          // Verwijder oude knoppen als ze bestaan
+          const oldCloseBtn = document.getElementById('close-tour-btn');
+          if (oldCloseBtn) oldCloseBtn.remove();
+          const oldMoreBtn = document.getElementById('more-tour-btn');
+          if (oldMoreBtn) oldMoreBtn.remove();
 
-  const extraBtn = document.createElement('button');
-  extraBtn.id = 'mijn-extra-knop';
-  extraBtn.className = 'introjs-button introjs-extra-btn';
-  extraBtn.innerText = 'Extra actie';
-  extraBtn.onclick = () => {
-    introJs().exit(true);
-    setShowDashboardTourThree(false);
-    setTour(false);
-    setShowSessionaTour(false);
-    setShowSessionfTour(false);
-    setShowDocumentsTour(false);
-    setShowPatientsTour(false);
-  };
+          // Close button (helemaal links)
+          const closeBtn = document.createElement('button');
+          closeBtn.id = 'close-tour-btn';
+          closeBtn.className = 'introjs-button introjs-close-btn';
+          closeBtn.innerHTML = 'Rondleiding<br>beïndigen';
+          closeBtn.onclick = () => {
+            introJs().exit(true);
+            setShowDashboardTourThree(false);
+            setTour(false);
+            setShowSessionaTour(false);
+            setShowSessionfTour(false);
+            setShowDocumentsTour(false);
+            setShowPatientsTour(false);
+          };
 
-  if (buttonContainer) {
-    buttonContainer.insertBefore(extraBtn, buttonContainer.firstChild);
-  }
-})
+          const moreBtn = document.createElement('button');
+          moreBtn.id = 'more-tour-btn';
+          moreBtn.className = 'introjs-button introjs-more-btn';
+          moreBtn.innerHTML = 'Meer weten over<br>het JDB systeem';
+          moreBtn.onclick = () => {
+            introJs().exit(true);
+            setShowDashboardTourThree(false);
+            setTour(false);
+            setShowSessionaTour(false);
+            setShowSessionfTour(false);
+            setShowDocumentsTour(false);
+            setShowPatientsTour(false);
+          };
+
+          if (buttonContainer) {
+            buttonContainer.insertBefore(closeBtn, buttonContainer.firstChild);
+            buttonContainer.insertBefore(moreBtn, buttonContainer.children[1]);
+          }
+        }, 0);
+      })
       .oncomplete(() => {
         setShowSessionaTour(true);
         setShowSessionfTour(true);
@@ -228,7 +297,7 @@ useEffect(() => {
 
     tour.start();
   }
-}, [showDashboardTourThree, setShowDashboardTourThree]);
+}, [showDashboardTourThree, setShowDashboardTourThree, setTour, setShowSessionaTour, setShowSessionfTour, setShowDocumentsTour, setShowPatientsTour]);
 
   return (
     <div className="dashboard-wrapper">

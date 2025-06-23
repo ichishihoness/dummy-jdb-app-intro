@@ -32,6 +32,9 @@ const DocumentsPage: React.FC<DocumentsPageProps> = ({onLogout, tour, setTour, s
         .setOptions({
           exitOnOverlayClick: false,
           showBullets: false,
+          nextLabel: 'Volgende',
+                  prevLabel: 'Terug',
+                  doneLabel: 'Volgende',
           skipLabel: '',
           steps: [
             {

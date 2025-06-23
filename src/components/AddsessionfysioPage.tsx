@@ -34,6 +34,9 @@ const AddsessionfysioPage: React.FC<AddsessionfysioPageProps> = ({
         .setOptions({
           exitOnOverlayClick: false,
           showBullets: false,
+          nextLabel: 'Volgende',
+          prevLabel: 'Terug',
+          doneLabel: 'Volgende',
           skipLabel: '',
           steps: [
             {
@@ -53,6 +56,9 @@ const AddsessionfysioPage: React.FC<AddsessionfysioPageProps> = ({
                 .setOptions({
                   exitOnOverlayClick: false,
                   showBullets: false,
+                  nextLabel: 'Volgende',
+                  prevLabel: 'Terug',
+                  doneLabel: 'Volgende',
                   skipLabel: '',
                   steps: [
                     {
@@ -90,6 +96,9 @@ const AddsessionfysioPage: React.FC<AddsessionfysioPageProps> = ({
             .setOptions({
               exitOnOverlayClick: false,
               showBullets: false,
+              nextLabel: 'Volgende',
+              prevLabel: 'Terug',
+              doneLabel: 'Ik begrijp het',
               skipLabel: '',
               steps: [
                 {

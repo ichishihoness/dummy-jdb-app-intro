@@ -17,6 +17,7 @@ interface AppointmentPageProps {
   setShowDashboardTourTwo: React.Dispatch<React.SetStateAction<boolean>>;
   shownDashboardTourTwo: boolean;
   setShownDashboardTourTwo: React.Dispatch<React.SetStateAction<boolean>>;
+  setShowDashboardTourThree: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const AppointmentPage: React.FC<AppointmentPageProps> = ({
@@ -30,7 +31,8 @@ const AppointmentPage: React.FC<AppointmentPageProps> = ({
   showDashboardTourTwo,
   setShowDashboardTourTwo,
   shownDashboardTourTwo,
-  setShownDashboardTourTwo
+  setShownDashboardTourTwo,
+  setShowDashboardTourThree
 }) => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [sortOrder, setSortOrder] = useState<'Oplopend' | 'Aflopend'>('Oplopend');
@@ -43,80 +45,123 @@ const AppointmentPage: React.FC<AppointmentPageProps> = ({
   };
 
   useEffect(() => {
-    if (showAppointmentTour) {
-      const tour = introJs()
-        .setOptions({
-          exitOnOverlayClick: false,
-          showBullets: false,
-          skipLabel: '',
-          steps: [
-            {
-              intro: `
-                Wanneer je een afspraak wilt toevoegen verschijnt er rechts in het scherm een veld waarin dat gebeurt.<br /><br />
-                Nadat je een afspraak opslaat is die terug te zien in je kalender.<br /><br />
-                Laten we een afspraak als voorbeeld aanmaken! deze wordt later weer verwijderd.<br />
-              `
-            }
-          ]
-        })
-        .oncomplete(() => {
-          setTimeout(() => {
-            introJs()
-              .setOptions({
-                exitOnOverlayClick: false,
-                scrollToElement: false,
-                skipLabel: '',
-                steps: [
-                  {
-                    element: document.querySelector('.appointment-input') as HTMLElement,
-                    title: 'Afspraak toevoegen',
-                    intro: 'Geef de afspraak allereerst een titel. Bedenk er altijd een waardoor je meteen weet waar de afspraak over gaat!',
-                    position: 'left'
-                  },
-                  {
-                    element: document.querySelector('.appointment-repeat-row') as HTMLElement,
-                    title: 'Afspraak toevoegen',
-                    intro: 'Geef aan hoe vaak de afspraak zich zal herhalen.',
-                    position: 'left'
-                  },
-                  {
-                    element: document.querySelectorAll('.appointment-form-section')[2] as HTMLElement,
-                    title: 'Afspraak toevoegen',
-                    intro: 'En voeg als laatste overige gegevens toe, zoals het type afspraak, de deelnemers, datum en tijd.',
-                    position: 'left'
-                  },
-                  {
-                    element: document.querySelector('.save-btn') as HTMLElement,
-                    title: 'Afspraak toevoegen',
-                    intro: 'En dan is de afspraak klaar om te worden opgeslagen! Probeer het maar eens.',
-                    position: 'top',
-                    disableInteraction: true
-                  }
-                ]
-                })
-                .onafterchange((targetElement) => {
-                  if (
-                    targetElement.classList.contains('appointment-input')
-                  ) {
-                    (targetElement as HTMLInputElement).focus();
-                  }
-              })
-              .oncomplete(() => {
-                setShowAppointmentTour(false);
-              })
-              .onexit(() => {
-                setShowAppointmentTour(false);
-              })
-              .start();
-          }, 300);
-        })
-        .onexit(() => {
-          setShowAppointmentTour(false);
-        });
+  if (showAppointmentTour) {
+    const tour = introJs()
+      .setOptions({
+        exitOnOverlayClick: false,
+        showBullets: false,
+        nextLabel: 'Volgende',
+        prevLabel: 'Terug',
+        doneLabel: 'Vertel me meer',
+        skipLabel: '',
+        steps: [
+          {
+            intro: `
+              Wanneer je een afspraak wilt toevoegen verschijnt er rechts in het scherm een veld waarin dat gebeurt.<br /><br />
+              Nadat je een afspraak opslaat is die terug te zien in je kalender.<br /><br />
+              Laten we een afspraak als voorbeeld aanmaken! deze wordt later weer verwijderd.<br />
+            `
+          }
+        ]
+      })
+      .onafterchange(() => {
+        setTimeout(() => {
+          const buttonContainer = document.querySelector('.introjs-tooltipbuttons');
+          if (buttonContainer) {
+            // Verwijder oude knoppen als ze bestaan
+            const oldCloseBtn = document.getElementById('close-tour-btn');
+            if (oldCloseBtn) oldCloseBtn.remove();
+            const oldSkipBtn = document.getElementById('skip-tour-btn');
+            if (oldSkipBtn) oldSkipBtn.remove();
 
-      tour.start();
-    }
-  }, [showAppointmentTour, setShowAppointmentTour]);
+            // Close button (helemaal links)
+            const closeBtn = document.createElement('button');
+            closeBtn.id = 'close-tour-btn';
+            closeBtn.className = 'introjs-button introjs-close-btn';
+            closeBtn.innerHTML = 'Rondleiding<br>volledig overslaan';
+            closeBtn.onclick = () => {
+              tour.exit(true);
+              setShowAppointmentTour(false);
+            };
+
+            // Skip button (tussen close en next)
+            const skipBtn = document.createElement('button');
+            skipBtn.id = 'skip-tour-btn';
+            skipBtn.className = 'introjs-button introjs-skip-btn';
+            skipBtn.innerHTML = 'Ik begrijp<br>hoe dit werkt';
+            skipBtn.onclick = () => {
+              tour.exit(true);
+              setShowAppointmentTour(false);
+              setShowDashboardTourThree(true);
+            };
+
+            // Voeg de knoppen toe op de juiste plek
+            buttonContainer.insertBefore(closeBtn, buttonContainer.firstChild);
+            buttonContainer.insertBefore(skipBtn, buttonContainer.children[1]);
+          }
+        }, 0);
+      })
+      .oncomplete(() => {
+        setTimeout(() => {
+          introJs()
+            .setOptions({
+              exitOnOverlayClick: false,
+              scrollToElement: false,
+              nextLabel: 'Volgende',
+              prevLabel: 'Terug',
+              doneLabel: 'Ik begrijp het',
+              skipLabel: '',
+              steps: [
+                {
+                  element: document.querySelector('.appointment-input') as HTMLElement,
+                  title: 'Afspraak toevoegen',
+                  intro: 'Geef de afspraak allereerst een titel. Bedenk er altijd een waardoor je meteen weet waar de afspraak over gaat!',
+                  position: 'left'
+                },
+                {
+                  element: document.querySelector('.appointment-repeat-row') as HTMLElement,
+                  title: 'Afspraak toevoegen',
+                  intro: 'Geef aan hoe vaak de afspraak zich zal herhalen.',
+                  position: 'left'
+                },
+                {
+                  element: document.querySelectorAll('.appointment-form-section')[2] as HTMLElement,
+                  title: 'Afspraak toevoegen',
+                  intro: 'En voeg als laatste overige gegevens toe, zoals het type afspraak, de deelnemers, datum en tijd.',
+                  position: 'left'
+                },
+                {
+                  element: document.querySelector('.save-btn') as HTMLElement,
+                  title: 'Afspraak toevoegen',
+                  intro: 'En dan is de afspraak klaar om te worden opgeslagen! Probeer het maar eens.',
+                  position: 'top',
+                  disableInteraction: true
+                }
+              ]
+            })
+            .onafterchange((targetElement) => {
+              if (
+                targetElement.classList.contains('appointment-input')
+              ) {
+                (targetElement as HTMLInputElement).focus();
+              }
+            })
+            .oncomplete(() => {
+              setShowAppointmentTour(false);
+            })
+            .onexit(() => {
+              setShowAppointmentTour(false);
+            })
+            .start();
+        }, 300);
+      })
+      .onexit(() => {
+        setShowAppointmentTour(false);
+      });
+
+    tour.start();
+  }
+}, [showAppointmentTour, setShowAppointmentTour]);
 
   return (
     <div className="appointment-wrapper">
