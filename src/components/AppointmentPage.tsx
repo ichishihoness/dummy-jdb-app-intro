@@ -37,6 +37,7 @@ const AppointmentPage: React.FC<AppointmentPageProps> = ({
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [sortOrder, setSortOrder] = useState<'Oplopend' | 'Aflopend'>('Oplopend');
   const [repeat, setRepeat] = useState('Wekelijks');
+  const [showSaveIndicator, setShowSaveIndicator] = useState(false);
   const navigate = useNavigate();
 
   const handleSortClick = (order: 'Oplopend' | 'Aflopend') => {
@@ -68,13 +69,11 @@ const AppointmentPage: React.FC<AppointmentPageProps> = ({
         setTimeout(() => {
           const buttonContainer = document.querySelector('.introjs-tooltipbuttons');
           if (buttonContainer) {
-            // Verwijder oude knoppen als ze bestaan
             const oldCloseBtn = document.getElementById('close-tour-btn');
             if (oldCloseBtn) oldCloseBtn.remove();
             const oldSkipBtn = document.getElementById('skip-tour-btn');
             if (oldSkipBtn) oldSkipBtn.remove();
 
-            // Close button (helemaal links)
             const closeBtn = document.createElement('button');
             closeBtn.id = 'close-tour-btn';
             closeBtn.className = 'introjs-button introjs-close-btn';
@@ -92,10 +91,10 @@ const AppointmentPage: React.FC<AppointmentPageProps> = ({
             skipBtn.onclick = () => {
               tour.exit(true);
               setShowAppointmentTour(false);
-              setShowDashboardTourThree(true);
+              setShowSaveIndicator(true); // <-- indicator aanzetten bij skip
+              setShowDashboardTourTwo(true);
             };
 
-            // Voeg de knoppen toe op de juiste plek
             buttonContainer.insertBefore(closeBtn, buttonContainer.firstChild);
             buttonContainer.insertBefore(skipBtn, buttonContainer.children[1]);
           }
@@ -148,6 +147,7 @@ const AppointmentPage: React.FC<AppointmentPageProps> = ({
             })
             .oncomplete(() => {
               setShowAppointmentTour(false);
+              setShowSaveIndicator(true); // <-- indicator aanzetten na afronden tweede deel
             })
             .onexit(() => {
               setShowAppointmentTour(false);
@@ -161,7 +161,7 @@ const AppointmentPage: React.FC<AppointmentPageProps> = ({
 
     tour.start();
   }
-}, [showAppointmentTour, setShowAppointmentTour]);
+}, [showAppointmentTour, setShowAppointmentTour, setShowDashboardTourTwo]);
 
   return (
     <div className="appointment-wrapper">
@@ -395,18 +395,19 @@ const AppointmentPage: React.FC<AppointmentPageProps> = ({
               Annuleer
             </button>
             <button
-              className="save-btn"
-              onClick={() => {
-                setShowAfspraakRow(true);
-                if (shownDashboardTourTwo == false) {
-                setShowDashboardTourTwo(true);
-                }
-                setShownDashboardTourTwo(true);
-                navigate('/dashboard');
-              }}
-            >
-              Opslaan
-            </button>
+  className={`save-btn${showSaveIndicator ? ' pulse-indicator' : ''}`}
+  onClick={() => {
+    setShowAfspraakRow(true);
+    if (shownDashboardTourTwo == false) {
+      setShowDashboardTourTwo(true);
+    }
+    setShownDashboardTourTwo(true);
+    setShowSaveIndicator(false); // indicator uit na klikken
+    navigate('/dashboard');
+  }}
+>
+  Opslaan
+</button>
           </div>
         </div>
       </div>

@@ -329,16 +329,37 @@ body {
   top: 40px;
   right: 40px;
   width: 200px;
-  bottom: 40px; /* Laat de onderkant gelijk lopen met .notities */
+  bottom: 40px; 
   background: transparent;
   border-radius: 16px;
   color: #fff;
   display: flex;
-  align-items: flex-start; /* Begin bovenaan */
+  align-items: flex-start; 
   justify-content: center;
   font-size: 1.1rem;
   font-weight: bold;
   box-shadow: 0 2px 8px rgba(25, 118, 210, 0.08);
   z-index: 11;
-  height: auto; /* Laat de hoogte automatisch bepalen door top en bottom */
+  height: auto; 
+}
+
+.pulse-indicator {
+  border: 3px solid #000 !important;
+  animation: pulse-border 1s infinite;
+  box-sizing: border-box;
+}
+
+@keyframes pulse-border {
+  0% {
+    box-shadow: 0 0 0 0 rgba(0,0,0,0.7);
+    border-color: #000;
+  }
+  50% {
+    box-shadow: 0 0 0 6px rgba(0,0,0,0.15);
+    border-color: #000;
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(0,0,0,0.7);
+    border-color: #000;
+  }
 }

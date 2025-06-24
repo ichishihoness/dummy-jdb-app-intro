@@ -19,6 +19,7 @@ interface DocumentsPageProps {
 const DocumentsPage: React.FC<DocumentsPageProps> = ({onLogout, tour, setTour, showDocumentsTour, setShowDocumentsTour, showDashboardTourThree}) => {
     const [dropdownOpen, setDropdownOpen] = useState(false);
     const [sortOrder, setSortOrder] = useState<'Naam' | 'Type' | 'Datum'>('Naam');
+    const [showDashboardIndicator, setShowDashboardIndicator] = useState(false);
   const navigate = useNavigate();
 
     const handleSortClick = (order: 'Naam' | 'Type' | 'Datum') => {
@@ -27,60 +28,62 @@ const DocumentsPage: React.FC<DocumentsPageProps> = ({onLogout, tour, setTour, s
   };
 
    useEffect(() => {
-    if (showDocumentsTour) {
-      const tour = introJs()
-        .setOptions({
-          exitOnOverlayClick: false,
-          showBullets: false,
-          nextLabel: 'Volgende',
-                  prevLabel: 'Terug',
-                  doneLabel: 'Volgende',
-          skipLabel: '',
-          steps: [
-            {
-                    element: document.querySelector('.documents-main-block') as HTMLElement,
-                    title: 'Documenten',
-                    intro: 'Hier is de lijst met alle opgeslagen documten te zien',
-                    position: 'top'
-                  },
-                  {
-                    element: document.querySelector('.dropdown-btn') as HTMLElement,
-                    title: 'Documenten',
-                    intro: 'Met deze knop kun de volgorde waarin document zijn opgesteld aanpassen',
-                    position: 'left'
-                  },
-                  {
-                    element: document.querySelector('.documents-row') as HTMLElement,
-                    title: 'Documenten',
-                    intro: 'Links is in het kort informatie over ieder document te zien, zoals naam, type document en de datum dat het was aangemaakt.',
-                    position: 'bottom'
-                  },
-                  {
-                    element: document.querySelector('.documents-data-actions') as HTMLElement,
-                    title: 'Documenten',
-                    intro: 'Met deze knoppen kun je een respectievelijk een document openen, verwijderen en downloaden.',
-                    position: 'left'
-                  }
-          ]
-        })
-        .oncomplete(() => {
-                setShowDocumentsTour(false);
-              })
-              .onexit(() => {
-                setShowDocumentsTour(false);
-              })
-                  tour.start();
-        }
-      }, [showDocumentsTour, setShowDocumentsTour]);
+  if (showDocumentsTour) {
+    const tour = introJs()
+      .setOptions({
+        exitOnOverlayClick: false,
+        showBullets: false,
+        nextLabel: 'Volgende',
+        prevLabel: 'Terug',
+        doneLabel: 'Ik begrijp het',
+        skipLabel: '',
+        steps: [
+          {
+            element: document.querySelector('.documents-main-block') as HTMLElement,
+            title: 'Documenten',
+            intro: 'Hier is de lijst met alle opgeslagen documten te zien',
+            position: 'top'
+          },
+          {
+            element: document.querySelector('.dropdown-btn') as HTMLElement,
+            title: 'Documenten',
+            intro: 'Met deze knop kun de volgorde waarin document zijn opgesteld aanpassen',
+            position: 'left'
+          },
+          {
+            element: document.querySelector('.documents-row') as HTMLElement,
+            title: 'Documenten',
+            intro: 'Links is in het kort informatie over ieder document te zien, zoals naam, type document en de datum dat het was aangemaakt.',
+            position: 'bottom'
+          },
+          {
+            element: document.querySelector('.documents-data-actions') as HTMLElement,
+            title: 'Documenten',
+            intro: 'Met deze knoppen kun je een respectievelijk een document openen, verwijderen en downloaden.',
+            position: 'left'
+          }
+        ]
+      })
+      .oncomplete(() => {
+        setShowDocumentsTour(false);
+        setShowDashboardIndicator(true); // <-- Pulse aanzetten
+      })
+      .onexit(() => {
+        setShowDocumentsTour(false);
+      });
+    tour.start();
+  }
+}, [showDocumentsTour, setShowDocumentsTour]);
 
   return (
     <div className="documents-sidebar-wrapper">
           <div className="documents-sidebar">
             <hr className="documents-sidebar-divider-2" />
             <button
-  className="documents-sidebar-btn dashboard-btn"
+  className={`documents-sidebar-btn dashboard-btn${showDashboardIndicator ? ' pulse-indicator' : ''}`}
   onClick={() => {
     if (tour === false || showDashboardTourThree === true) {
+      setShowDashboardIndicator(false); // Pulse uit na klikken
       navigate('/dashboard');
     }
   }}
