@@ -57,6 +57,12 @@ const DashboardPage: React.FC<DashboardPageProps> = ({
 }) => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [sortOrder, setSortOrder] = useState<'Oplopend' | 'Aflopend'>('Oplopend');
+  const [showAddAppointmentIndicator, setShowAddAppointmentIndicator] = useState(false);
+  const [showCalenderIndicator, setShowCalenderIndicator] = useState(false);
+  const [showDocumentsIndicator, setShowDocumentsIndicator] = useState(false);
+  const [showPatientsIndicator, setShowPatientsIndicator] = useState(false);
+  const [showSessionaIndicator, setShowSessionaIndicator] = useState(false);
+  const [showSessionfIndicator, setShowSessionfIndicator] = useState(false);
   const navigate = useNavigate();
 
   const handleSortClick = (order: 'Oplopend' | 'Aflopend') => {
@@ -88,13 +94,11 @@ useEffect(() => {
         setTimeout(() => {
           const buttonContainer = document.querySelector('.introjs-tooltipbuttons');
           if (buttonContainer) {
-            // Verwijder oude knoppen als ze bestaan
             const oldCloseBtn = document.getElementById('close-tour-btn');
             if (oldCloseBtn) oldCloseBtn.remove();
             const oldSkipBtn = document.getElementById('skip-tour-btn');
             if (oldSkipBtn) oldSkipBtn.remove();
 
-            // Close button (helemaal links)
             const closeBtn = document.createElement('button');
             closeBtn.id = 'close-tour-btn';
             closeBtn.className = 'introjs-button introjs-close-btn';
@@ -104,7 +108,6 @@ useEffect(() => {
               setshowDashboardTourOne(false);
             };
 
-            // Skip button (tussen close en next)
             const skipBtn = document.createElement('button');
             skipBtn.id = 'skip-tour-btn';
             skipBtn.className = 'introjs-button introjs-skip-btn';
@@ -112,9 +115,9 @@ useEffect(() => {
             skipBtn.onclick = () => {
               tour.exit(true);
               setshowDashboardTourOne(false);
+              setShowAddAppointmentIndicator(true);
             };
 
-            // Voeg de knoppen toe op de juiste plek
             buttonContainer.insertBefore(closeBtn, buttonContainer.firstChild);
             buttonContainer.insertBefore(skipBtn, buttonContainer.children[1]);
           }
@@ -135,7 +138,6 @@ useEffect(() => {
                   element: document.querySelector('.dashboard-sidebar') as HTMLElement,
                   title: 'Homepagina',
                   intro: 'Door middel van de knoppen links in het scherm kun je snel naar pagina’s navigeren.',
-                  position: 'bottom',
                   disableInteraction: true
                 },
                 {
@@ -159,20 +161,29 @@ useEffect(() => {
                 },
               ],
             })
+      .oncomplete(() => {
+        setShowAddAppointmentIndicator(true); 
+        setshowDashboardTourOne(false);
+      })
+      .onexit(() => {
+        setshowDashboardTourOne(false);
+      })
             .start();
         }, 300);
         setshowDashboardTourOne(false);
+
       })
       .onexit(() => {
         setshowDashboardTourOne(false);
         setShowAppointmentTour(true)
       });
+      
 
     tour.start();
   }
 }, [showDashboardTourOne, setshowDashboardTourOne, setShowAppointmentTour]);
 
-  useEffect(() => {
+useEffect(() => {
   if (showDashboardTourTwo) {
     const tour = introJs()
       .setOptions({
@@ -205,9 +216,68 @@ useEffect(() => {
           }
         ],
       })
+      .onafterchange(function () {
+        setTimeout(() => {
+          const prevBtn = document.querySelector('.introjs-prevbutton');
+          if (this._currentStep === 1 && prevBtn) {
+            (prevBtn as HTMLElement).style.display = 'none';
+          } else if (prevBtn) {
+            (prevBtn as HTMLElement).style.display = '';
+          }
+
+          if (this._currentStep === 1) {
+            const buttonContainer = document.querySelector('.introjs-tooltipbuttons');
+            if (buttonContainer) {
+              const oldCloseBtn = document.getElementById('close-tour-btn');
+              if (oldCloseBtn) oldCloseBtn.remove();
+              const oldSkipBtn = document.getElementById('skip-tour-btn');
+              if (oldSkipBtn) oldSkipBtn.remove();
+
+              const closeBtn = document.createElement('button');
+              closeBtn.id = 'close-tour-btn';
+              closeBtn.className = 'introjs-button introjs-close-btn';
+              closeBtn.innerHTML = 'Rondleiding<br>volledig overslaan';
+              closeBtn.onclick = () => {
+                tour.exit(true);
+                setshowDashboardTourTwo(false);
+                setShowCalenderTour(false);
+              };
+
+              const skipBtn = document.createElement('button');
+              skipBtn.id = 'skip-tour-btn';
+              skipBtn.className = 'introjs-button introjs-skip-btn';
+              skipBtn.innerHTML = 'Ik begrijp<br>hoe dit werkt';
+              skipBtn.onclick = () => {
+                tour.exit(true);
+                setshowDashboardTourTwo(false);
+                setShowCalenderTour(false);
+                setShowDashboardTourThree(true);
+              };
+
+              buttonContainer.insertBefore(closeBtn, buttonContainer.firstChild);
+              buttonContainer.insertBefore(skipBtn, buttonContainer.children[1]);
+            }
+          } else {
+            const oldCloseBtn = document.getElementById('close-tour-btn');
+            if (oldCloseBtn) oldCloseBtn.remove();
+            const oldSkipBtn = document.getElementById('skip-tour-btn');
+            if (oldSkipBtn) oldSkipBtn.remove();
+          }
+
+          const nextBtn = document.querySelector('.introjs-nextbutton');
+          if (nextBtn) {
+            if (this._currentStep === 1) {
+              (nextBtn as HTMLElement).innerHTML = 'Vertel me meer';
+            } else {
+              (nextBtn as HTMLElement).innerHTML = 'Volgende';
+            }
+          }
+        }, 0);
+      })
       .oncomplete(() => {
         setshowDashboardTourTwo(false);
         setShowCalenderTour(true);
+        setShowCalenderIndicator(true);
       })
       .onexit(() => {
         setshowDashboardTourTwo(false);
@@ -226,7 +296,7 @@ useEffect(() => {
         showBullets: false,
         nextLabel: 'Volgende',
         prevLabel: 'Terug',
-        doneLabel: 'Tour kiezen',
+        doneLabel: 'Volgende tour',
         skipLabel: '',
         steps: [
           {
@@ -265,7 +335,7 @@ useEffect(() => {
           const moreBtn = document.createElement('button');
           moreBtn.id = 'more-tour-btn';
           moreBtn.className = 'introjs-button introjs-more-btn';
-          moreBtn.innerHTML = 'Meer weten over<br>het JDB systeem';
+          moreBtn.innerHTML = 'Meer informatie<br>over privacy regels<br>en het JDB systeem';
           moreBtn.onclick = () => {
             introJs().exit(true);
             setShowDashboardTourThree(false);
@@ -283,6 +353,10 @@ useEffect(() => {
         }, 0);
       })
       .oncomplete(() => {
+        setShowDocumentsIndicator(true);
+        setShowPatientsIndicator(true);
+        setShowSessionaIndicator(true);
+        setShowSessionfIndicator(true);
         setShowSessionaTour(true);
         setShowSessionfTour(true);
         setShowDocumentsTour(true);
@@ -297,7 +371,19 @@ useEffect(() => {
 
     tour.start();
   }
-}, [showDashboardTourThree, setShowDashboardTourThree, setTour, setShowSessionaTour, setShowSessionfTour, setShowDocumentsTour, setShowPatientsTour]);
+}, [
+  showDashboardTourThree,
+  setShowDashboardTourThree,
+  setTour,
+  setShowSessionaTour,
+  setShowSessionfTour,
+  setShowDocumentsTour,
+  setShowPatientsTour,
+  setShowDocumentsIndicator,
+  setShowPatientsIndicator,
+  setShowSessionaIndicator,
+  setShowSessionfIndicator
+]);
 
   return (
     <div className="dashboard-wrapper">
@@ -305,9 +391,10 @@ useEffect(() => {
   <hr className="dashboard-sidebar-divider-2" />
   <button className="dashboard-sidebar-btn">Dashboard</button>
   <button
-  className="dashboard-sidebar-btn kalender-btn"
+  className={`dashboard-sidebar-btn kalender-btn${showCalenderIndicator ? ' pulse-indicator' : ''}`}
   onClick={() => {
     if (tour === false || showCalenderTour === true) {
+      setShowCalenderIndicator(false); 
       navigate('/calender');
     }
   }}
@@ -315,9 +402,10 @@ useEffect(() => {
   Kalender
 </button>
 <button
-  className="dashboard-sidebar-btn"
+  className={`dashboard-sidebar-btn${showDocumentsIndicator ? ' pulse-indicator' : ''}`}
   onClick={() => {
     if (tour === false || showDocumentsTour === true) {
+      setShowDocumentsIndicator(false);
       navigate('/documents');
     }
   }}
@@ -325,9 +413,10 @@ useEffect(() => {
   Documenten
 </button>
 <button
-  className="dashboard-sidebar-btn"
+  className={`dashboard-sidebar-btn${showPatientsIndicator ? ' pulse-indicator' : ''}`}
   onClick={() => {
     if (tour === false || showPatientsTour === true) {
+      setShowPatientsIndicator(false);
       navigate('/patientoverview');
     }
   }}
@@ -336,9 +425,10 @@ useEffect(() => {
 </button>
 <hr className="dashboard-sidebar-divider-1" />
 <button
-  className="dashboard-sidebar-btn afspraak-toevoegen-btn"
+  className={`dashboard-sidebar-btn afspraak-toevoegen-btn${showAddAppointmentIndicator ? ' pulse-indicator' : ''}`}
   onClick={() => {
     if (tour === false || showAppointmentTour === true) {
+      setShowAddAppointmentIndicator(false);
       navigate('/appointment');
     }
   }}
@@ -346,9 +436,10 @@ useEffect(() => {
   Afspraak toevoegen
 </button>
 <button
-  className="dashboard-sidebar-btn"
+  className={`dashboard-sidebar-btn${showSessionaIndicator ? ' pulse-indicator' : ''}`}
   onClick={() => {
     if (tour === false || showSessionaTour === true) {
+      setShowSessionaIndicator(false);
       navigate('/addsessionarts');
     }
   }}
@@ -356,9 +447,10 @@ useEffect(() => {
   Sessie toevoegen arts
 </button>
 <button
-  className="dashboard-sidebar-btn"
+  className={`dashboard-sidebar-btn${showSessionfIndicator ? ' pulse-indicator' : ''}`}
   onClick={() => {
     if (tour === false || showSessionfTour === true) {
+      setShowSessionfIndicator(false);
       navigate('/addsessionfysio');
     }
   }}

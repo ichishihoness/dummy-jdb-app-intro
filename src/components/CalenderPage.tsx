@@ -24,6 +24,7 @@ const CalenderPage: React.FC<CalenderPageProps> = ({
   showDashboardTourThree,
   setShowDashboardTourThree
 }) => {
+  const [showDashboardIndicator, setShowDashboardIndicator] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -58,6 +59,7 @@ const CalenderPage: React.FC<CalenderPageProps> = ({
           ]
         })
         .oncomplete(() => {
+          setShowDashboardIndicator(true);
                 setShowCalenderTour(false);
               setShowDashboardTourThree(true);
               })
@@ -75,9 +77,10 @@ const CalenderPage: React.FC<CalenderPageProps> = ({
       <div className="calender-sidebar">
         <hr className="calender-sidebar-divider-2" />
         <button
-  className="calender-sidebar-btn dashboard-btn"
+  className={`addsessionarts-sidebar-btn dashboard-btn${showDashboardIndicator ? ' pulse-indicator' : ''}`}
   onClick={() => {
     if (tour === false || showDashboardTourThree === true) {
+      setShowDashboardIndicator(false); 
       navigate('/dashboard');
     }
   }}

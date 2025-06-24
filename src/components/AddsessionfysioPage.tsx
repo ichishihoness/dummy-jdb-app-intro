@@ -27,6 +27,7 @@ const AddsessionfysioPage: React.FC<AddsessionfysioPageProps> = ({
   const navigate = useNavigate();
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [showResults, setShowResults] = useState(false);
+  const [showDashboardIndicator, setShowDashboardIndicator] = useState(false);
 
      useEffect(() => {
     if (showSessionfTour) {
@@ -108,6 +109,9 @@ const AddsessionfysioPage: React.FC<AddsessionfysioPageProps> = ({
                   position: 'top',
                 },
               ],
+              })
+          .oncomplete(() => {
+            setShowDashboardIndicator(true); 
             })
             .start();
         } else {
@@ -124,9 +128,10 @@ const AddsessionfysioPage: React.FC<AddsessionfysioPageProps> = ({
       <div className="addsessionfysio-sidebar">
         <hr className="addsessionfysio-sidebar-divider-2" />
         <button
-  className="addsessionfysio-sidebar-btn dashboard-btn"
+  className={`addsessionarts-sidebar-btn dashboard-btn${showDashboardIndicator ? ' pulse-indicator' : ''}`}
   onClick={() => {
     if (tour === false || showDashboardTourThree === true) {
+      setShowDashboardIndicator(false);
       navigate('/dashboard');
     }
   }}

@@ -27,6 +27,8 @@ const AddsessionartsPage: React.FC<AddsessionartsPageProps> = ({
   const navigate = useNavigate();
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [showResults, setShowResults] = useState(false);
+  const [showDashboardIndicator, setShowDashboardIndicator] = useState(false);
+  
 
    useEffect(() => {
     if (showSessionaTour) {
@@ -88,44 +90,48 @@ const AddsessionartsPage: React.FC<AddsessionartsPageProps> = ({
   }, [showSessionaTour, setShowSessionaTour]);
 
   useEffect(() => {
-    if (showResults) {
-      const waitForHeader = () => {
-        const header = document.querySelector('.addsessionarts-results-block') as HTMLElement | null;
-        if (header) {
-          introJs()
-            .setOptions({
-              exitOnOverlayClick: false,
-              showBullets: false,
-              nextLabel: 'Volgende',
-              prevLabel: 'Terug',
-              doneLabel: 'Ik begrijp het',
-              skipLabel: '',
-              steps: [
-                {
-                  element: header,
-                  title: 'Sessie toevoegen arts',
-                  intro: 'In de lijst die verschijnt vind je alle uitlsagen van de patiënt en kun je onderin een sessie toevoegen.',
-                  position: 'top',
-                },
-              ],
-            })
-            .start();
-        } else {
-          setTimeout(waitForHeader, 100);
-        }
-      };
-      waitForHeader();
-    }
-  }, [showResults]);
+  if (showResults) {
+    const waitForHeader = () => {
+      const header = document.querySelector('.addsessionarts-results-block') as HTMLElement | null;
+      if (header) {
+        introJs()
+          .setOptions({
+            exitOnOverlayClick: false,
+            showBullets: false,
+            nextLabel: 'Volgende',
+            prevLabel: 'Terug',
+            doneLabel: 'Ik begrijp het',
+            skipLabel: '',
+            steps: [
+              {
+                element: header,
+                title: 'Sessie toevoegen arts',
+                intro: 'In de lijst die verschijnt vind je alle uitlsagen van de patiënt en kun je onderin een sessie toevoegen.',
+                position: 'top',
+              },
+            ],
+          })
+          .oncomplete(() => {
+            setShowDashboardIndicator(true); 
+          })
+          .start();
+      } else {
+        setTimeout(waitForHeader, 100);
+      }
+    };
+    waitForHeader();
+  }
+}, [showResults]);
 
   return (
     <div className="addsessionarts-sidebar-wrapper">
       <div className="addsessionarts-sidebar">
   <hr className="addsessionarts-sidebar-divider-2" />
   <button
-  className="addsessionarts-sidebar-btn dashboard-btn"
+  className={`addsessionarts-sidebar-btn dashboard-btn${showDashboardIndicator ? ' pulse-indicator' : ''}`}
   onClick={() => {
     if (tour === false || showDashboardTourThree === true) {
+      setShowDashboardIndicator(false);
       navigate('/dashboard');
     }
   }}

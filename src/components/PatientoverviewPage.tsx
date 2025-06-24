@@ -19,6 +19,7 @@ interface PatientoverviewPageProps {
 const PatientoverviewPage: React.FC<PatientoverviewPageProps> = ({ onLogout, tour, setTour, showPatientsTour, setShowPatientsTour, showDashboardTourThree}) => {
     const [dropdownOpen, setDropdownOpen] = useState(false);
     const [sortOrder, setSortOrder] = useState<'Naam' | 'Geboorte datum' | 'Diagnose' | 'Afspraken'>('Naam');
+    const [showDashboardIndicator, setShowDashboardIndicator] = useState(false);
   const navigate = useNavigate();
 
     const handleSortClick = (order: 'Naam' | 'Geboorte datum' | 'Diagnose' | 'Afspraken') => {
@@ -27,60 +28,62 @@ const PatientoverviewPage: React.FC<PatientoverviewPageProps> = ({ onLogout, tou
   };
 
      useEffect(() => {
-    if (showPatientsTour) {
-      const tour = introJs()
-        .setOptions({
-          exitOnOverlayClick: false,
-          showBullets: false,
-          nextLabel: 'Volgende',
-                  prevLabel: 'Terug',
-                  doneLabel: 'Volgende',
-          skipLabel: '',
-          steps: [
-            {
-                    element: document.querySelector('.patient-main-block') as HTMLElement,
-                    title: 'Patiëntenoverzicht',
-                    intro: 'Hier is de lijst met alle jou patiënten. Nieuwe patiënten worden automatich aan de lijst toegevoegd.',
-                    position: 'top'
-                  },
-                  {
-                    element: document.querySelector('.dropdown-btn') as HTMLElement,
-                    title: 'Patiëntenoverzicht',
-                    intro: 'Met deze knop kun de volgorde waarin patiënten zijn opgesteld aanpassen',
-                    position: 'left'
-                  },
-                  {
-                    element: document.querySelector('.patient-row') as HTMLElement,
-                    title: 'Patiëntenoverzicht',
-                    intro: 'In de lijst zelf is de naam, geboorte datum, diagnose en het aantal afspraken te zien.',
-                    position: 'bottom'
-                  },
-                  {
-                    element: document.querySelector('.patient-data-side dots') as HTMLElement,
-                    title: 'Patiëntenoverzicht',
-                    intro: 'Met deze knop krijg je meer informatie te zien over de desbetreffende patiënt.',
-                    position: 'left'
-                  }
-          ]
-        })
-        .oncomplete(() => {
-                setShowPatientsTour(false);
-              })
-              .onexit(() => {
-                setShowPatientsTour(false);
-              })
-                  tour.start();
-        }
-      }, [showPatientsTour, setShowPatientsTour]);
+  if (showPatientsTour) {
+    const tour = introJs()
+      .setOptions({
+        exitOnOverlayClick: false,
+        showBullets: false,
+        nextLabel: 'Volgende',
+        prevLabel: 'Terug',
+        doneLabel: 'Volgende',
+        skipLabel: '',
+        steps: [
+          {
+            element: document.querySelector('.patient-main-block') as HTMLElement,
+            title: 'Patiëntenoverzicht',
+            intro: 'Hier is de lijst met alle jou patiënten. Nieuwe patiënten worden automatich aan de lijst toegevoegd.',
+            position: 'top'
+          },
+          {
+            element: document.querySelector('.dropdown-btn') as HTMLElement,
+            title: 'Patiëntenoverzicht',
+            intro: 'Met deze knop kun de volgorde waarin patiënten zijn opgesteld aanpassen',
+            position: 'left'
+          },
+          {
+            element: document.querySelector('.patient-row') as HTMLElement,
+            title: 'Patiëntenoverzicht',
+            intro: 'In de lijst zelf is de naam, geboorte datum, diagnose en het aantal afspraken te zien.',
+            position: 'bottom'
+          },
+          {
+            element: document.querySelector('.patient-data-side.dots') as HTMLElement,
+            title: 'Patiëntenoverzicht',
+            intro: 'Met deze knop krijg je meer informatie te zien over de desbetreffende patiënt.',
+            position: 'left'
+          }
+        ]
+      })
+      .oncomplete(() => {
+        setShowPatientsTour(false);
+        setShowDashboardIndicator(true); 
+      })
+      .onexit(() => {
+        setShowPatientsTour(false);
+      });
+    tour.start();
+  }
+}, [showPatientsTour, setShowPatientsTour]);
 
   return (
     <div className="patient-wrapper">
       <div className="patient-sidebar">
         <hr className="patient-sidebar-divider-2" />
         <button
-  className="patient-sidebar-btn dashboard-btn"
+  className={`patient-sidebar-btn dashboard-btn${showDashboardIndicator ? ' pulse-indicator' : ''}`}
   onClick={() => {
     if (tour === false || showDashboardTourThree === true) {
+      setShowDashboardIndicator(false); 
       navigate('/dashboard');
     }
   }}
