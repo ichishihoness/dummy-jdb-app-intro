@@ -143,7 +143,7 @@ useEffect(() => {
                 {
                   element: document.querySelector('.steptwoblock') as HTMLElement,
                   title: 'Homepagina',
-                  intro: 'Links zijn in een oogopslag afspraken van deze maand te zien in de kalender, en er kan snel een notitie worden gemaakt',
+                  intro: 'Rechts zijn in een oogopslag afspraken van deze maand te zien in de kalender, en er kan snel een notitie worden gemaakt',
                   position: 'left'
                 },
                 {
@@ -155,7 +155,7 @@ useEffect(() => {
                 {
                   element: document.querySelector('.afspraak-toevoegen-btn') as HTMLElement,
                   title: 'Homepagina',
-                  intro: 'Met deze knop kunnen afspraken worden aangepaakt. Klik erop om het eens te proberen!',
+                  intro: 'Met deze knop kunnen afspraken worden aangemaakt. Klik erop om het eens te proberen!',
                   position: 'right',
                   disableInteraction: true,
                 },
