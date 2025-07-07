@@ -147,7 +147,7 @@ const AppointmentPage: React.FC<AppointmentPageProps> = ({
             })
             .oncomplete(() => {
               setShowAppointmentTour(false);
-              setShowSaveIndicator(true); // <-- indicator aanzetten na afronden tweede deel
+              setShowSaveIndicator(true);
             })
             .onexit(() => {
               setShowAppointmentTour(false);
@@ -402,7 +402,7 @@ const AppointmentPage: React.FC<AppointmentPageProps> = ({
       setShowDashboardTourTwo(true);
     }
     setShownDashboardTourTwo(true);
-    setShowSaveIndicator(false); // indicator uit na klikken
+    setShowSaveIndicator(false);
     navigate('/dashboard');
   }}
 >
