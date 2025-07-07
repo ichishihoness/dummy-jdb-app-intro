@@ -30,7 +30,7 @@ const LoginPage: React.FC<LoginPageProps> = ({ onLogin, showLoginTour, setShowLo
       .setOptions({
         exitOnOverlayClick: false,
         showBullets: false,
-        nextLabel: 'Vertel me meer',
+        nextLabel: '<',
         prevLabel: 'Terug',
         doneLabel: 'Vertel me meer',
         skipLabel: '',
@@ -50,13 +50,10 @@ const LoginPage: React.FC<LoginPageProps> = ({ onLogin, showLoginTour, setShowLo
         setTimeout(() => {
           const buttonContainer = document.querySelector('.introjs-tooltipbuttons');
           if (buttonContainer) {
-            // Verwijder oude knoppen als ze bestaan
             const oldCloseBtn = document.getElementById('close-tour-btn');
             if (oldCloseBtn) oldCloseBtn.remove();
             const oldSkipBtn = document.getElementById('skip-tour-btn');
             if (oldSkipBtn) oldSkipBtn.remove();
-
-            // Close button (helemaal links)
             const closeBtn = document.createElement('button');
             closeBtn.id = 'close-tour-btn';
             closeBtn.className = 'introjs-button introjs-close-btn';
@@ -66,8 +63,6 @@ const LoginPage: React.FC<LoginPageProps> = ({ onLogin, showLoginTour, setShowLo
               setShowLoginTour(false);
               setShowDashboardTourOne(false);
             };
-
-            // Skip button (tussen close en next)
             const skipBtn = document.createElement('button');
             skipBtn.id = 'skip-tour-btn';
             skipBtn.className = 'introjs-button introjs-skip-btn';
@@ -75,11 +70,7 @@ const LoginPage: React.FC<LoginPageProps> = ({ onLogin, showLoginTour, setShowLo
             skipBtn.onclick = () => {
               tour.then(instance => instance.exit(true));
               setShowLoginTour(false);
-              // Je kunt hier eventueel andere logica toevoegen
             };
-
-            // Voeg de knoppen toe op de juiste plek
-            // Eerst closeBtn, dan skipBtn, dan de rest (zoals Next)
             buttonContainer.insertBefore(closeBtn, buttonContainer.firstChild);
             buttonContainer.insertBefore(skipBtn, buttonContainer.children[1]);
           }
